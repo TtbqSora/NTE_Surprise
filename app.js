@@ -29,6 +29,6 @@ map.on('click', function (e) {
 
   L.popup()
     .setLatLng(latlng)
-    .setContent(`坐标：<br>x: ${x}<br>y: ${y}`)
+    .setContent(`"x": ${x}, "y": ${y}`)
     .openOn(map);
 });
