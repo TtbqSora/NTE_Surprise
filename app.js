@@ -1,32 +1,34 @@
-// ====== 地图尺寸======
 const mapWidth = 8192;
 const mapHeight = 8192;
 
-// 创建地图（使用像素坐标）
 const map = L.map('map', {
   crs: L.CRS.Simple,
   minZoom: -2,
-  maxZoom: 2
+  maxZoom: 2,
+  zoomSnap: 0.25
 });
 
-// 定义边界
 const bounds = [[0, 0], [mapHeight, mapWidth]];
 
-// 加载你的地图图片
 L.imageOverlay('map.jpg', bounds).addTo(map);
 
-// 适配视图
-map.fitBounds(bounds);
+// 不用 fitBounds，避免坐标漂移
+map.setView([mapHeight / 2, mapWidth / 2], 0);
 
-// ====== 点击获取坐标（关键工具）======
-map.on('click', function(e) {
-  const x = Math.round(e.latlng.lng);
-  const y = Math.round(e.latlng.lat);
+// 限制范围
+map.setMaxBounds(bounds);
+
+// 点击获取真实像素坐标
+map.on('click', function (e) {
+  const latlng = e.latlng;
+
+  const x = Math.round(latlng.lng);
+  const y = Math.round(latlng.lat);
 
   console.log(`x: ${x}, y: ${y}`);
 
   L.popup()
-    .setLatLng(e.latlng)
+    .setLatLng(latlng)
     .setContent(`坐标：<br>x: ${x}<br>y: ${y}`)
     .openOn(map);
 });
