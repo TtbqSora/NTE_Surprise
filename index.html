@@ -1,27 +1,443 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <title>NTE Surprise Map</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>异环 NTE - 圣地巡礼地图</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
 
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-  <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-    }
-    #map {
-      width: 100%;
-      height: 100%;
-      background: #000;
-    }
-  </style>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #1a1a1a; color: #fff; font-family: sans-serif;}
+        #map { height: 100vh; width: 100vw; background-color: #2a2a2a; z-index: 1; }
+        .leaflet-control-attribution { display: none; }
+        
+        .custom-marker {
+            background-color: #ff3b30;
+            border: 2px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            transition: transform 0.2s;
+        }
+        .custom-marker:hover { transform: scale(1.2); }
+
+        #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
+        .pointer-events-auto { pointer-events: auto; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #888; }
+        
+        .img-placeholder {
+            width: 100%; height: 150px; background-color: #333; 
+            display: flex; align-items: center; justify-content: center;
+            color: #888; border-radius: 0.5rem; margin-top: 0.5rem;
+        }
+
+        /* 侧边栏宽度配置 */
+        .sidebar-width { width: 320px; max-width: 100vw; }
+        
+        /* 开关按钮样式 */
+        input:checked ~ .dot { transform: translateX(100%); background-color: #3b82f6; }
+        input:checked ~ .toggle-bg { background-color: #1e3a8a; }
+    </style>
 </head>
 <body>
-  <div id="map"></div>
 
-  <script src="app.js"></script>
+    <div id="map"></div>
+
+    <div id="ui-layer" class="flex justify-between items-stretch">
+        
+        <div class="relative flex-1">
+            <!-- 左下角按钮组 -->
+            <div class="absolute bottom-6 left-6 flex flex-col gap-4 pointer-events-auto z-50">
+                <button onclick="openSidebar('CITIES')" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="筛选城市">
+                    <i data-lucide="map" class="text-blue-400 group-hover:text-blue-300"></i>
+                </button>
+                <button onclick="openSidebar('SOURCES')" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="出处列表">
+                    <i data-lucide="list-video" class="text-green-400 group-hover:text-green-300"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- 侧边栏 -->
+        <div id="sidebar" class="sidebar-width bg-gray-900/95 border-l border-gray-700 shadow-2xl transition-transform duration-300 transform translate-x-full pointer-events-auto flex flex-col h-full z-50">
+            <!-- 头部将由JS动态生成 -->
+            <div id="sidebar-header" class="p-4 border-b border-gray-700 flex justify-between items-center bg-gray-800"></div>
+            
+            <!-- 内容容器 -->
+            <div id="sidebar-content" class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 relative"></div>
+        </div>
+
+        <!-- 右下角设置按钮 -->
+        <div class="absolute bottom-6 right-6 pointer-events-auto flex flex-col gap-3 items-end z-50">
+            <div id="settings-menu" class="hidden bg-gray-800 border border-gray-700 rounded-lg p-4 shadow-xl w-48 mb-2">
+                <h3 class="text-sm font-semibold text-gray-400 mb-3 uppercase">地图设置</h3>
+                <label class="flex items-center justify-between cursor-pointer mb-3">
+                    <span class="text-sm">合并点位 (集群)</span>
+                    <div class="relative">
+                        <input type="checkbox" id="toggle-cluster" class="sr-only" checked onchange="toggleClustering(this.checked)">
+                        <div class="block bg-gray-600 w-10 h-6 rounded-full toggle-bg"></div>
+                        <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition transform translate-x-4"></div>
+                    </div>
+                </label>
+                <label class="flex items-center justify-between cursor-pointer">
+                    <span class="text-sm text-yellow-500">获取坐标模式</span>
+                    <div class="relative">
+                        <input type="checkbox" id="toggle-marking" class="sr-only" onchange="toggleMarkingMode(this.checked)">
+                        <div class="block bg-gray-600 w-10 h-6 rounded-full toggle-bg"></div>
+                        <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition"></div>
+                    </div>
+                </label>
+            </div>
+            <button onclick="toggleSettings()" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group">
+                <i data-lucide="settings" class="text-gray-300 group-hover:text-white transform group-hover:rotate-90 transition duration-300"></i>
+            </button>
+        </div>
+    </div>
+
+<script>
+    lucide.createIcons();
+
+    const CONFIG = {
+        mapWidth: 8192, 
+        mapHeight: 8192,
+        mapImageUrl: 'map.jpg', // 已修改为你的本地地图文件
+        panOffsetX: 320,
+        panDuration: 0.5
+    };
+
+    // 初始化一个空的数据对象，等待从 JSON 加载
+    let db = { locations: [], sources: [], unmapped: [] };
+
+    // 预处理数据建立索引，加速查询
+    const eggMap = {}; // id -> egg
+    const sourceEggsMap = {}; // source_id -> array of eggs
+    const cityDistrictsMap = {}; // city -> Set of districts
+    
+    function buildIndexes() {
+        db.sources.forEach(s => sourceEggsMap[s.id] = []);
+        
+        db.locations.forEach(loc => {
+            if(!cityDistrictsMap[loc.city]) cityDistrictsMap[loc.city] = new Set();
+            cityDistrictsMap[loc.city].add(loc.district);
+
+            loc.eggs.forEach(egg => {
+                egg.location = loc; // 反向关联
+                eggMap[egg.id] = egg;
+                if(sourceEggsMap[egg.source_id]) sourceEggsMap[egg.source_id].push(egg);
+            });
+        });
+
+        db.unmapped.forEach(egg => {
+            eggMap[egg.id] = egg;
+            if(!sourceEggsMap[egg.source_id]) sourceEggsMap[egg.source_id] = [];
+            sourceEggsMap[egg.source_id].push(egg);
+        });
+    }
+
+    // ---------------- 地图初始化 ---------------- //
+    // 不用 fitBounds 避免坐标漂移，采用和你原本 app.js 里类似的方法初始化
+    const map = L.map('map', { 
+        crs: L.CRS.Simple, 
+        minZoom: -2, 
+        maxZoom: 2, 
+        zoomSnap: 0.25,
+        zoomControl: false, 
+        attributionControl: false 
+    });
+    const bounds = [[0, 0], [CONFIG.mapHeight, CONFIG.mapWidth]];
+    
+    L.imageOverlay(CONFIG.mapImageUrl, bounds).addTo(map);
+    map.setView([CONFIG.mapHeight / 2, CONFIG.mapWidth / 2], 0);
+    map.setMaxBounds(bounds);
+
+    let isMarkingMode = false;
+    let isClustered = true;
+    let activeRegionFilter = null; // 当前过滤的区域
+    
+    const clusterGroup = L.markerClusterGroup({ maxClusterRadius: 50, spiderfyOnMaxZoom: true, zoomToBoundsOnClick: true });
+    const normalGroup = L.layerGroup();
+    let currentLayerGroup = clusterGroup;
+    map.addLayer(currentLayerGroup);
+
+    const allMarkers = [];
+
+    // ---------------- 加载外部 JSON 数据 ---------------- //
+    fetch('data.json')
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            db = data; // 赋值给全局 db 变量
+            buildIndexes(); // 构建数据索引
+            renderMarkers(); // 渲染地图点位
+        })
+        .catch(error => {
+            console.error('获取 data.json 失败:', error);
+            // 失败时可以在UI上做些提示，比如用侧边栏显示错误
+            alert('未能加载地图数据，请确保 data.json 存在并且格式正确。');
+        });
+
+    // 渲染地图标记
+    function renderMarkers() {
+        clusterGroup.clearLayers();
+        normalGroup.clearLayers();
+        allMarkers.length = 0;
+
+        db.locations.forEach(loc => {
+            // 区域过滤逻辑
+            if (activeRegionFilter && loc.district !== activeRegionFilter) return;
+
+            const latlng = L.latLng(loc.y, loc.x);
+            const marker = L.marker(latlng, {
+                icon: L.divIcon({ className: 'custom-marker', iconSize: [16, 16], iconAnchor: [8, 8] })
+            });
+
+            marker.locationData = loc;
+            marker.on('click', () => {
+                if(isMarkingMode) return;
+                openSidebar('LOCATION', loc);
+                panMapTo(latlng);
+            });
+            
+            allMarkers.push(marker);
+            clusterGroup.addLayer(marker);
+            normalGroup.addLayer(marker);
+        });
+    }
+
+    function panMapTo(latlng) {
+        const zoom = map.getZoom();
+        const targetPoint = map.project(latlng, zoom).subtract([CONFIG.panOffsetX / 2, 0]);
+        const targetLatLng = map.unproject(targetPoint, zoom);
+        map.flyTo(targetLatLng, zoom, { duration: CONFIG.panDuration });
+    }
+
+    map.on('click', (e) => {
+        if(!isMarkingMode) closeSidebar();
+    });
+
+    // ---------------- 侧边栏视图管理 ---------------- //
+    function openSidebar(view, payload = null) {
+        document.getElementById('sidebar').classList.remove('translate-x-full');
+        renderSidebarContent(view, payload);
+    }
+
+    function closeSidebar() {
+        document.getElementById('sidebar').classList.add('translate-x-full');
+    }
+
+    function renderSidebarContent(view, payload) {
+        const header = document.getElementById('sidebar-header');
+        const content = document.getElementById('sidebar-content');
+        content.innerHTML = ''; // Clear
+        
+        switch(view) {
+            case 'LOCATION':
+                const loc = payload;
+                header.innerHTML = `
+                    <div>
+                        <h2 class="text-lg font-bold text-white">坐标: [${loc.x}, ${loc.y}]</h2>
+                        <p class="text-sm text-gray-400">${loc.city} - ${loc.district}</p>
+                    </div>
+                    <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
+                `;
+                content.innerHTML = generateEggListHTML(loc.eggs);
+                break;
+            
+            case 'CITIES':
+                header.innerHTML = `
+                    <h2 class="text-lg font-bold text-white">城市与区域</h2>
+                    <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
+                `;
+                let cityHtml = `<button onclick="filterByRegion(null)" class="w-full text-left p-3 bg-red-900/50 hover:bg-red-800/80 text-red-200 rounded-lg mb-4 text-sm font-bold flex justify-center items-center gap-2 transition"><i data-lucide="map-pin-off" class="w-4 h-4"></i> 清除区域筛选</button>`;
+                
+                for (const [city, districts] of Object.entries(cityDistrictsMap)) {
+                    cityHtml += `
+                        <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 mb-2">
+                            <div class="p-3 cursor-pointer hover:bg-gray-700 flex justify-between font-bold text-gray-200" onclick="toggleCityAccordion('${city}')">
+                                <span>${city}</span> <i data-lucide="chevron-down" id="icon-city-${city}" class="w-4 h-4 transition-transform"></i>
+                            </div>
+                            <div id="districts-${city}" class="hidden flex flex-col bg-gray-900">
+                    `;
+                    Array.from(districts).forEach(dist => {
+                        const isActive = activeRegionFilter === dist;
+                        cityHtml += `
+                            <div class="p-3 pl-6 border-t border-gray-800 text-sm cursor-pointer hover:bg-gray-800 ${isActive ? 'text-blue-400 font-bold' : 'text-gray-400'}" onclick="filterByRegion('${dist}')">
+                                ${dist}
+                            </div>
+                        `;
+                    });
+                    cityHtml += `</div></div>`;
+                }
+                content.innerHTML = cityHtml;
+                break;
+
+            case 'SOURCES':
+                header.innerHTML = `
+                    <h2 class="text-lg font-bold text-white">原出处作品</h2>
+                    <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
+                `;
+                content.innerHTML = `
+                    <div class="sticky top-0 bg-gray-900/95 pb-2 z-10">
+                        <input type="text" id="source-search" placeholder="搜索出处..." oninput="filterSources(this.value)" class="w-full bg-gray-800 border border-gray-700 text-sm text-white rounded p-2 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div id="source-list-container" class="flex flex-col gap-2"></div>
+                `;
+                filterSources(""); // 初次渲染完整列表
+                break;
+
+            case 'SOURCE_DETAIL':
+                const source = db.sources.find(s => s.id === payload);
+                const eggs = sourceEggsMap[source.id] || [];
+                header.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <button onclick="openSidebar('SOURCES')" class="p-1 hover:bg-gray-700 rounded-full"><i data-lucide="arrow-left" class="w-5 h-5 text-gray-300"></i></button>
+                        <h2 class="text-base font-bold text-white truncate w-40" title="${source.name}">${source.name}</h2>
+                    </div>
+                    <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
+                `;
+                content.innerHTML = `<p class="text-xs text-gray-400 mb-2">共发现 ${eggs.length} 个相关彩蛋</p>` + generateEggListHTML(eggs, true);
+                break;
+        }
+        lucide.createIcons();
+    }
+
+    // ---------------- HTML 生成器与交互逻辑 ---------------- //
+
+    function generateEggListHTML(eggs, isFromSourceView = false) {
+        if(eggs.length === 0) return `<div class="text-center text-gray-500 mt-10">暂无数据</div>`;
+        return eggs.map((egg, index) => {
+            const isUnmapped = egg.is_unmapped;
+            const clickAction = isFromSourceView ? `onclick="handleSourceEggClick('${egg.id}')"` : `onclick="toggleEggDetail('egg-${egg.id}')"`;
+            
+            return `
+            <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 shadow-sm">
+                <div class="p-3 cursor-pointer hover:bg-gray-700 flex justify-between items-center group" ${clickAction}>
+                    <div class="flex items-center gap-2">
+                        ${isUnmapped ? '<span class="bg-red-900 text-red-200 text-xs px-1.5 py-0.5 rounded">未标点</span>' : ''}
+                        <span class="bg-blue-900 text-blue-300 text-xs px-2 py-0.5 rounded">${egg.type || '未知'}</span>
+                        <h3 class="font-bold text-sm text-gray-200 truncate w-32 group-hover:text-white transition">${egg.name}</h3>
+                    </div>
+                    ${isFromSourceView ? 
+                        `<i data-lucide="${isUnmapped ? 'chevron-down' : 'map-pin'}" class="text-gray-400 w-4 h-4"></i>` : 
+                        `<i data-lucide="chevron-down" id="icon-egg-${egg.id}" class="text-gray-400 transition-transform w-4 h-4"></i>`}
+                </div>
+                <div id="detail-egg-${egg.id}" class="hidden p-3 border-t border-gray-700 bg-gray-900">
+                    ${!isFromSourceView ? `<p class="text-xs text-yellow-500 mb-2 font-semibold">出处: ${egg.source_name}</p>` : ''}
+                    <p class="text-xs text-gray-400 mb-3">${egg.remark || '暂无备注说明'}</p>
+                    <div class="img-placeholder text-xs">游戏内截图暂无</div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function handleSourceEggClick(eggId) {
+        const egg = eggMap[eggId];
+        if (egg.is_unmapped) {
+            toggleEggDetail(`egg-${egg.id}`); // 原地展开
+        } else {
+            // 跳转回 Location View 并平移地图
+            openSidebar('LOCATION', egg.location);
+            panMapTo(L.latLng(egg.location.y, egg.location.x));
+        }
+    }
+
+    function toggleEggDetail(id) {
+        const detailDiv = document.getElementById(`detail-${id}`);
+        const icon = document.getElementById(`icon-${id}`);
+        if (detailDiv.classList.contains('hidden')) {
+            detailDiv.classList.remove('hidden');
+            if(icon) icon.classList.add('rotate-180');
+        } else {
+            detailDiv.classList.add('hidden');
+            if(icon) icon.classList.remove('rotate-180');
+        }
+    }
+
+    function toggleCityAccordion(city) {
+        const div = document.getElementById(`districts-${city}`);
+        const icon = document.getElementById(`icon-city-${city}`);
+        div.classList.toggle('hidden');
+        icon.classList.toggle('rotate-180');
+    }
+
+    function filterByRegion(district) {
+        activeRegionFilter = district;
+        renderMarkers(); // 重新渲染地图标记
+        openSidebar('CITIES'); // 刷新侧边栏显示选中状态
+    }
+
+    function filterSources(keyword) {
+        const container = document.getElementById('source-list-container');
+        if(!container) return;
+        
+        const lowerKw = keyword.toLowerCase();
+        const html = db.sources
+            .filter(s => s.name.toLowerCase().includes(lowerKw))
+            .map(s => `
+                <div class="p-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg cursor-pointer text-sm text-gray-200 transition flex justify-between items-center" onclick="openSidebar('SOURCE_DETAIL', '${s.id}')">
+                    <span class="font-semibold">${s.name}</span>
+                    <span class="text-xs text-gray-500 bg-gray-900 px-2 py-1 rounded-full">${sourceEggsMap[s.id]?.length || 0}</span>
+                </div>
+            `).join('');
+        container.innerHTML = html || `<div class="text-center text-gray-500 text-sm mt-4">未找到结果</div>`;
+    }
+
+    // ---------------- 设置与工具 ---------------- //
+    function toggleSettings() {
+        document.getElementById('settings-menu').classList.toggle('hidden');
+    }
+
+    let markingPopup = L.popup();
+    function toggleMarkingMode(enabled) {
+        isMarkingMode = enabled;
+        closeSidebar();
+        
+        if (isMarkingMode) {
+            map.removeLayer(currentLayerGroup);
+            map.on('click', onMapClickForMarking);
+            document.getElementById('map').style.cursor = 'crosshair';
+        } else {
+            map.addLayer(currentLayerGroup);
+            map.off('click', onMapClickForMarking);
+            document.getElementById('map').style.cursor = '';
+            map.closePopup();
+        }
+    }
+
+    function onMapClickForMarking(e) {
+        if (!isMarkingMode) return;
+        const x = Math.round(e.latlng.lng);
+        const y = Math.round(e.latlng.lat);
+        markingPopup.setLatLng(e.latlng).setContent(`
+            <div class="text-center font-mono">
+                <div class="font-bold text-gray-800 mb-1">目标坐标</div>
+                <div class="bg-gray-100 p-2 rounded text-sm select-all">"x": ${x}, "y": ${y}</div>
+            </div>
+        `).openOn(map);
+    }
+
+    function toggleClustering(enabled) {
+        isClustered = enabled;
+        if (isMarkingMode) return; 
+        map.removeLayer(currentLayerGroup);
+        currentLayerGroup = isClustered ? clusterGroup : normalGroup;
+        map.addLayer(currentLayerGroup);
+    }
+
+</script>
 </body>
 </html>
