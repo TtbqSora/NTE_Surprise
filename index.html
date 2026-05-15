@@ -21,14 +21,17 @@
         #map { height: 100vh; width: 100vw; background-color: #2a2a2a; z-index: 1; }
         .leaflet-control-attribution { display: none; }
         
-        .custom-marker {
+        /* 标记点样式（通过 CSS 变量动态缩放大小） */
+        .custom-marker .marker-inner {
+            width: 16px; height: 16px;
             background-color: #ff3b30;
             border: 2px solid white;
             border-radius: 50%;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
             transition: transform 0.2s;
+            transform: scale(var(--marker-scale, 1));
         }
-        .custom-marker:hover { transform: scale(1.2); }
+        .custom-marker:hover .marker-inner { transform: scale(calc(var(--marker-scale, 1) * 1.5)); }
 
         #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
         .pointer-events-auto { pointer-events: auto; }
@@ -38,16 +41,17 @@
         ::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #888; }
         
+        /* 双图片占位符 */
         .img-placeholder {
-            width: 100%; height: 150px; background-color: #333; 
+            width: 100%; height: 120px; background-color: #222; 
             display: flex; align-items: center; justify-content: center;
-            color: #888; border-radius: 0.5rem; margin-top: 0.5rem;
+            border-radius: 0.5rem; border: 1px dashed #444;
         }
 
-        /* 侧边栏宽度配置 */
-        .sidebar-width { width: 320px; max-width: 100vw; }
-        
-        /* 开关按钮样式 */
+        /* 侧边栏初始宽度与拉伸范围配置 */
+        #sidebar { min-width: 300px; max-width: 800px; }
+        .sidebar-width { width: 360px; } 
+
         input:checked ~ .dot { transform: translateX(100%); background-color: #3b82f6; }
         input:checked ~ .toggle-bg { background-color: #1e3a8a; }
     </style>
@@ -59,6 +63,15 @@
     <div id="ui-layer" class="flex justify-between items-stretch">
         
         <div class="relative flex-1">
+            <!-- 缩放控制栏 (左侧垂直居中) -->
+            <div class="absolute left-6 top-1/2 transform -translate-y-1/2 flex flex-col items-center gap-1 z-50 pointer-events-auto bg-gray-800/95 p-2 rounded-xl shadow-lg border border-gray-600">
+                <span class="text-[10px] font-mono text-gray-300 mb-1" id="zoom-text">1.0x</span>
+                <button onclick="map.zoomIn()" class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-lg text-white shadow transition"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                <div class="w-6 h-px bg-gray-600 my-1"></div>
+                <button onclick="map.zoomOut()" class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-lg text-white shadow transition"><i data-lucide="minus" class="w-4 h-4"></i></button>
+                <button onclick="map.setZoom(map.getMinZoom())" class="w-8 h-8 flex items-center justify-center bg-blue-900 hover:bg-blue-800 rounded-lg text-blue-200 shadow transition mt-2" title="恢复最小倍率"><i data-lucide="maximize" class="w-4 h-4"></i></button>
+            </div>
+
             <!-- 左下角按钮组 -->
             <div class="absolute bottom-6 left-6 flex flex-col gap-4 pointer-events-auto z-50">
                 <button onclick="openSidebar('CITIES')" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="筛选城市">
@@ -71,11 +84,12 @@
         </div>
 
         <!-- 侧边栏 -->
-        <div id="sidebar" class="sidebar-width bg-gray-900/95 border-l border-gray-700 shadow-2xl transition-transform duration-300 transform translate-x-full pointer-events-auto flex flex-col h-full z-50">
-            <!-- 头部将由JS动态生成 -->
-            <div id="sidebar-header" class="p-4 border-b border-gray-700 flex justify-between items-center bg-gray-800"></div>
+        <div id="sidebar" class="sidebar-width bg-gray-900/95 border-l border-gray-700 shadow-2xl transition-transform duration-300 transform translate-x-full pointer-events-auto flex flex-col h-full z-50 relative">
+            <!-- 拖拽拉伸条 -->
+            <div id="sidebar-resizer" class="absolute left-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-blue-500 z-50 transition-colors" title="拖动调整宽度"></div>
             
-            <!-- 内容容器 -->
+            <div id="sidebar-header" class="p-4 border-b border-gray-700 flex justify-between items-center bg-gray-800"></div>
+            <!-- 修改为 overflow-y-auto 并确保子元素不被压缩 -->
             <div id="sidebar-content" class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 relative"></div>
         </div>
 
@@ -112,33 +126,29 @@
     const CONFIG = {
         mapWidth: 8192, 
         mapHeight: 8192,
-        mapImageUrl: 'map.jpg', // 已修改为你的本地地图文件
-        panOffsetX: 320,
-        panDuration: 0.5
+        mapImageUrl: 'map.jpg',
+        panExtraLeftOffset: 150, // 距离左侧中心额外的偏左像素
+        panDuration: 0.5,
+        minPanZoom: 0 // 点击点位后如果缩放太小，强制放大到 0 级别防止边缘被限制
     };
 
-    // 初始化一个空的数据对象，等待从 JSON 加载
     let db = { locations: [], sources: [], unmapped: [] };
 
-    // 预处理数据建立索引，加速查询
-    const eggMap = {}; // id -> egg
-    const sourceEggsMap = {}; // source_id -> array of eggs
-    const cityDistrictsMap = {}; // city -> Set of districts
+    const eggMap = {}; 
+    const sourceEggsMap = {}; 
+    const cityDistrictsMap = {}; 
     
     function buildIndexes() {
         db.sources.forEach(s => sourceEggsMap[s.id] = []);
-        
         db.locations.forEach(loc => {
             if(!cityDistrictsMap[loc.city]) cityDistrictsMap[loc.city] = new Set();
             cityDistrictsMap[loc.city].add(loc.district);
-
             loc.eggs.forEach(egg => {
-                egg.location = loc; // 反向关联
+                egg.location = loc; 
                 eggMap[egg.id] = egg;
                 if(sourceEggsMap[egg.source_id]) sourceEggsMap[egg.source_id].push(egg);
             });
         });
-
         db.unmapped.forEach(egg => {
             eggMap[egg.id] = egg;
             if(!sourceEggsMap[egg.source_id]) sourceEggsMap[egg.source_id] = [];
@@ -147,7 +157,6 @@
     }
 
     // ---------------- 地图初始化 ---------------- //
-    // 不用 fitBounds 避免坐标漂移，采用和你原本 app.js 里类似的方法初始化
     const map = L.map('map', { 
         crs: L.CRS.Simple, 
         minZoom: -2, 
@@ -164,7 +173,7 @@
 
     let isMarkingMode = false;
     let isClustered = true;
-    let activeRegionFilter = null; // 当前过滤的区域
+    let activeRegionFilter = null; 
     
     const clusterGroup = L.markerClusterGroup({ maxClusterRadius: 50, spiderfyOnMaxZoom: true, zoomToBoundsOnClick: true });
     const normalGroup = L.layerGroup();
@@ -173,42 +182,75 @@
 
     const allMarkers = [];
 
+    // ---------------- 缩放 UI 更新与图标大小自适应 ---------------- //
+    function updateZoomUI() {
+        const zoom = map.getZoom();
+        const scaleText = Math.pow(2, zoom).toFixed(2);
+        document.getElementById('zoom-text').innerText = `${scaleText}x`;
+
+        // 缩放越小，基准点位相对越小
+        const markerScale = 1 + (zoom * 0.2); 
+        document.documentElement.style.setProperty('--marker-scale', Math.max(0.4, markerScale));
+    }
+    map.on('zoom', updateZoomUI);
+    updateZoomUI();
+
+    // ---------------- 侧边栏拖拽调宽功能 ---------------- //
+    const sidebar = document.getElementById('sidebar');
+    const resizer = document.getElementById('sidebar-resizer');
+    let isResizing = false;
+
+    // 恢复历史宽度
+    const savedWidth = localStorage.getItem('sidebarWidth');
+    if (savedWidth) sidebar.style.width = savedWidth + 'px';
+
+    resizer.addEventListener('mousedown', (e) => {
+        isResizing = true;
+        document.body.style.cursor = 'col-resize';
+        e.preventDefault();
+    });
+    window.addEventListener('mousemove', (e) => {
+        if (!isResizing) return;
+        const newWidth = window.innerWidth - e.clientX;
+        if (newWidth > 300 && newWidth < 800) {
+            sidebar.style.width = newWidth + 'px';
+        }
+    });
+    window.addEventListener('mouseup', () => {
+        if (isResizing) {
+            isResizing = false;
+            document.body.style.cursor = '';
+            localStorage.setItem('sidebarWidth', sidebar.offsetWidth);
+        }
+    });
+
     // ---------------- 加载外部 JSON 数据 ---------------- //
     fetch('data.json')
-        .then(response => {
-            if (!response.ok) throw new Error('Network response was not ok');
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
-            db = data; // 赋值给全局 db 变量
-            buildIndexes(); // 构建数据索引
-            renderMarkers(); // 渲染地图点位
+            db = data;
+            buildIndexes(); 
+            renderMarkers(); 
         })
-        .catch(error => {
-            console.error('获取 data.json 失败:', error);
-            // 失败时可以在UI上做些提示，比如用侧边栏显示错误
-            alert('未能加载地图数据，请确保 data.json 存在并且格式正确。');
-        });
+        .catch(err => console.error('获取 data.json 失败:', err));
 
-    // 渲染地图标记
     function renderMarkers() {
         clusterGroup.clearLayers();
         normalGroup.clearLayers();
         allMarkers.length = 0;
 
         db.locations.forEach(loc => {
-            // 区域过滤逻辑
             if (activeRegionFilter && loc.district !== activeRegionFilter) return;
 
             const latlng = L.latLng(loc.y, loc.x);
             const marker = L.marker(latlng, {
-                icon: L.divIcon({ className: 'custom-marker', iconSize: [16, 16], iconAnchor: [8, 8] })
+                icon: L.divIcon({ className: 'custom-marker', html: '<div class="marker-inner"></div>', iconSize: [16, 16], iconAnchor: [8, 8] })
             });
 
             marker.locationData = loc;
             marker.on('click', () => {
                 if(isMarkingMode) return;
-                openSidebar('LOCATION', loc);
+                openSidebar('LOCATION', { loc: loc });
                 panMapTo(latlng);
             });
             
@@ -218,11 +260,20 @@
         });
     }
 
+    // ---------------- 核心修复：地图偏移算法 ---------------- //
     function panMapTo(latlng) {
-        const zoom = map.getZoom();
-        const targetPoint = map.project(latlng, zoom).subtract([CONFIG.panOffsetX / 2, 0]);
-        const targetLatLng = map.unproject(targetPoint, zoom);
-        map.flyTo(targetLatLng, zoom, { duration: CONFIG.panDuration });
+        // 1. 如果缩放级别太低（靠近边缘），强制放大，防止被 maxBounds 卡住回弹
+        const targetZoom = Math.max(map.getZoom(), CONFIG.minPanZoom);
+        
+        // 2. 偏移逻辑：因为侧边栏在右侧，为了让点位在可见区域居中偏左
+        // 我们必须把摄像机（地图中心）往“右”移，所以是相加。
+        const sidebarWidth = sidebar.offsetWidth;
+        const totalOffsetX = (sidebarWidth / 2) + CONFIG.panExtraLeftOffset;
+        
+        const targetPoint = map.project(latlng, targetZoom).add([totalOffsetX, 0]);
+        const targetLatLng = map.unproject(targetPoint, targetZoom);
+        
+        map.flyTo(targetLatLng, targetZoom, { duration: CONFIG.panDuration });
     }
 
     map.on('click', (e) => {
@@ -231,28 +282,33 @@
 
     // ---------------- 侧边栏视图管理 ---------------- //
     function openSidebar(view, payload = null) {
-        document.getElementById('sidebar').classList.remove('translate-x-full');
+        sidebar.classList.remove('translate-x-full');
         renderSidebarContent(view, payload);
     }
 
     function closeSidebar() {
-        document.getElementById('sidebar').classList.add('translate-x-full');
+        sidebar.classList.add('translate-x-full');
     }
 
     function renderSidebarContent(view, payload) {
         const header = document.getElementById('sidebar-header');
         const content = document.getElementById('sidebar-content');
-        content.innerHTML = ''; // Clear
+        content.innerHTML = ''; 
         
         switch(view) {
             case 'LOCATION':
-                const loc = payload;
+                const loc = payload.loc;
+                // 添加返回上一级按钮（如果有记录）
+                const backBtnHtml = payload.backTo ? 
+                    `<button onclick="openSidebar('SOURCE_DETAIL', '${payload.backTo}')" class="mb-3 text-xs bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded-lg text-gray-300 flex items-center gap-1 transition"><i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> 返回出处列表</button>` : '';
+
                 header.innerHTML = `
-                    <div>
+                    <div class="flex-1">
+                        ${backBtnHtml}
                         <h2 class="text-lg font-bold text-white">坐标: [${loc.x}, ${loc.y}]</h2>
                         <p class="text-sm text-gray-400">${loc.city} - ${loc.district}</p>
                     </div>
-                    <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
+                    <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full self-start"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
                 `;
                 content.innerHTML = generateEggListHTML(loc.eggs);
                 break;
@@ -262,11 +318,11 @@
                     <h2 class="text-lg font-bold text-white">城市与区域</h2>
                     <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
                 `;
-                let cityHtml = `<button onclick="filterByRegion(null)" class="w-full text-left p-3 bg-red-900/50 hover:bg-red-800/80 text-red-200 rounded-lg mb-4 text-sm font-bold flex justify-center items-center gap-2 transition"><i data-lucide="map-pin-off" class="w-4 h-4"></i> 清除区域筛选</button>`;
+                let cityHtml = `<button onclick="filterByRegion(null)" class="w-full text-left p-3 bg-red-900/50 hover:bg-red-800/80 text-red-200 rounded-lg mb-4 text-sm font-bold flex justify-center items-center gap-2 transition shrink-0"><i data-lucide="map-pin-off" class="w-4 h-4"></i> 清除区域筛选</button>`;
                 
                 for (const [city, districts] of Object.entries(cityDistrictsMap)) {
                     cityHtml += `
-                        <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 mb-2">
+                        <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 mb-2 shrink-0">
                             <div class="p-3 cursor-pointer hover:bg-gray-700 flex justify-between font-bold text-gray-200" onclick="toggleCityAccordion('${city}')">
                                 <span>${city}</span> <i data-lucide="chevron-down" id="icon-city-${city}" class="w-4 h-4 transition-transform"></i>
                             </div>
@@ -291,54 +347,66 @@
                     <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
                 `;
                 content.innerHTML = `
-                    <div class="sticky top-0 bg-gray-900/95 pb-2 z-10">
+                    <div class="sticky top-0 bg-gray-900/95 pb-2 z-10 shrink-0">
                         <input type="text" id="source-search" placeholder="搜索出处..." oninput="filterSources(this.value)" class="w-full bg-gray-800 border border-gray-700 text-sm text-white rounded p-2 focus:outline-none focus:border-blue-500">
                     </div>
-                    <div id="source-list-container" class="flex flex-col gap-2"></div>
+                    <div id="source-list-container" class="flex flex-col gap-2 pb-4"></div>
                 `;
-                filterSources(""); // 初次渲染完整列表
+                filterSources(""); 
                 break;
 
             case 'SOURCE_DETAIL':
                 const source = db.sources.find(s => s.id === payload);
                 const eggs = sourceEggsMap[source.id] || [];
                 header.innerHTML = `
-                    <div class="flex items-center gap-2">
+                    <div class="flex items-center gap-2 flex-1">
                         <button onclick="openSidebar('SOURCES')" class="p-1 hover:bg-gray-700 rounded-full"><i data-lucide="arrow-left" class="w-5 h-5 text-gray-300"></i></button>
                         <h2 class="text-base font-bold text-white truncate w-40" title="${source.name}">${source.name}</h2>
                     </div>
                     <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
                 `;
-                content.innerHTML = `<p class="text-xs text-gray-400 mb-2">共发现 ${eggs.length} 个相关彩蛋</p>` + generateEggListHTML(eggs, true);
+                content.innerHTML = `<p class="text-xs text-gray-400 mb-2 shrink-0">共发现 ${eggs.length} 个相关彩蛋</p>` + generateEggListHTML(eggs, true);
                 break;
         }
         lucide.createIcons();
     }
 
     // ---------------- HTML 生成器与交互逻辑 ---------------- //
-
     function generateEggListHTML(eggs, isFromSourceView = false) {
         if(eggs.length === 0) return `<div class="text-center text-gray-500 mt-10">暂无数据</div>`;
-        return eggs.map((egg, index) => {
+        return eggs.map((egg) => {
             const isUnmapped = egg.is_unmapped;
             const clickAction = isFromSourceView ? `onclick="handleSourceEggClick('${egg.id}')"` : `onclick="toggleEggDetail('egg-${egg.id}')"`;
             
+            // 加入 shrink-0 解决列表堆叠压缩问题
             return `
-            <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 shadow-sm">
+            <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 shadow-sm shrink-0">
                 <div class="p-3 cursor-pointer hover:bg-gray-700 flex justify-between items-center group" ${clickAction}>
-                    <div class="flex items-center gap-2">
-                        ${isUnmapped ? '<span class="bg-red-900 text-red-200 text-xs px-1.5 py-0.5 rounded">未标点</span>' : ''}
-                        <span class="bg-blue-900 text-blue-300 text-xs px-2 py-0.5 rounded">${egg.type || '未知'}</span>
-                        <h3 class="font-bold text-sm text-gray-200 truncate w-32 group-hover:text-white transition">${egg.name}</h3>
+                    <div class="flex items-center gap-2 flex-1 overflow-hidden">
+                        ${isUnmapped ? '<span class="bg-red-900 text-red-200 text-xs px-1.5 py-0.5 rounded shrink-0">未标点</span>' : ''}
+                        <span class="bg-blue-900 text-blue-300 text-xs px-2 py-0.5 rounded shrink-0">${egg.type || '未知'}</span>
+                        <h3 class="font-bold text-sm text-gray-200 truncate group-hover:text-white transition">${egg.name}</h3>
                     </div>
                     ${isFromSourceView ? 
-                        `<i data-lucide="${isUnmapped ? 'chevron-down' : 'map-pin'}" class="text-gray-400 w-4 h-4"></i>` : 
-                        `<i data-lucide="chevron-down" id="icon-egg-${egg.id}" class="text-gray-400 transition-transform w-4 h-4"></i>`}
+                        `<i data-lucide="${isUnmapped ? 'chevron-down' : 'map-pin'}" class="text-gray-400 w-4 h-4 shrink-0 ml-2"></i>` : 
+                        `<i data-lucide="chevron-down" id="icon-egg-${egg.id}" class="text-gray-400 transition-transform w-4 h-4 shrink-0 ml-2"></i>`}
                 </div>
                 <div id="detail-egg-${egg.id}" class="hidden p-3 border-t border-gray-700 bg-gray-900">
                     ${!isFromSourceView ? `<p class="text-xs text-yellow-500 mb-2 font-semibold">出处: ${egg.source_name}</p>` : ''}
                     <p class="text-xs text-gray-400 mb-3">${egg.remark || '暂无备注说明'}</p>
-                    <div class="img-placeholder text-xs">游戏内截图暂无</div>
+                    
+                    <!-- 双图片并排显示 -->
+                    <div class="grid grid-cols-2 gap-2">
+                        <div class="img-placeholder text-xs flex-col text-center p-2">
+                            <span class="text-gray-400 mb-1">游戏内截图</span>
+                            <span class="text-gray-600">(暂无)</span>
+                        </div>
+                        <div class="img-placeholder text-xs flex-col text-center p-2">
+                            <span class="text-gray-400 mb-1">出处对比图</span>
+                            <span class="text-gray-600">(暂无)</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>`;
         }).join('');
@@ -347,10 +415,10 @@
     function handleSourceEggClick(eggId) {
         const egg = eggMap[eggId];
         if (egg.is_unmapped) {
-            toggleEggDetail(`egg-${egg.id}`); // 原地展开
+            toggleEggDetail(`egg-${egg.id}`); 
         } else {
-            // 跳转回 Location View 并平移地图
-            openSidebar('LOCATION', egg.location);
+            // 携带 backTo 参数跳转，生成返回按钮
+            openSidebar('LOCATION', { loc: egg.location, backTo: egg.source_id });
             panMapTo(L.latLng(egg.location.y, egg.location.x));
         }
     }
@@ -376,8 +444,8 @@
 
     function filterByRegion(district) {
         activeRegionFilter = district;
-        renderMarkers(); // 重新渲染地图标记
-        openSidebar('CITIES'); // 刷新侧边栏显示选中状态
+        renderMarkers(); 
+        openSidebar('CITIES'); 
     }
 
     function filterSources(keyword) {
@@ -388,7 +456,7 @@
         const html = db.sources
             .filter(s => s.name.toLowerCase().includes(lowerKw))
             .map(s => `
-                <div class="p-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg cursor-pointer text-sm text-gray-200 transition flex justify-between items-center" onclick="openSidebar('SOURCE_DETAIL', '${s.id}')">
+                <div class="p-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 rounded-lg cursor-pointer text-sm text-gray-200 transition flex justify-between items-center shrink-0" onclick="openSidebar('SOURCE_DETAIL', '${s.id}')">
                     <span class="font-semibold">${s.name}</span>
                     <span class="text-xs text-gray-500 bg-gray-900 px-2 py-1 rounded-full">${sourceEggsMap[s.id]?.length || 0}</span>
                 </div>
