@@ -21,17 +21,30 @@
         #map { height: 100vh; width: 100vw; background-color: #2a2a2a; z-index: 1; }
         .leaflet-control-attribution { display: none; }
         
-        /* 标记点样式（通过 CSS 变量动态缩放大小） */
+        /* 标记点基础样式 */
         .custom-marker .marker-inner {
             width: 16px; height: 16px;
             background-color: #ff3b30;
             border: 2px solid white;
             border-radius: 50%;
             box-shadow: 0 0 10px rgba(0,0,0,0.5);
-            transition: transform 0.2s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform: scale(var(--marker-scale, 1));
         }
         .custom-marker:hover .marker-inner { transform: scale(calc(var(--marker-scale, 1) * 1.5)); }
+
+        /* 选中标记点的特殊状态高亮 */
+        .custom-marker .marker-inner.marker-selected {
+            background-color: #fbbf24 !important; /* 黄色 */
+            border-color: #fff !important;
+            box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.4), 0 0 15px rgba(251, 191, 36, 0.8) !important;
+            transform: scale(calc(var(--marker-scale, 1) * 1.6));
+            z-index: 9999 !important;
+        }
+
+        /* 覆盖 Leaflet 弹窗默认样式，使其贴合暗黑主题 */
+        .leaflet-popup-content-wrapper, .leaflet-popup-tip { background-color: #1f2937; color: #fff; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); border: 1px solid #374151;}
+        .leaflet-popup-content { margin: 8px; }
 
         #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
         .pointer-events-auto { pointer-events: auto; }
@@ -41,19 +54,14 @@
         ::-webkit-scrollbar-thumb { background: #555; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #888; }
         
-        /* 双图片占位符 */
         .img-placeholder {
             width: 100%; height: 120px; background-color: #222; 
             display: flex; align-items: center; justify-content: center;
             border-radius: 0.5rem; border: 1px dashed #444;
         }
 
-        /* 侧边栏初始宽度与拉伸范围配置 */
         #sidebar { min-width: 300px; max-width: 800px; }
         .sidebar-width { width: 360px; } 
-
-        input:checked ~ .dot { transform: translateX(100%); background-color: #3b82f6; }
-        input:checked ~ .toggle-bg { background-color: #1e3a8a; }
     </style>
 </head>
 <body>
@@ -63,7 +71,39 @@
     <div id="ui-layer" class="flex justify-between items-stretch">
         
         <div class="relative flex-1">
-            <!-- 缩放控制栏 (左侧垂直居中) -->
+            <!-- 1. 左上角设置按钮 (已从右下角移动，解决遮挡问题) -->
+            <div class="absolute top-6 left-6 pointer-events-auto z-50">
+                <div class="relative">
+                    <button onclick="toggleSettings()" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="地图设置">
+                        <i data-lucide="settings" class="text-gray-300 group-hover:text-white transform group-hover:rotate-90 transition duration-300"></i>
+                    </button>
+                    <!-- 设置菜单 -->
+                    <div id="settings-menu" class="hidden absolute top-full left-0 mt-3 bg-gray-800 border border-gray-700 rounded-lg p-4 shadow-xl w-56">
+                        <h3 class="text-sm font-semibold text-gray-400 mb-4 uppercase">地图设置</h3>
+                        
+                        <!-- 2. 修复后的拨动开关 (使用 Tailwind Peer 特性) -->
+                        <label class="flex items-center justify-between cursor-pointer mb-4 group">
+                            <span class="text-sm text-gray-200 group-hover:text-white">合并点位 (集群)</span>
+                            <div class="relative flex items-center">
+                                <input type="checkbox" id="toggle-cluster" class="peer sr-only" checked onchange="toggleClustering(this.checked)">
+                                <div class="w-10 h-6 bg-gray-600 rounded-full peer-checked:bg-blue-600 transition-colors duration-300"></div>
+                                <div class="absolute left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 transform peer-checked:translate-x-4"></div>
+                            </div>
+                        </label>
+
+                        <label class="flex items-center justify-between cursor-pointer group">
+                            <span class="text-sm text-yellow-500 group-hover:text-yellow-400">获取坐标模式</span>
+                            <div class="relative flex items-center">
+                                <input type="checkbox" id="toggle-marking" class="peer sr-only" onchange="toggleMarkingMode(this.checked)">
+                                <div class="w-10 h-6 bg-gray-600 rounded-full peer-checked:bg-yellow-600 transition-colors duration-300"></div>
+                                <div class="absolute left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 transform peer-checked:translate-x-4"></div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 缩放控制栏 -->
             <div class="absolute left-6 top-1/2 transform -translate-y-1/2 flex flex-col items-center gap-1 z-50 pointer-events-auto bg-gray-800/95 p-2 rounded-xl shadow-lg border border-gray-600">
                 <span class="text-[10px] font-mono text-gray-300 mb-1" id="zoom-text">1.0x</span>
                 <button onclick="map.zoomIn()" class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-lg text-white shadow transition"><i data-lucide="plus" class="w-4 h-4"></i></button>
@@ -85,38 +125,9 @@
 
         <!-- 侧边栏 -->
         <div id="sidebar" class="sidebar-width bg-gray-900/95 border-l border-gray-700 shadow-2xl transition-transform duration-300 transform translate-x-full pointer-events-auto flex flex-col h-full z-50 relative">
-            <!-- 拖拽拉伸条 -->
             <div id="sidebar-resizer" class="absolute left-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-blue-500 z-50 transition-colors" title="拖动调整宽度"></div>
-            
-            <div id="sidebar-header" class="p-4 border-b border-gray-700 flex justify-between items-center bg-gray-800"></div>
-            <!-- 修改为 overflow-y-auto 并确保子元素不被压缩 -->
+            <div id="sidebar-header" class="p-4 border-b border-gray-700 flex justify-between items-center bg-gray-800 shrink-0"></div>
             <div id="sidebar-content" class="flex-1 overflow-y-auto p-4 flex flex-col gap-3 relative"></div>
-        </div>
-
-        <!-- 右下角设置按钮 -->
-        <div class="absolute bottom-6 right-6 pointer-events-auto flex flex-col gap-3 items-end z-50">
-            <div id="settings-menu" class="hidden bg-gray-800 border border-gray-700 rounded-lg p-4 shadow-xl w-48 mb-2">
-                <h3 class="text-sm font-semibold text-gray-400 mb-3 uppercase">地图设置</h3>
-                <label class="flex items-center justify-between cursor-pointer mb-3">
-                    <span class="text-sm">合并点位 (集群)</span>
-                    <div class="relative">
-                        <input type="checkbox" id="toggle-cluster" class="sr-only" checked onchange="toggleClustering(this.checked)">
-                        <div class="block bg-gray-600 w-10 h-6 rounded-full toggle-bg"></div>
-                        <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition transform translate-x-4"></div>
-                    </div>
-                </label>
-                <label class="flex items-center justify-between cursor-pointer">
-                    <span class="text-sm text-yellow-500">获取坐标模式</span>
-                    <div class="relative">
-                        <input type="checkbox" id="toggle-marking" class="sr-only" onchange="toggleMarkingMode(this.checked)">
-                        <div class="block bg-gray-600 w-10 h-6 rounded-full toggle-bg"></div>
-                        <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition"></div>
-                    </div>
-                </label>
-            </div>
-            <button onclick="toggleSettings()" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group">
-                <i data-lucide="settings" class="text-gray-300 group-hover:text-white transform group-hover:rotate-90 transition duration-300"></i>
-            </button>
         </div>
     </div>
 
@@ -127,9 +138,9 @@
         mapWidth: 8192, 
         mapHeight: 8192,
         mapImageUrl: 'map.jpg',
-        panExtraLeftOffset: 150, // 距离左侧中心额外的偏左像素
+        panExtraLeftOffset: 150,
         panDuration: 0.5,
-        minPanZoom: 0 // 点击点位后如果缩放太小，强制放大到 0 级别防止边缘被限制
+        minPanZoom: 0 
     };
 
     let db = { locations: [], sources: [], unmapped: [] };
@@ -174,6 +185,7 @@
     let isMarkingMode = false;
     let isClustered = true;
     let activeRegionFilter = null; 
+    let currentSelectedMarker = null; // 记录当前选中的标记点
     
     const clusterGroup = L.markerClusterGroup({ maxClusterRadius: 50, spiderfyOnMaxZoom: true, zoomToBoundsOnClick: true });
     const normalGroup = L.layerGroup();
@@ -188,7 +200,6 @@
         const scaleText = Math.pow(2, zoom).toFixed(2);
         document.getElementById('zoom-text').innerText = `${scaleText}x`;
 
-        // 缩放越小，基准点位相对越小
         const markerScale = 1 + (zoom * 0.2); 
         document.documentElement.style.setProperty('--marker-scale', Math.max(0.4, markerScale));
     }
@@ -200,7 +211,6 @@
     const resizer = document.getElementById('sidebar-resizer');
     let isResizing = false;
 
-    // 恢复历史宽度
     const savedWidth = localStorage.getItem('sidebarWidth');
     if (savedWidth) sidebar.style.width = savedWidth + 'px';
 
@@ -238,6 +248,7 @@
         clusterGroup.clearLayers();
         normalGroup.clearLayers();
         allMarkers.length = 0;
+        currentSelectedMarker = null;
 
         db.locations.forEach(loc => {
             if (activeRegionFilter && loc.district !== activeRegionFilter) return;
@@ -247,9 +258,40 @@
                 icon: L.divIcon({ className: 'custom-marker', html: '<div class="marker-inner"></div>', iconSize: [16, 16], iconAnchor: [8, 8] })
             });
 
+            // 3. 为标记点绑定弹窗 (Popup)，显示游戏内截图
+            const firstEgg = loc.eggs[0];
+            const othersText = loc.eggs.length > 1 ? `<div class="text-[10px] text-gray-400 mt-1">及另外 ${loc.eggs.length - 1} 个彩蛋</div>` : '';
+            const popupHtml = `
+                <div class="text-center min-w-[120px]">
+                    <div class="text-xs font-bold mb-1.5 truncate w-32 text-gray-200" title="${firstEgg.name}">${firstEgg.name}</div>
+                    <div class="w-full h-20 bg-gray-700 flex flex-col items-center justify-center rounded border border-gray-600 overflow-hidden">
+                        <span class="text-gray-400 text-[10px]">游戏内截图</span>
+                        <span class="text-gray-500 text-[10px]">(待补充)</span>
+                    </div>
+                    ${othersText}
+                </div>
+            `;
+            marker.bindPopup(popupHtml, { offset: [0, -10], closeButton: false, minWidth: 120 });
+
             marker.locationData = loc;
+            
+            // 点击事件：改变高亮样式，弹出侧边栏
             marker.on('click', () => {
                 if(isMarkingMode) return;
+                
+                // 移除上一个的高亮
+                if (currentSelectedMarker && currentSelectedMarker.getElement()) {
+                    const inner = currentSelectedMarker.getElement().querySelector('.marker-inner');
+                    if(inner) inner.classList.remove('marker-selected');
+                }
+                
+                // 给当前加上高亮
+                currentSelectedMarker = marker;
+                if (marker.getElement()) {
+                    const inner = marker.getElement().querySelector('.marker-inner');
+                    if(inner) inner.classList.add('marker-selected');
+                }
+
                 openSidebar('LOCATION', { loc: loc });
                 panMapTo(latlng);
             });
@@ -260,13 +302,16 @@
         });
     }
 
-    // ---------------- 核心修复：地图偏移算法 ---------------- //
+    // 解决 Leaflet 渲染复用导致高亮类名丢失的问题
+    map.on('popupopen', function(e) {
+        if(currentSelectedMarker && currentSelectedMarker.getElement()) {
+            const inner = currentSelectedMarker.getElement().querySelector('.marker-inner');
+            if(inner) inner.classList.add('marker-selected');
+        }
+    });
+
     function panMapTo(latlng) {
-        // 1. 如果缩放级别太低（靠近边缘），强制放大，防止被 maxBounds 卡住回弹
         const targetZoom = Math.max(map.getZoom(), CONFIG.minPanZoom);
-        
-        // 2. 偏移逻辑：因为侧边栏在右侧，为了让点位在可见区域居中偏左
-        // 我们必须把摄像机（地图中心）往“右”移，所以是相加。
         const sidebarWidth = sidebar.offsetWidth;
         const totalOffsetX = (sidebarWidth / 2) + CONFIG.panExtraLeftOffset;
         
@@ -288,6 +333,13 @@
 
     function closeSidebar() {
         sidebar.classList.add('translate-x-full');
+        // 关闭时清除标记高亮
+        if (currentSelectedMarker && currentSelectedMarker.getElement()) {
+            const inner = currentSelectedMarker.getElement().querySelector('.marker-inner');
+            if(inner) inner.classList.remove('marker-selected');
+            currentSelectedMarker.closePopup();
+            currentSelectedMarker = null;
+        }
     }
 
     function renderSidebarContent(view, payload) {
@@ -298,7 +350,6 @@
         switch(view) {
             case 'LOCATION':
                 const loc = payload.loc;
-                // 添加返回上一级按钮（如果有记录）
                 const backBtnHtml = payload.backTo ? 
                     `<button onclick="openSidebar('SOURCE_DETAIL', '${payload.backTo}')" class="mb-3 text-xs bg-gray-700 hover:bg-gray-600 px-3 py-1.5 rounded-lg text-gray-300 flex items-center gap-1 transition"><i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> 返回出处列表</button>` : '';
 
@@ -359,8 +410,8 @@
                 const source = db.sources.find(s => s.id === payload);
                 const eggs = sourceEggsMap[source.id] || [];
                 header.innerHTML = `
-                    <div class="flex items-center gap-2 flex-1">
-                        <button onclick="openSidebar('SOURCES')" class="p-1 hover:bg-gray-700 rounded-full"><i data-lucide="arrow-left" class="w-5 h-5 text-gray-300"></i></button>
+                    <div class="flex items-center gap-2 flex-1 overflow-hidden">
+                        <button onclick="openSidebar('SOURCES')" class="p-1 hover:bg-gray-700 rounded-full shrink-0"><i data-lucide="arrow-left" class="w-5 h-5 text-gray-300"></i></button>
                         <h2 class="text-base font-bold text-white truncate w-40" title="${source.name}">${source.name}</h2>
                     </div>
                     <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
@@ -378,32 +429,40 @@
             const isUnmapped = egg.is_unmapped;
             const clickAction = isFromSourceView ? `onclick="handleSourceEggClick('${egg.id}')"` : `onclick="toggleEggDetail('egg-${egg.id}')"`;
             
-            // 加入 shrink-0 解决列表堆叠压缩问题
+            // 4. 多点位标签标识
+            const multiTag = egg.is_multi_location ? '<span class="bg-purple-900 text-purple-200 text-[10px] px-1.5 py-0.5 rounded shrink-0 border border-purple-700" title="该彩蛋在地图中有多处出现，此为代表点位">多点位</span>' : '';
+            const unmappedTag = isUnmapped ? '<span class="bg-red-900 text-red-200 text-xs px-1.5 py-0.5 rounded shrink-0 border border-red-700">未标点</span>' : '';
+
             return `
             <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 shadow-sm shrink-0">
                 <div class="p-3 cursor-pointer hover:bg-gray-700 flex justify-between items-center group" ${clickAction}>
                     <div class="flex items-center gap-2 flex-1 overflow-hidden">
-                        ${isUnmapped ? '<span class="bg-red-900 text-red-200 text-xs px-1.5 py-0.5 rounded shrink-0">未标点</span>' : ''}
+                        ${unmappedTag}
+                        ${multiTag}
                         <span class="bg-blue-900 text-blue-300 text-xs px-2 py-0.5 rounded shrink-0">${egg.type || '未知'}</span>
-                        <h3 class="font-bold text-sm text-gray-200 truncate group-hover:text-white transition">${egg.name}</h3>
+                        <h3 class="font-bold text-sm text-gray-200 truncate group-hover:text-white transition" title="${egg.name}">${egg.name}</h3>
                     </div>
                     ${isFromSourceView ? 
                         `<i data-lucide="${isUnmapped ? 'chevron-down' : 'map-pin'}" class="text-gray-400 w-4 h-4 shrink-0 ml-2"></i>` : 
                         `<i data-lucide="chevron-down" id="icon-egg-${egg.id}" class="text-gray-400 transition-transform w-4 h-4 shrink-0 ml-2"></i>`}
                 </div>
                 <div id="detail-egg-${egg.id}" class="hidden p-3 border-t border-gray-700 bg-gray-900">
-                    ${!isFromSourceView ? `<p class="text-xs text-yellow-500 mb-2 font-semibold">出处: ${egg.source_name}</p>` : ''}
+                    <div class="flex justify-between items-start mb-2">
+                        ${!isFromSourceView ? `<p class="text-xs text-yellow-500 font-semibold">出处: ${egg.source_name}</p>` : '<div></div>'}
+                        <span class="text-[10px] font-mono text-gray-500 bg-gray-800 px-1 rounded">${egg.id}</span>
+                    </div>
                     <p class="text-xs text-gray-400 mb-3">${egg.remark || '暂无备注说明'}</p>
                     
-                    <!-- 双图片并排显示 -->
                     <div class="grid grid-cols-2 gap-2">
-                        <div class="img-placeholder text-xs flex-col text-center p-2">
-                            <span class="text-gray-400 mb-1">游戏内截图</span>
-                            <span class="text-gray-600">(暂无)</span>
+                        <div class="img-placeholder text-xs flex-col text-center p-2 relative group overflow-hidden">
+                            <span class="text-gray-400 mb-1 z-10">游戏内截图</span>
+                            <span class="text-gray-600 z-10">(暂无)</span>
+                            <!-- 以后有图后解开注释即可 <img src="${egg.image_main}" class="absolute inset-0 w-full h-full object-cover"> -->
                         </div>
-                        <div class="img-placeholder text-xs flex-col text-center p-2">
-                            <span class="text-gray-400 mb-1">出处对比图</span>
-                            <span class="text-gray-600">(暂无)</span>
+                        <div class="img-placeholder text-xs flex-col text-center p-2 relative group overflow-hidden">
+                            <span class="text-gray-400 mb-1 z-10">出处对比图</span>
+                            <span class="text-gray-600 z-10">(暂无)</span>
+                            <!-- 以后有图后解开注释即可 <img src="${egg.image_compare}" class="absolute inset-0 w-full h-full object-cover"> -->
                         </div>
                     </div>
 
@@ -417,9 +476,14 @@
         if (egg.is_unmapped) {
             toggleEggDetail(`egg-${egg.id}`); 
         } else {
-            // 携带 backTo 参数跳转，生成返回按钮
-            openSidebar('LOCATION', { loc: egg.location, backTo: egg.source_id });
-            panMapTo(L.latLng(egg.location.y, egg.location.x));
+            // 找到对应标记点触发点击事件，以获得弹窗和高亮一致体验
+            const targetMarker = allMarkers.find(m => m.locationData.id === egg.location.id);
+            if (targetMarker) {
+                targetMarker.fire('click');
+                // 虽然 fire 已经有了，但需要保证侧边栏注入 backTo 状态
+                openSidebar('LOCATION', { loc: egg.location, backTo: egg.source_id });
+                setTimeout(() => targetMarker.openPopup(), 100); // 确保在平滑移动后弹窗
+            }
         }
     }
 
@@ -468,6 +532,15 @@
     function toggleSettings() {
         document.getElementById('settings-menu').classList.toggle('hidden');
     }
+
+    // 点击设置按钮以外的地方自动关闭菜单
+    document.addEventListener('click', function(event) {
+        const menu = document.getElementById('settings-menu');
+        const settingsBtn = menu.previousElementSibling;
+        if (!menu.contains(event.target) && !settingsBtn.contains(event.target)) {
+            menu.classList.add('hidden');
+        }
+    });
 
     let markingPopup = L.popup();
     function toggleMarkingMode(enabled) {
