@@ -3422,6 +3422,87 @@
     },
     {
       "id": "L000101",
+      "x": 4138,
+      "y": 3561,
+      "city": "海特洛市",
+      "district": "桥间地",
+      "eggs": [
+        {
+          "id": "E000144",
+          "name": "坂井蜜瓜包",
+          "source_id": "S000122",
+          "source_name": "灼眼的夏娜",
+          "type": "物品",
+          "remark": "",
+          "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "桥间地",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000144_main.png",
+          "image_compare": "pic/E000144_compare.png",
+          "location_id": "L000101"
+        }
+      ]
+    },
+    {
+      "id": "L000102",
+      "x": 3485,
+      "y": 5539,
+      "city": "海特洛市",
+      "district": "绘空町",
+      "eggs": [
+        {
+          "id": "E000145",
+          "name": "灼眼的绯红",
+          "source_id": "S000122",
+          "source_name": "灼眼的夏娜",
+          "type": "物品",
+          "remark": "",
+          "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "绘空町",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000145_main.png",
+          "image_compare": "pic/E000145_compare.png",
+          "location_id": "L000102"
+        }
+      ]
+    },
+    {
+      "id": "L000103",
+      "x": 3122,
+      "y": 3302,
+      "city": "海特洛市",
+      "district": "桥间地",
+      "eggs": [
+        {
+          "id": "E000146",
+          "name": "M1000车顶沙发改装",
+          "source_id": "S000123",
+          "source_name": "憨豆先生",
+          "type": "载具",
+          "remark": "",
+          "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "桥间地",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000146_main.png",
+          "image_compare": "pic/E000146_compare.png",
+          "location_id": "L000103"
+        }
+      ]
+    },
+    {
+      "id": "L000104",
       "x": 4003,
       "y": 3524,
       "city": "海特洛市",
@@ -3443,7 +3524,7 @@
           "has_compare": false,
           "image_main": "pic/E000172_main.png",
           "image_compare": "pic/E000172_compare.png",
-          "location_id": "L000101"
+          "location_id": "L000104"
         }
       ]
     }
@@ -4423,57 +4504,6 @@
       "has_compare": false,
       "image_main": "pic/E000143_main.png",
       "image_compare": "pic/E000143_compare.png"
-    },
-    {
-      "id": "E000144",
-      "name": "坂井蜜瓜包",
-      "source_id": "S000122",
-      "source_name": "灼眼的夏娜",
-      "type": "物品",
-      "remark": "",
-      "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
-      "is_unmapped": true,
-      "is_multi_location": false,
-      "city": "海特洛市",
-      "district": "桥间地",
-      "has_main": false,
-      "has_compare": false,
-      "image_main": "pic/E000144_main.png",
-      "image_compare": "pic/E000144_compare.png"
-    },
-    {
-      "id": "E000145",
-      "name": "灼眼的绯红",
-      "source_id": "S000122",
-      "source_name": "灼眼的夏娜",
-      "type": "物品",
-      "remark": "",
-      "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
-      "is_unmapped": true,
-      "is_multi_location": false,
-      "city": "海特洛市",
-      "district": "绘空町",
-      "has_main": false,
-      "has_compare": false,
-      "image_main": "pic/E000145_main.png",
-      "image_compare": "pic/E000145_compare.png"
-    },
-    {
-      "id": "E000146",
-      "name": "M1000车顶沙发改装",
-      "source_id": "S000123",
-      "source_name": "憨豆先生",
-      "type": "载具",
-      "remark": "",
-      "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
-      "is_unmapped": true,
-      "is_multi_location": false,
-      "city": "海特洛市",
-      "district": "桥间地",
-      "has_main": false,
-      "has_compare": false,
-      "image_main": "pic/E000146_main.png",
-      "image_compare": "pic/E000146_compare.png"
     },
     {
       "id": "E000148",
