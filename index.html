@@ -71,7 +71,7 @@
     <div id="ui-layer" class="flex justify-between items-stretch">
         
         <div class="relative flex-1">
-            <!-- 1. 左上角设置按钮 (已从右下角移动，解决遮挡问题) -->
+            <!-- 1. 左上角设置按钮  -->
             <div class="absolute top-6 left-6 pointer-events-auto z-50">
                 <div class="relative">
                     <button onclick="toggleSettings()" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="地图设置">
@@ -90,7 +90,7 @@
                         <label class="flex items-center justify-between cursor-pointer mb-4 group">
                             <span class="text-sm text-gray-200 group-hover:text-white">合并点位 (集群)</span>
                             <div class="relative flex items-center">
-                                <input type="checkbox" id="toggle-cluster" class="peer sr-only" checked onchange="toggleClustering(this.checked)">
+                                <input type="checkbox" id="toggle-cluster" class="peer sr-only" onchange="toggleClustering(this.checked)">
                                 <div class="w-10 h-6 bg-gray-600 rounded-full peer-checked:bg-blue-600 transition-colors duration-300"></div>
                                 <div class="absolute left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 transform peer-checked:translate-x-4"></div>
                             </div>
@@ -119,14 +119,14 @@
 
             <!-- 左下角按钮组 -->
             <div class="absolute bottom-6 left-6 flex flex-col gap-4 pointer-events-auto z-50">
-                <button onclick="openSidebar('CITIES')" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="筛选城市">
-                    <i data-lucide="map" class="text-blue-400 group-hover:text-blue-300"></i>
-                </button>
                 <button onclick="openSidebar('SOURCES')" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="出处列表">
                     <i data-lucide="list-video" class="text-green-400 group-hover:text-green-300"></i>
                 </button>
-                <button onclick="openSidebar('UNMAPPED')" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="不在地图的彩蛋">
-                    <i data-lucide="eye-off" class="text-purple-400 group-hover:text-purple-300"></i>
+                <button onclick="openSidebar('UNMAPPED')" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="非地图彩蛋">
+                    <i data-lucide="map-pin-x" class="text-purple-400 group-hover:text-purple-300"></i>
+                </button>
+                <button onclick="openSidebar('CITIES')" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="区域筛选">
+                    <i data-lucide="map" class="text-blue-400 group-hover:text-blue-300"></i>
                 </button>
             </div>
         </div>
@@ -283,7 +283,7 @@
             const popupHtml = `
                 <div class="text-center min-w-[140px]">
                     <div class="text-xs font-bold mb-0.5 truncate w-36 text-gray-200" title="${firstEgg.name}">${firstEgg.name}</div>
-                    <div class="text-[10px] text-yellow-500 mb-1.5 truncate w-36" title="${firstEgg.source_name}">出自: ${firstEgg.source_name}</div>
+                    <div class="text-[12px] text-yellow-500 mb-1.5 truncate w-36" title="${firstEgg.source_name}">出自: ${firstEgg.source_name}</div>
                     ${popupImgHtml}
                     ${othersText}
                 </div>
@@ -386,7 +386,7 @@
                     <h2 class="text-lg font-bold text-white">城市与区域</h2>
                     <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
                 `;
-                let cityHtml = `<button onclick="filterByRegion(null)" class="w-full text-left p-3 bg-red-900/50 hover:bg-red-800/80 text-red-200 rounded-lg mb-4 text-sm font-bold flex justify-center items-center gap-2 transition shrink-0"><i data-lucide="map-pin-off" class="w-4 h-4"></i> 清除区域筛选</button>`;
+                let cityHtml = `<button onclick="filterByRegion(null)" class="w-full text-left p-3 bg-red-900/50 hover:bg-red-800/80 text-red-200 rounded-lg mb-4 text-sm font-bold flex justify-center items-center gap-2 transition shrink-0"><i data-lucide="eraser" class="w-4 h-4"></i> 清除区域筛选</button>`;
                 
                 for (const [city, districts] of Object.entries(cityDistrictsMap)) {
                     cityHtml += `
@@ -411,7 +411,7 @@
 
             case 'SOURCES':
                 header.innerHTML = `
-                    <h2 class="text-lg font-bold text-white">原出处作品</h2>
+                    <h2 class="text-lg font-bold text-white">原出处总表</h2>
                     <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
                 `;
                 content.innerHTML = `
@@ -425,7 +425,7 @@
 
             case 'UNMAPPED':
                 header.innerHTML = `
-                    <h2 class="text-lg font-bold text-white">不在地图的彩蛋</h2>
+                    <h2 class="text-lg font-bold text-white">非地图彩蛋</h2>
                     <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
                 `;
                 content.innerHTML = `
@@ -468,7 +468,7 @@
             <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 shadow-sm shrink-0">
                 <div class="p-3 cursor-pointer hover:bg-gray-700 flex justify-between items-center group" ${clickAction}>
                     <div class="flex items-center gap-2 flex-1 overflow-hidden">
-                        ${unmappedTag}
+                        ${isUnmapped}
                         ${multiTag}
                         <span class="bg-blue-900 text-blue-300 text-xs px-2 py-0.5 rounded shrink-0">${egg.type || '未知'}</span>
                         <h3 class="font-bold text-sm text-gray-200 truncate group-hover:text-white transition" title="${egg.name}">${egg.name}</h3>
