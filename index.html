@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>异环 NTE - 圣地巡礼地图</title>
+    <title>异环 NTE - 彩蛋地图</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -79,7 +79,12 @@
                     </button>
                     <!-- 设置菜单 -->
                     <div id="settings-menu" class="hidden absolute top-full left-0 mt-3 bg-gray-800 border border-gray-700 rounded-lg p-4 shadow-xl w-56">
-                        <h3 class="text-sm font-semibold text-gray-400 mb-4 uppercase">地图设置</h3>
+                        <h3 class="text-sm font-semibold text-gray-400 mb-4 uppercase flex justify-between items-center">
+                            地图设置
+                            <a href="https://github.com/TtbqSora/NTE_Surprise" target="_blank" class="text-blue-400 hover:text-blue-300 flex items-center gap-1" title="访问 GitHub 仓库">
+                                <i data-lucide="github" class="w-4 h-4"></i>
+                            </a>
+                        </h3>
                         
                         <!-- 2. 修复后的拨动开关 (使用 Tailwind Peer 特性) -->
                         <label class="flex items-center justify-between cursor-pointer mb-4 group">
@@ -119,6 +124,9 @@
                 </button>
                 <button onclick="openSidebar('SOURCES')" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="出处列表">
                     <i data-lucide="list-video" class="text-green-400 group-hover:text-green-300"></i>
+                </button>
+                <button onclick="openSidebar('UNMAPPED')" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="不在地图的彩蛋">
+                    <i data-lucide="eye-off" class="text-purple-400 group-hover:text-purple-300"></i>
                 </button>
             </div>
         </div>
@@ -239,6 +247,10 @@
         .then(response => response.json())
         .then(data => {
             db = data;
+            
+            // 按拼音/首字母顺序排序源出处
+            db.sources.sort((a, b) => a.name.localeCompare(b.name, 'zh-CN'));
+            
             buildIndexes(); 
             renderMarkers(); 
         })
@@ -261,17 +273,22 @@
             // 3. 为标记点绑定弹窗 (Popup)，显示游戏内截图
             const firstEgg = loc.eggs[0];
             const othersText = loc.eggs.length > 1 ? `<div class="text-[10px] text-gray-400 mt-1">及另外 ${loc.eggs.length - 1} 个彩蛋</div>` : '';
+            
+            // 构建弹窗内的图片展示 (根据真实图片判定)
+            let popupImgHtml = '';
+            if (firstEgg.has_main) {
+                popupImgHtml = `<img src="${firstEgg.image_main}" class="w-full h-24 object-cover rounded border border-gray-600 mb-1" alt="游戏内截图">`;
+            }
+
             const popupHtml = `
-                <div class="text-center min-w-[120px]">
-                    <div class="text-xs font-bold mb-1.5 truncate w-32 text-gray-200" title="${firstEgg.name}">${firstEgg.name}</div>
-                    <div class="w-full h-20 bg-gray-700 flex flex-col items-center justify-center rounded border border-gray-600 overflow-hidden">
-                        <span class="text-gray-400 text-[10px]">游戏内截图</span>
-                        <span class="text-gray-500 text-[10px]">(待补充)</span>
-                    </div>
+                <div class="text-center min-w-[140px]">
+                    <div class="text-xs font-bold mb-0.5 truncate w-36 text-gray-200" title="${firstEgg.name}">${firstEgg.name}</div>
+                    <div class="text-[10px] text-yellow-500 mb-1.5 truncate w-36" title="${firstEgg.source_name}">出自: ${firstEgg.source_name}</div>
+                    ${popupImgHtml}
                     ${othersText}
                 </div>
             `;
-            marker.bindPopup(popupHtml, { offset: [0, -10], closeButton: false, minWidth: 120 });
+            marker.bindPopup(popupHtml, { offset: [0, -10], closeButton: false, minWidth: 140 });
 
             marker.locationData = loc;
             
@@ -406,6 +423,20 @@
                 filterSources(""); 
                 break;
 
+            case 'UNMAPPED':
+                header.innerHTML = `
+                    <h2 class="text-lg font-bold text-white">不在地图的彩蛋</h2>
+                    <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
+                `;
+                content.innerHTML = `
+                    <div class="sticky top-0 bg-gray-900/95 pb-2 z-10 shrink-0">
+                        <input type="text" id="unmapped-search" placeholder="搜索彩蛋名称..." oninput="filterUnmapped(this.value)" class="w-full bg-gray-800 border border-gray-700 text-sm text-white rounded p-2 focus:outline-none focus:border-purple-500">
+                    </div>
+                    <div id="unmapped-list-container" class="flex flex-col gap-2 pb-4"></div>
+                `;
+                filterUnmapped("");
+                break;
+
             case 'SOURCE_DETAIL':
                 const source = db.sources.find(s => s.id === payload);
                 const eggs = sourceEggsMap[source.id] || [];
@@ -453,22 +484,39 @@
                     </div>
                     <p class="text-xs text-gray-400 mb-3">${egg.remark || '暂无备注说明'}</p>
                     
-                    <div class="grid grid-cols-2 gap-2">
-                        <div class="img-placeholder text-xs flex-col text-center p-2 relative group overflow-hidden">
-                            <span class="text-gray-400 mb-1 z-10">游戏内截图</span>
-                            <span class="text-gray-600 z-10">(暂无)</span>
-                            <!-- 以后有图后解开注释即可 <img src="${egg.image_main}" class="absolute inset-0 w-full h-full object-cover"> -->
-                        </div>
-                        <div class="img-placeholder text-xs flex-col text-center p-2 relative group overflow-hidden">
-                            <span class="text-gray-400 mb-1 z-10">出处对比图</span>
-                            <span class="text-gray-600 z-10">(暂无)</span>
-                            <!-- 以后有图后解开注释即可 <img src="${egg.image_compare}" class="absolute inset-0 w-full h-full object-cover"> -->
-                        </div>
-                    </div>
+                    ${generateEggImagesHTML(egg)}
 
                 </div>
             </div>`;
         }).join('');
+    }
+
+    // 动态生成图片 HTML 块
+    function generateEggImagesHTML(egg) {
+        if (!egg.has_main && !egg.has_compare) {
+            return ''; // 都没有真实图片时不显示任何框架
+        }
+        
+        let cols = (egg.has_main && egg.has_compare) ? 'grid-cols-2' : 'grid-cols-1';
+        let html = `<div class="grid ${cols} gap-2 mt-2">`;
+        
+        if (egg.has_main) {
+            html += `
+                <div class="relative group overflow-hidden rounded border border-gray-600 bg-black">
+                    <img src="${egg.image_main}" class="w-full h-auto max-h-32 object-contain" alt="游戏内截图">
+                    <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-center text-[10px] py-1 text-gray-300">游戏内截图</div>
+                </div>`;
+        }
+        if (egg.has_compare) {
+            html += `
+                <div class="relative group overflow-hidden rounded border border-gray-600 bg-black">
+                    <img src="${egg.image_compare}" class="w-full h-auto max-h-32 object-contain" alt="出处对比图">
+                    <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-center text-[10px] py-1 text-gray-300">出处对比图</div>
+                </div>`;
+        }
+        
+        html += `</div>`;
+        return html;
     }
 
     function handleSourceEggClick(eggId) {
@@ -528,6 +576,17 @@
         container.innerHTML = html || `<div class="text-center text-gray-500 text-sm mt-4">未找到结果</div>`;
     }
 
+    function filterUnmapped(keyword) {
+        const container = document.getElementById('unmapped-list-container');
+        if(!container) return;
+        
+        const lowerKw = keyword.toLowerCase();
+        const filteredEggs = db.unmapped.filter(egg => egg.name.toLowerCase().includes(lowerKw) || egg.source_name.toLowerCase().includes(lowerKw));
+        
+        container.innerHTML = generateEggListHTML(filteredEggs, false); // false表示点击在原位展开
+        lucide.createIcons();
+    }
+
     // ---------------- 设置与工具 ---------------- //
     function toggleSettings() {
         document.getElementById('settings-menu').classList.toggle('hidden');
@@ -564,9 +623,9 @@
         const x = Math.round(e.latlng.lng);
         const y = Math.round(e.latlng.lat);
         markingPopup.setLatLng(e.latlng).setContent(`
-            <div class="text-center font-mono">
-                <div class="font-bold text-gray-800 mb-1">目标坐标</div>
-                <div class="bg-gray-100 p-2 rounded text-sm select-all">"x": ${x}, "y": ${y}</div>
+            <div class="text-center font-mono text-gray-900">
+                <div class="font-bold text-gray-900 mb-1">目标坐标</div>
+                <div class="bg-gray-200 p-2 rounded text-sm select-all border border-gray-300">"x": ${x}, "y": ${y}</div>
             </div>
         `).openOn(map);
     }
