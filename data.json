@@ -82,8 +82,8 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
-          "has_compare": false,
+          "has_main": true,
+          "has_compare": true,
           "image_main": "pic/E000004_main.png",
           "image_compare": "pic/E000004_compare.png",
           "location_id": "L000002"
