@@ -2,6 +2,69 @@
   "locations": [
     {
       "id": "L000001",
+      "x": 3971,
+      "y": 3835,
+      "city": "海特洛市",
+      "district": "桥间地",
+      "eggs": [
+        {
+          "id": "E000001",
+          "name": "娜娜莉人设",
+          "source_id": "S000001",
+          "source_name": "家庭教师",
+          "type": "角色",
+          "remark": "",
+          "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "桥间地",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000001_main.png",
+          "image_compare": "pic/E000001_compare.png",
+          "location_id": "L000001"
+        },
+        {
+          "id": "E000002",
+          "name": "娜娜莉人设——尼尼历险记",
+          "source_id": "S000002",
+          "source_name": "成龙历险记",
+          "type": "角色",
+          "remark": "",
+          "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "桥间地",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000002_main.png",
+          "image_compare": "pic/E000002_compare.png",
+          "location_id": "L000001"
+        },
+        {
+          "id": "E000003",
+          "name": "娜娜莉/哈尼娅人设",
+          "source_id": "S000003",
+          "source_name": "某科学的超电磁炮",
+          "type": "角色",
+          "remark": "",
+          "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "桥间地",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000003_main.png",
+          "image_compare": "pic/E000003_compare.png",
+          "location_id": "L000001"
+        }
+      ]
+    },
+    {
+      "id": "L000002",
       "x": 5297,
       "y": 6421,
       "city": "海特洛市",
@@ -16,16 +79,19 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000004_main.jpg",
-          "image_compare": "images/E000004_compare.jpg",
-          "location_id": "L000001"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000004_main.png",
+          "image_compare": "pic/E000004_compare.png",
+          "location_id": "L000002"
         }
       ]
     },
     {
-      "id": "L000002",
+      "id": "L000003",
       "x": 5391,
       "y": 6420,
       "city": "海特洛市",
@@ -40,16 +106,19 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000005_main.jpg",
-          "image_compare": "images/E000005_compare.jpg",
-          "location_id": "L000002"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000005_main.png",
+          "image_compare": "pic/E000005_compare.png",
+          "location_id": "L000003"
         }
       ]
     },
     {
-      "id": "L000003",
+      "id": "L000004",
       "x": 5460,
       "y": 6422,
       "city": "海特洛市",
@@ -64,16 +133,19 @@
           "remark": "门口紫阳花（存疑）",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000006_main.jpg",
-          "image_compare": "images/E000006_compare.jpg",
-          "location_id": "L000003"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000006_main.png",
+          "image_compare": "pic/E000006_compare.png",
+          "location_id": "L000004"
         }
       ]
     },
     {
-      "id": "L000004",
+      "id": "L000005",
       "x": 5433,
       "y": 3801,
       "city": "海特洛市",
@@ -88,23 +160,26 @@
           "remark": "富士电视台大楼",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000007_main.jpg",
-          "image_compare": "images/E000007_compare.jpg",
-          "location_id": "L000004"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000007_main.png",
+          "image_compare": "pic/E000007_compare.png",
+          "location_id": "L000005"
         }
       ]
     },
     {
-      "id": "L000005",
+      "id": "L000006",
       "x": 6403,
       "y": 4983,
       "city": "海特洛市",
-      "district": "米格尔区",
+      "district": "新赫兰德区",
       "eggs": [
         {
-          "id": "E000008",
+          "id": "E000011",
           "name": "名场景\n邂逅古河渚",
           "source_id": "S000008",
           "source_name": "CLANNAD",
@@ -112,23 +187,26 @@
           "remark": "名场景",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
-          "district": "米格尔区",
-          "image_main": "images/E000008_main.jpg",
-          "image_compare": "images/E000008_compare.jpg",
-          "location_id": "L000005"
+          "district": "新赫兰德区",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000011_main.png",
+          "image_compare": "pic/E000011_compare.png",
+          "location_id": "L000006"
         }
       ]
     },
     {
-      "id": "L000006",
+      "id": "L000007",
       "x": 5384,
       "y": 6909,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000009",
+          "id": "E000012",
           "name": "油菜花田",
           "source_id": "S000008",
           "source_name": "CLANNAD",
@@ -136,23 +214,26 @@
           "remark": "油菜花田",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000009_main.jpg",
-          "image_compare": "images/E000009_compare.jpg",
-          "location_id": "L000006"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000012_main.png",
+          "image_compare": "pic/E000012_compare.png",
+          "location_id": "L000007"
         }
       ]
     },
     {
-      "id": "L000007",
+      "id": "L000008",
       "x": 4991,
       "y": 6011,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000010",
+          "id": "E000015",
           "name": "楼上大幅海报",
           "source_id": "S000009",
           "source_name": "ET外星人",
@@ -160,23 +241,26 @@
           "remark": "月亮和人",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000010_main.jpg",
-          "image_compare": "images/E000010_compare.jpg",
-          "location_id": "L000007"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000015_main.png",
+          "image_compare": "pic/E000015_compare.png",
+          "location_id": "L000008"
         }
       ]
     },
     {
-      "id": "L000008",
+      "id": "L000009",
       "x": 6447,
       "y": 4870,
       "city": "海特洛市",
       "district": "新赫兰德区",
       "eggs": [
         {
-          "id": "E000011",
+          "id": "E000016",
           "name": "愿木坡附近",
           "source_id": "S000010",
           "source_name": "路人女主的养成方法",
@@ -184,23 +268,26 @@
           "remark": "愿木坡附近",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000011_main.jpg",
-          "image_compare": "images/E000011_compare.jpg",
-          "location_id": "L000008"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000016_main.png",
+          "image_compare": "pic/E000016_compare.png",
+          "location_id": "L000009"
         }
       ]
     },
     {
-      "id": "L000009",
+      "id": "L000010",
       "x": 3192,
       "y": 1972,
       "city": "海特洛市",
       "district": "未闻浦",
       "eggs": [
         {
-          "id": "E000012",
+          "id": "E000017",
           "name": "环海电车",
           "source_id": "S000011",
           "source_name": "千与千寻",
@@ -208,23 +295,26 @@
           "remark": "坐车找婆婆\nNPC会说看到黑影",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "未闻浦",
-          "image_main": "images/E000012_main.jpg",
-          "image_compare": "images/E000012_compare.jpg",
-          "location_id": "L000009"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000017_main.png",
+          "image_compare": "pic/E000017_compare.png",
+          "location_id": "L000010"
         }
       ]
     },
     {
-      "id": "L000010",
+      "id": "L000011",
       "x": 2938,
       "y": 1829,
       "city": "海特洛市",
       "district": "未闻浦",
       "eggs": [
         {
-          "id": "E000013",
+          "id": "E000018",
           "name": "环海电车站台\n湛望角站",
           "source_id": "S000012",
           "source_name": "通往夏天的隧道",
@@ -232,23 +322,26 @@
           "remark": "一端的向日葵",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "未闻浦",
-          "image_main": "images/E000013_main.jpg",
-          "image_compare": "images/E000013_compare.jpg",
-          "location_id": "L000010"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000018_main.png",
+          "image_compare": "pic/E000018_compare.png",
+          "location_id": "L000011"
         }
       ]
     },
     {
-      "id": "L000011",
+      "id": "L000012",
       "x": 4047,
       "y": 3425,
       "city": "海特洛市",
       "district": "桥间地",
       "eggs": [
         {
-          "id": "E000014",
+          "id": "E000019",
           "name": "台阶",
           "source_id": "S000013",
           "source_name": "你的名字",
@@ -256,23 +349,26 @@
           "remark": "经典台阶",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000014_main.jpg",
-          "image_compare": "images/E000014_compare.jpg",
-          "location_id": "L000011"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000019_main.png",
+          "image_compare": "pic/E000019_compare.png",
+          "location_id": "L000012"
         }
       ]
     },
     {
-      "id": "L000012",
+      "id": "L000013",
       "x": 5847,
       "y": 4620,
       "city": "海特洛市",
       "district": "新赫兰德区",
       "eggs": [
         {
-          "id": "E000015",
+          "id": "E000020",
           "name": "楼顶鲤鱼旗\n林檎大道上\n1535，121",
           "source_id": "S000014",
           "source_name": "天气之子",
@@ -280,23 +376,26 @@
           "remark": "雨天打了异象会放晴，成就",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000015_main.jpg",
-          "image_compare": "images/E000015_compare.jpg",
-          "location_id": "L000012"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000020_main.png",
+          "image_compare": "pic/E000020_compare.png",
+          "location_id": "L000013"
         }
       ]
     },
     {
-      "id": "L000013",
+      "id": "L000014",
       "x": 3210,
       "y": 4401,
       "city": "海特洛市",
       "district": "绘空町",
       "eggs": [
         {
-          "id": "E000016",
+          "id": "E000021",
           "name": "湖边小亭",
           "source_id": "S000015",
           "source_name": "言叶之庭",
@@ -304,23 +403,26 @@
           "remark": "雨天更好看",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000016_main.jpg",
-          "image_compare": "images/E000016_compare.jpg",
-          "location_id": "L000013"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000021_main.png",
+          "image_compare": "pic/E000021_compare.png",
+          "location_id": "L000014"
         }
       ]
     },
     {
-      "id": "L000014",
+      "id": "L000015",
       "x": 4184,
       "y": 3637,
       "city": "海特洛市",
       "district": "桥间地",
       "eggs": [
         {
-          "id": "E000017",
+          "id": "E000022",
           "name": "开场剧情后",
           "source_id": "S000016",
           "source_name": "灌篮高手",
@@ -328,23 +430,26 @@
           "remark": "铁道口，樱花会飘起来",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000017_main.jpg",
-          "image_compare": "images/E000017_compare.jpg",
-          "location_id": "L000014"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000022_main.png",
+          "image_compare": "pic/E000022_compare.png",
+          "location_id": "L000015"
         }
       ]
     },
     {
-      "id": "L000015",
+      "id": "L000016",
       "x": 3565,
       "y": 3288,
       "city": "海特洛市",
       "district": "桥间地",
       "eggs": [
         {
-          "id": "E000018",
+          "id": "E000023",
           "name": "篮球场的篮球",
           "source_id": "S000016",
           "source_name": "灌篮高手",
@@ -352,23 +457,26 @@
           "remark": "“教练，我想打篮球”",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000018_main.jpg",
-          "image_compare": "images/E000018_compare.jpg",
-          "location_id": "L000015"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000023_main.png",
+          "image_compare": "pic/E000023_compare.png",
+          "location_id": "L000016"
         }
       ]
     },
     {
-      "id": "L000016",
+      "id": "L000017",
       "x": 4532,
       "y": 7019,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000019",
+          "id": "E000024",
           "name": "米格尔区湖边",
           "source_id": "S000017",
           "source_name": "男子高中生的日常",
@@ -376,23 +484,26 @@
           "remark": "隔壁超市薯片半价/今天的风儿甚是喧嚣啊",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000019_main.jpg",
-          "image_compare": "images/E000019_compare.jpg",
-          "location_id": "L000016"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000024_main.png",
+          "image_compare": "pic/E000024_compare.png",
+          "location_id": "L000017"
         }
       ]
     },
     {
-      "id": "L000017",
+      "id": "L000018",
       "x": 2844,
       "y": 4869,
       "city": "海特洛市",
       "district": "绘空町",
       "eggs": [
         {
-          "id": "E000020",
+          "id": "E000025",
           "name": "学校奇闻部",
           "source_id": "S000018",
           "source_name": "中二病也要谈恋爱",
@@ -400,14 +511,17 @@
           "remark": "房间",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000020_main.jpg",
-          "image_compare": "images/E000020_compare.jpg",
-          "location_id": "L000017"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000025_main.png",
+          "image_compare": "pic/E000025_compare.png",
+          "location_id": "L000018"
         },
         {
-          "id": "E000021",
+          "id": "E000026",
           "name": "学校奇闻部",
           "source_id": "S000019",
           "source_name": "魔卡少女樱",
@@ -415,23 +529,26 @@
           "remark": "房间里的库洛魔法阵",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000021_main.jpg",
-          "image_compare": "images/E000021_compare.jpg",
-          "location_id": "L000017"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000026_main.png",
+          "image_compare": "pic/E000026_compare.png",
+          "location_id": "L000018"
         }
       ]
     },
     {
-      "id": "L000018",
+      "id": "L000019",
       "x": 5068,
       "y": 6753,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000022",
+          "id": "E000027",
           "name": "北角镇",
           "source_id": "S000019",
           "source_name": "魔卡少女樱",
@@ -439,23 +556,26 @@
           "remark": "企鹅滑梯",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000022_main.jpg",
-          "image_compare": "images/E000022_compare.jpg",
-          "location_id": "L000018"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000027_main.png",
+          "image_compare": "pic/E000027_compare.png",
+          "location_id": "L000019"
         }
       ]
     },
     {
-      "id": "L000019",
+      "id": "L000020",
       "x": 2816,
       "y": 4861,
       "city": "海特洛市",
       "district": "绘空町",
       "eggs": [
         {
-          "id": "E000023",
+          "id": "E000028",
           "name": "学校教室后窗",
           "source_id": "S000020",
           "source_name": "在下坂本，有何贵干",
@@ -463,23 +583,26 @@
           "remark": "逼王",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000023_main.jpg",
-          "image_compare": "images/E000023_compare.jpg",
-          "location_id": "L000019"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000028_main.png",
+          "image_compare": "pic/E000028_compare.png",
+          "location_id": "L000020"
         }
       ]
     },
     {
-      "id": "L000020",
+      "id": "L000021",
       "x": 3569,
       "y": 4093,
       "city": "海特洛市",
       "district": "桥间地",
       "eggs": [
         {
-          "id": "E000024",
+          "id": "E000029",
           "name": "月光当铺门口",
           "source_id": "S000021",
           "source_name": "萤火之森",
@@ -487,23 +610,26 @@
           "remark": "石板楼梯",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000024_main.jpg",
-          "image_compare": "images/E000024_compare.jpg",
-          "location_id": "L000020"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000029_main.png",
+          "image_compare": "pic/E000029_compare.png",
+          "location_id": "L000021"
         }
       ]
     },
     {
-      "id": "L000021",
+      "id": "L000022",
       "x": 4182,
       "y": 3657,
       "city": "海特洛市",
       "district": "桥间地",
       "eggs": [
         {
-          "id": "E000025",
+          "id": "E000030",
           "name": "照相店内",
           "source_id": "S000022",
           "source_name": "楚门的世界",
@@ -511,14 +637,17 @@
           "remark": "场景动作",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000025_main.jpg",
-          "image_compare": "images/E000025_compare.jpg",
-          "location_id": "L000021"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000030_main.png",
+          "image_compare": "pic/E000030_compare.png",
+          "location_id": "L000022"
         },
         {
-          "id": "E000027",
+          "id": "E000033",
           "name": "照相店内",
           "source_id": "S000024",
           "source_name": "塞尔达无双",
@@ -526,14 +655,17 @@
           "remark": "“不懂人心”Fate呆毛王",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000027_main.jpg",
-          "image_compare": "images/E000027_compare.jpg",
-          "location_id": "L000021"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000033_main.png",
+          "image_compare": "pic/E000033_compare.png",
+          "location_id": "L000022"
         },
         {
-          "id": "E000092",
+          "id": "E000112",
           "name": "照相馆剧情",
           "source_id": "S000086",
           "source_name": "JOJO",
@@ -541,14 +673,17 @@
           "remark": "JOJO立合照",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000092_main.jpg",
-          "image_compare": "images/E000092_compare.jpg",
-          "location_id": "L000021"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000112_main.png",
+          "image_compare": "pic/E000112_compare.png",
+          "location_id": "L000022"
         },
         {
-          "id": "E000094",
+          "id": "E000114",
           "name": "照相馆剧情",
           "source_id": "S000047",
           "source_name": "柯南",
@@ -556,23 +691,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000094_main.jpg",
-          "image_compare": "images/E000094_compare.jpg",
-          "location_id": "L000021"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000114_main.png",
+          "image_compare": "pic/E000114_compare.png",
+          "location_id": "L000022"
         }
       ]
     },
     {
-      "id": "L000022",
+      "id": "L000023",
       "x": 6549,
       "y": 6999,
       "city": "海特洛市",
-      "district": "桥间地",
+      "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000026",
+          "id": "E000032",
           "name": "蕾妮剧情",
           "source_id": "S000023",
           "source_name": "蕾妮剧情线",
@@ -580,23 +718,26 @@
           "remark": "台词动作",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
-          "district": "桥间地",
-          "image_main": "images/E000026_main.jpg",
-          "image_compare": "images/E000026_compare.jpg",
-          "location_id": "L000022"
+          "district": "米格尔区",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000032_main.png",
+          "image_compare": "pic/E000032_compare.png",
+          "location_id": "L000023"
         }
       ]
     },
     {
-      "id": "L000023",
+      "id": "L000024",
       "x": 4548,
       "y": 4304,
       "city": "海特洛市",
       "district": "桥间地",
       "eggs": [
         {
-          "id": "E000028",
+          "id": "E000034",
           "name": "鸢尾大桥",
           "source_id": "S000025",
           "source_name": "Fate",
@@ -604,23 +745,26 @@
           "remark": "冬木大桥（神户大桥）",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000028_main.jpg",
-          "image_compare": "images/E000028_compare.jpg",
-          "location_id": "L000023"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000034_main.png",
+          "image_compare": "pic/E000034_compare.png",
+          "location_id": "L000024"
         }
       ]
     },
     {
-      "id": "L000024",
+      "id": "L000025",
       "x": 5167,
       "y": 4635,
       "city": "海特洛市",
       "district": "新赫兰德区",
       "eggs": [
         {
-          "id": "E000029",
+          "id": "E000036",
           "name": "弧盘工坊旁边高架下",
           "source_id": "S000026",
           "source_name": "白色相簿",
@@ -628,23 +772,26 @@
           "remark": "你为什么会这么熟练啊！",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000029_main.jpg",
-          "image_compare": "images/E000029_compare.jpg",
-          "location_id": "L000024"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000036_main.png",
+          "image_compare": "pic/E000036_compare.png",
+          "location_id": "L000025"
         }
       ]
     },
     {
-      "id": "L000025",
+      "id": "L000026",
       "x": 2847,
       "y": 2493,
       "city": "海特洛市",
       "district": "未闻浦",
       "eggs": [
         {
-          "id": "E000030",
+          "id": "E000037",
           "name": "露营地",
           "source_id": "S000027",
           "source_name": "摇曳露营",
@@ -652,23 +799,26 @@
           "remark": "门口牌子，字体，帐篷",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "未闻浦",
-          "image_main": "images/E000030_main.jpg",
-          "image_compare": "images/E000030_compare.jpg",
-          "location_id": "L000025"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000037_main.png",
+          "image_compare": "pic/E000037_compare.png",
+          "location_id": "L000026"
         }
       ]
     },
     {
-      "id": "L000026",
+      "id": "L000027",
       "x": 2571,
       "y": 4650,
       "city": "海特洛市",
       "district": "绘空町",
       "eggs": [
         {
-          "id": "E000031",
+          "id": "E000038",
           "name": "绘空町\n玉饼街",
           "source_id": "S000028",
           "source_name": "玉子市场",
@@ -676,23 +826,26 @@
           "remark": "龙女仆也在这",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000031_main.jpg",
-          "image_compare": "images/E000031_compare.jpg",
-          "location_id": "L000026"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000038_main.png",
+          "image_compare": "pic/E000038_compare.png",
+          "location_id": "L000027"
         }
       ]
     },
     {
-      "id": "L000027",
+      "id": "L000028",
       "x": 4930,
       "y": 3596,
       "city": "海特洛市",
       "district": "新赫兰德区",
       "eggs": [
         {
-          "id": "E000032",
+          "id": "E000040",
           "name": "烤乌贼摊位",
           "source_id": "S000029",
           "source_name": "侵略乌贼娘",
@@ -700,23 +853,26 @@
           "remark": "烤乌贼摊位",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000032_main.jpg",
-          "image_compare": "images/E000032_compare.jpg",
-          "location_id": "L000027"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000040_main.png",
+          "image_compare": "pic/E000040_compare.png",
+          "location_id": "L000028"
         }
       ]
     },
     {
-      "id": "L000028",
+      "id": "L000029",
       "x": 4957,
       "y": 3570,
       "city": "海特洛市",
       "district": "新赫兰德区",
       "eggs": [
         {
-          "id": "E000033",
+          "id": "E000041",
           "name": "碧蓝之家潜水用品/酒吧摊位",
           "source_id": "S000030",
           "source_name": "碧蓝之海",
@@ -724,23 +880,26 @@
           "remark": "可燃乌龙茶",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000033_main.jpg",
-          "image_compare": "images/E000033_compare.jpg",
-          "location_id": "L000028"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000041_main.png",
+          "image_compare": "pic/E000041_compare.png",
+          "location_id": "L000029"
         }
       ]
     },
     {
-      "id": "L000029",
+      "id": "L000030",
       "x": 5892,
       "y": 1523,
       "city": "海特洛市",
       "district": "M10区",
       "eggs": [
         {
-          "id": "E000034",
+          "id": "E000042",
           "name": "异象管理局扫地机器人",
           "source_id": "S000031",
           "source_name": "EVA",
@@ -748,23 +907,26 @@
           "remark": "扫地机器人",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "M10区",
-          "image_main": "images/E000034_main.jpg",
-          "image_compare": "images/E000034_compare.jpg",
-          "location_id": "L000029"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000042_main.png",
+          "image_compare": "pic/E000042_compare.png",
+          "location_id": "L000030"
         }
       ]
     },
     {
-      "id": "L000030",
+      "id": "L000031",
       "x": 6518,
       "y": 4123,
       "city": "海特洛市",
       "district": "新赫兰德区",
       "eggs": [
         {
-          "id": "E000035",
+          "id": "E000043",
           "name": "海囚",
           "source_id": "S000031",
           "source_name": "EVA",
@@ -772,23 +934,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000035_main.jpg",
-          "image_compare": "images/E000035_compare.jpg",
-          "location_id": "L000030"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000043_main.png",
+          "image_compare": "pic/E000043_compare.png",
+          "location_id": "L000031"
         }
       ]
     },
     {
-      "id": "L000031",
+      "id": "L000032",
       "x": 2644,
       "y": 2281,
       "city": "海特洛市",
       "district": "未闻浦",
       "eggs": [
         {
-          "id": "E000036",
+          "id": "E000045",
           "name": "无首铁驭",
           "source_id": "S000032",
           "source_name": "无头骑士异闻录",
@@ -796,23 +961,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "未闻浦",
-          "image_main": "images/E000036_main.jpg",
-          "image_compare": "images/E000036_compare.jpg",
-          "location_id": "L000031"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000045_main.png",
+          "image_compare": "pic/E000045_compare.png",
+          "location_id": "L000032"
         }
       ]
     },
     {
-      "id": "L000032",
+      "id": "L000033",
       "x": 5702,
       "y": 6006,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000037",
+          "id": "E000047",
           "name": "知识现研社",
           "source_id": "S000033",
           "source_name": "现视研",
@@ -820,23 +988,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000037_main.jpg",
-          "image_compare": "images/E000037_compare.jpg",
-          "location_id": "L000032"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000047_main.png",
+          "image_compare": "pic/E000047_compare.png",
+          "location_id": "L000033"
         }
       ]
     },
     {
-      "id": "L000033",
+      "id": "L000034",
       "x": 5682,
       "y": 6003,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000038",
+          "id": "E000048",
           "name": "坂本商店",
           "source_id": "S000034",
           "source_name": "坂本日常",
@@ -844,23 +1015,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000038_main.jpg",
-          "image_compare": "images/E000038_compare.jpg",
-          "location_id": "L000033"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000048_main.png",
+          "image_compare": "pic/E000048_compare.png",
+          "location_id": "L000034"
         }
       ]
     },
     {
-      "id": "L000034",
+      "id": "L000035",
       "x": 5670,
       "y": 6002,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000039",
+          "id": "E000049",
           "name": "爱天使婚纱",
           "source_id": "S000035",
           "source_name": "爱天使传说",
@@ -868,23 +1042,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000039_main.jpg",
-          "image_compare": "images/E000039_compare.jpg",
-          "location_id": "L000034"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000049_main.png",
+          "image_compare": "pic/E000049_compare.png",
+          "location_id": "L000035"
         }
       ]
     },
     {
-      "id": "L000035",
+      "id": "L000036",
       "x": 5652,
       "y": 6001,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000040",
+          "id": "E000050",
           "name": "贤狼香料铺",
           "source_id": "S000036",
           "source_name": "狼与香辛料",
@@ -892,23 +1069,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000040_main.jpg",
-          "image_compare": "images/E000040_compare.jpg",
-          "location_id": "L000035"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000050_main.png",
+          "image_compare": "pic/E000050_compare.png",
+          "location_id": "L000036"
         }
       ]
     },
     {
-      "id": "L000036",
+      "id": "L000037",
       "x": 5633,
       "y": 6000,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000041",
+          "id": "E000051",
           "name": "猫丸拉面",
           "source_id": "S000037",
           "source_name": "夏目友人帐",
@@ -916,23 +1096,26 @@
           "remark": "对话\n拉面赤猫",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000041_main.jpg",
-          "image_compare": "images/E000041_compare.jpg",
-          "location_id": "L000036"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000051_main.png",
+          "image_compare": "pic/E000051_compare.png",
+          "location_id": "L000037"
         }
       ]
     },
     {
-      "id": "L000037",
+      "id": "L000038",
       "x": 5707,
       "y": 6122,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000042",
+          "id": "E000052",
           "name": "迷糊茶餐厅",
           "source_id": "S000038",
           "source_name": "迷糊餐厅",
@@ -940,14 +1123,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000042_main.jpg",
-          "image_compare": "images/E000042_compare.jpg",
-          "location_id": "L000037"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000052_main.png",
+          "image_compare": "pic/E000052_compare.png",
+          "location_id": "L000038"
         },
         {
-          "id": "E000058",
+          "id": "E000068",
           "name": "夜雀饭堂",
           "source_id": "S000054",
           "source_name": "东方夜雀食堂",
@@ -955,14 +1141,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000058_main.jpg",
-          "image_compare": "images/E000058_compare.jpg",
-          "location_id": "L000037"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000068_main.png",
+          "image_compare": "pic/E000068_compare.png",
+          "location_id": "L000038"
         },
         {
-          "id": "E000069",
+          "id": "E000082",
           "name": "悠哉叉烧造就最强叉烧",
           "source_id": "S000065",
           "source_name": "平凡职业成就世界最强",
@@ -970,23 +1159,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000069_main.jpg",
-          "image_compare": "images/E000069_compare.jpg",
-          "location_id": "L000037"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000082_main.png",
+          "image_compare": "pic/E000082_compare.png",
+          "location_id": "L000038"
         }
       ]
     },
     {
-      "id": "L000038",
+      "id": "L000039",
       "x": 5411,
       "y": 5947,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000043",
+          "id": "E000053",
           "name": "菊上楼",
           "source_id": "S000039",
           "source_name": "中华一番",
@@ -994,23 +1186,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000043_main.jpg",
-          "image_compare": "images/E000043_compare.jpg",
-          "location_id": "L000038"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000053_main.png",
+          "image_compare": "pic/E000053_compare.png",
+          "location_id": "L000039"
         }
       ]
     },
     {
-      "id": "L000039",
+      "id": "L000040",
       "x": 5291,
       "y": 6115,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000044",
+          "id": "E000054",
           "name": "哒铛铛",
           "source_id": "S000040",
           "source_name": "胆大党",
@@ -1018,14 +1213,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000044_main.jpg",
-          "image_compare": "images/E000044_compare.jpg",
-          "location_id": "L000039"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000054_main.png",
+          "image_compare": "pic/E000054_compare.png",
+          "location_id": "L000040"
         },
         {
-          "id": "E000053",
+          "id": "E000063",
           "name": "2.5服装定制",
           "source_id": "S000049",
           "source_name": "2.5次元的诱惑",
@@ -1033,23 +1231,26 @@
           "remark": "原作标题字体配色",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000053_main.jpg",
-          "image_compare": "images/E000053_compare.jpg",
-          "location_id": "L000039"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000063_main.png",
+          "image_compare": "pic/E000063_compare.png",
+          "location_id": "L000040"
         }
       ]
     },
     {
-      "id": "L000040",
+      "id": "L000041",
       "x": 5080,
       "y": 6002,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000045",
+          "id": "E000055",
           "name": "向阳画室",
           "source_id": "S000041",
           "source_name": "向阳素描",
@@ -1057,14 +1258,17 @@
           "remark": "芳文社变致郁",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000045_main.jpg",
-          "image_compare": "images/E000045_compare.jpg",
-          "location_id": "L000040"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000055_main.png",
+          "image_compare": "pic/E000055_compare.png",
+          "location_id": "L000041"
         },
         {
-          "id": "E000046",
+          "id": "E000056",
           "name": "豆腐不绝唱",
           "source_id": "S000042",
           "source_name": "战姬绝唱",
@@ -1072,14 +1276,17 @@
           "remark": "番外小剧场战姬不绝唱",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000046_main.jpg",
-          "image_compare": "images/E000046_compare.jpg",
-          "location_id": "L000040"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000056_main.png",
+          "image_compare": "pic/E000056_compare.png",
+          "location_id": "L000041"
         },
         {
-          "id": "E000074",
+          "id": "E000087",
           "name": "King太阳面包王",
           "source_id": "S000070",
           "source_name": "日式面包王",
@@ -1087,23 +1294,26 @@
           "remark": "主角的手被称为魔法之手“太阳之手”",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000074_main.jpg",
-          "image_compare": "images/E000074_compare.jpg",
-          "location_id": "L000040"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000087_main.png",
+          "image_compare": "pic/E000087_compare.png",
+          "location_id": "L000041"
         }
       ]
     },
     {
-      "id": "L000041",
+      "id": "L000042",
       "x": 4931,
       "y": 6032,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000047",
+          "id": "E000057",
           "name": "附近桥上NPC",
           "source_id": "S000043",
           "source_name": "命运石之门",
@@ -1111,23 +1321,26 @@
           "remark": "姿势",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000047_main.jpg",
-          "image_compare": "images/E000047_compare.jpg",
-          "location_id": "L000041"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000057_main.png",
+          "image_compare": "pic/E000057_compare.png",
+          "location_id": "L000042"
         }
       ]
     },
     {
-      "id": "L000042",
+      "id": "L000043",
       "x": 5727,
       "y": 6116,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000048",
+          "id": "E000058",
           "name": "串串1族",
           "source_id": "S000044",
           "source_name": "MM一族",
@@ -1135,14 +1348,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000048_main.jpg",
-          "image_compare": "images/E000048_compare.jpg",
-          "location_id": "L000042"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000058_main.png",
+          "image_compare": "pic/E000058_compare.png",
+          "location_id": "L000043"
         },
         {
-          "id": "E000059",
+          "id": "E000069",
           "name": "黑杰克诊所",
           "source_id": "S000055",
           "source_name": "怪医黑杰克",
@@ -1150,14 +1366,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000059_main.jpg",
-          "image_compare": "images/E000059_compare.jpg",
-          "location_id": "L000042"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000069_main.png",
+          "image_compare": "pic/E000069_compare.png",
+          "location_id": "L000043"
         },
         {
-          "id": "E000060",
+          "id": "E000070",
           "name": "金毛球乌冬面",
           "source_id": "S000056",
           "source_name": "乌冬面之国的金色毛贼",
@@ -1165,14 +1384,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000060_main.jpg",
-          "image_compare": "images/E000060_compare.jpg",
-          "location_id": "L000042"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000070_main.png",
+          "image_compare": "pic/E000070_compare.png",
+          "location_id": "L000043"
         },
         {
-          "id": "E000061",
+          "id": "E000071",
           "name": "老爹妙厨",
           "source_id": "S000057",
           "source_name": "妙厨老爹",
@@ -1180,23 +1402,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000061_main.jpg",
-          "image_compare": "images/E000061_compare.jpg",
-          "location_id": "L000042"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000071_main.png",
+          "image_compare": "pic/E000071_compare.png",
+          "location_id": "L000043"
         }
       ]
     },
     {
-      "id": "L000043",
+      "id": "L000044",
       "x": 5059,
       "y": 6118,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000049",
+          "id": "E000059",
           "name": "轻唱",
           "source_id": "S000045",
           "source_name": "恋语轻唱",
@@ -1204,23 +1429,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000049_main.jpg",
-          "image_compare": "images/E000049_compare.jpg",
-          "location_id": "L000043"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000059_main.png",
+          "image_compare": "pic/E000059_compare.png",
+          "location_id": "L000044"
         }
       ]
     },
     {
-      "id": "L000044",
+      "id": "L000045",
       "x": 5648,
       "y": 6118,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000050",
+          "id": "E000060",
           "name": "炎爆奥义鱿鱼串",
           "source_id": "S000046",
           "source_name": "素晴",
@@ -1228,23 +1456,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000050_main.jpg",
-          "image_compare": "images/E000050_compare.jpg",
-          "location_id": "L000044"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000060_main.png",
+          "image_compare": "pic/E000060_compare.png",
+          "location_id": "L000045"
         }
       ]
     },
     {
-      "id": "L000045",
+      "id": "L000046",
       "x": 5083,
       "y": 6121,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000051",
+          "id": "E000061",
           "name": "爆米花事务所",
           "source_id": "S000047",
           "source_name": "柯南",
@@ -1252,23 +1483,26 @@
           "remark": "米花事务所",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000051_main.jpg",
-          "image_compare": "images/E000051_compare.jpg",
-          "location_id": "L000045"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000061_main.png",
+          "image_compare": "pic/E000061_compare.png",
+          "location_id": "L000046"
         }
       ]
     },
     {
-      "id": "L000046",
+      "id": "L000047",
       "x": 5274,
       "y": 6125,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000052",
+          "id": "E000062",
           "name": "蜂蜜胡萝卜",
           "source_id": "S000048",
           "source_name": "赛马娘",
@@ -1276,23 +1510,26 @@
           "remark": "哈基米",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000052_main.jpg",
-          "image_compare": "images/E000052_compare.jpg",
-          "location_id": "L000046"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000062_main.png",
+          "image_compare": "pic/E000062_compare.png",
+          "location_id": "L000047"
         }
       ]
     },
     {
-      "id": "L000047",
+      "id": "L000048",
       "x": 5705,
       "y": 6216,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000054",
+          "id": "E000064",
           "name": "极鲜煮道",
           "source_id": "S000050",
           "source_name": "极道煮夫",
@@ -1300,23 +1537,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000054_main.jpg",
-          "image_compare": "images/E000054_compare.jpg",
-          "location_id": "L000047"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000064_main.png",
+          "image_compare": "pic/E000064_compare.png",
+          "location_id": "L000048"
         }
       ]
     },
     {
-      "id": "L000048",
+      "id": "L000049",
       "x": 5307,
       "y": 6115,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000055",
+          "id": "E000065",
           "name": "番茄100%",
           "source_id": "S000051",
           "source_name": "草莓100%",
@@ -1324,23 +1564,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000055_main.jpg",
-          "image_compare": "images/E000055_compare.jpg",
-          "location_id": "L000048"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000065_main.png",
+          "image_compare": "pic/E000065_compare.png",
+          "location_id": "L000049"
         }
       ]
     },
     {
-      "id": "L000049",
+      "id": "L000050",
       "x": 3633,
       "y": 5480,
       "city": "海特洛市",
-      "district": "米格尔区",
+      "district": "绘空町",
       "eggs": [
         {
-          "id": "E000056",
+          "id": "E000066",
           "name": "尼南药房",
           "source_id": "S000052",
           "source_name": "药物少女的呢喃",
@@ -1348,23 +1591,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
-          "district": "米格尔区",
-          "image_main": "images/E000056_main.jpg",
-          "image_compare": "images/E000056_compare.jpg",
-          "location_id": "L000049"
+          "district": "绘空町",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000066_main.png",
+          "image_compare": "pic/E000066_compare.png",
+          "location_id": "L000050"
         }
       ]
     },
     {
-      "id": "L000050",
+      "id": "L000051",
       "x": 5737,
       "y": 6140,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000057",
+          "id": "E000067",
           "name": "温利机械维修",
           "source_id": "S000053",
           "source_name": "钢之炼金术师",
@@ -1372,23 +1618,26 @@
           "remark": "女主角名字",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000057_main.jpg",
-          "image_compare": "images/E000057_compare.jpg",
-          "location_id": "L000050"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000067_main.png",
+          "image_compare": "pic/E000067_compare.png",
+          "location_id": "L000051"
         }
       ]
     },
     {
-      "id": "L000051",
+      "id": "L000052",
       "x": 5739,
       "y": 5889,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000062",
+          "id": "E000072",
           "name": "新八眼镜",
           "source_id": "S000058",
           "source_name": "银魂",
@@ -1396,14 +1645,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000062_main.jpg",
-          "image_compare": "images/E000062_compare.jpg",
-          "location_id": "L000051"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000072_main.png",
+          "image_compare": "pic/E000072_compare.png",
+          "location_id": "L000052"
         },
         {
-          "id": "E000063",
+          "id": "E000073",
           "name": "打工吧~爱",
           "source_id": "S000059",
           "source_name": "打工吧！魔王大人",
@@ -1411,23 +1663,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000063_main.jpg",
-          "image_compare": "images/E000063_compare.jpg",
-          "location_id": "L000051"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000073_main.png",
+          "image_compare": "pic/E000073_compare.png",
+          "location_id": "L000052"
         }
       ]
     },
     {
-      "id": "L000052",
+      "id": "L000053",
       "x": 3509,
       "y": 5461,
       "city": "海特洛市",
-      "district": "米格尔区",
+      "district": "绘空町",
       "eggs": [
         {
-          "id": "E000064",
+          "id": "E000074",
           "name": "雾雨炸货铺",
           "source_id": "S000060",
           "source_name": "东方project",
@@ -1435,23 +1690,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
-          "district": "米格尔区",
-          "image_main": "images/E000064_main.jpg",
-          "image_compare": "images/E000064_compare.jpg",
-          "location_id": "L000052"
+          "district": "绘空町",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000074_main.png",
+          "image_compare": "pic/E000074_compare.png",
+          "location_id": "L000053"
         }
       ]
     },
     {
-      "id": "L000053",
+      "id": "L000054",
       "x": 3447,
       "y": 5552,
       "city": "海特洛市",
-      "district": "米格尔区",
+      "district": "绘空町",
       "eggs": [
         {
-          "id": "E000065",
+          "id": "E000075",
           "name": "No.9算数教室",
           "source_id": "S000061",
           "source_name": "东方project/琪露诺的算数教室",
@@ -1459,23 +1717,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
-          "district": "米格尔区",
-          "image_main": "images/E000065_main.jpg",
-          "image_compare": "images/E000065_compare.jpg",
-          "location_id": "L000053"
+          "district": "绘空町",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000075_main.png",
+          "image_compare": "pic/E000075_compare.png",
+          "location_id": "L000054"
         }
       ]
     },
     {
-      "id": "L000054",
+      "id": "L000055",
       "x": 5392,
       "y": 6007,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000066",
+          "id": "E000077",
           "name": "重度依赖",
           "source_id": "S000062",
           "source_name": "主播女孩重度依赖",
@@ -1483,23 +1744,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000066_main.jpg",
-          "image_compare": "images/E000066_compare.jpg",
-          "location_id": "L000054"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000077_main.png",
+          "image_compare": "pic/E000077_compare.png",
+          "location_id": "L000055"
         }
       ]
     },
     {
-      "id": "L000055",
+      "id": "L000056",
       "x": 5030,
       "y": 6005,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000067",
+          "id": "E000078",
           "name": "恋雨coffee",
           "source_id": "S000063",
           "source_name": "恋如雨止",
@@ -1507,14 +1771,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000067_main.jpg",
-          "image_compare": "images/E000067_compare.jpg",
-          "location_id": "L000055"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000078_main.png",
+          "image_compare": "pic/E000078_compare.png",
+          "location_id": "L000056"
         },
         {
-          "id": "E000079",
+          "id": "E000094",
           "name": "KAERU一号机",
           "source_id": "S000075",
           "source_name": "Keroro军曹",
@@ -1522,23 +1789,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000079_main.jpg",
-          "image_compare": "images/E000079_compare.jpg",
-          "location_id": "L000055"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000094_main.png",
+          "image_compare": "pic/E000094_compare.png",
+          "location_id": "L000056"
         }
       ]
     },
     {
-      "id": "L000056",
+      "id": "L000057",
       "x": 3464,
       "y": 5502,
       "city": "海特洛市",
-      "district": "米格尔区",
+      "district": "绘空町",
       "eggs": [
         {
-          "id": "E000068",
+          "id": "E000079",
           "name": "这个串烧店大有问题",
           "source_id": "S000064",
           "source_name": "这个美术社大有问题",
@@ -1546,23 +1816,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
-          "district": "米格尔区",
-          "image_main": "images/E000068_main.jpg",
-          "image_compare": "images/E000068_compare.jpg",
-          "location_id": "L000056"
+          "district": "绘空町",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000079_main.png",
+          "image_compare": "pic/E000079_compare.png",
+          "location_id": "L000057"
         }
       ]
     },
     {
-      "id": "L000057",
+      "id": "L000058",
       "x": 5543,
       "y": 6016,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000070",
+          "id": "E000083",
           "name": "回转雪乐罐",
           "source_id": "S000066",
           "source_name": "回转企鹅罐",
@@ -1570,34 +1843,13 @@
           "remark": "邪教\n沙林毒气 冷门神番",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000070_main.jpg",
-          "image_compare": "images/E000070_compare.jpg",
-          "location_id": "L000057"
-        }
-      ]
-    },
-    {
-      "id": "L000058",
-      "x": 5032,
-      "y": 5979,
-      "city": "海特洛市",
-      "district": "米格尔区",
-      "eggs": [
-        {
-          "id": "E000071",
-          "name": "闪乱厨房",
-          "source_id": "S000067",
-          "source_name": "闪乱神乐",
-          "type": "场景广告牌",
-          "remark": "",
-          "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
-          "is_unmapped": false,
-          "city": "海特洛市",
-          "district": "米格尔区",
-          "image_main": "images/E000071_main.jpg",
-          "image_compare": "images/E000071_compare.jpg",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000083_main.png",
+          "image_compare": "pic/E000083_compare.png",
           "location_id": "L000058"
         }
       ]
@@ -1605,12 +1857,39 @@
     {
       "id": "L000059",
       "x": 5032,
+      "y": 5979,
+      "city": "海特洛市",
+      "district": "米格尔区",
+      "eggs": [
+        {
+          "id": "E000084",
+          "name": "闪乱厨房",
+          "source_id": "S000067",
+          "source_name": "闪乱神乐",
+          "type": "场景广告牌",
+          "remark": "",
+          "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
+          "is_unmapped": false,
+          "is_multi_location": true,
+          "city": "海特洛市",
+          "district": "米格尔区",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000084_main.png",
+          "image_compare": "pic/E000084_compare.png",
+          "location_id": "L000059"
+        }
+      ]
+    },
+    {
+      "id": "L000060",
+      "x": 5032,
       "y": 5959,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000072",
+          "id": "E000085",
           "name": "微醺领航员",
           "source_id": "S000068",
           "source_name": "水星领航员",
@@ -1618,23 +1897,26 @@
           "remark": "日常温馨治愈系好评率顶峰",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000072_main.jpg",
-          "image_compare": "images/E000072_compare.jpg",
-          "location_id": "L000059"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000085_main.png",
+          "image_compare": "pic/E000085_compare.png",
+          "location_id": "L000060"
         }
       ]
     },
     {
-      "id": "L000060",
+      "id": "L000061",
       "x": 3444,
       "y": 5485,
       "city": "海特洛市",
-      "district": "米格尔区",
+      "district": "绘空町",
       "eggs": [
         {
-          "id": "E000073",
+          "id": "E000086",
           "name": "向肉进发",
           "source_id": "S000069",
           "source_name": "向山进发",
@@ -1642,23 +1924,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
-          "district": "米格尔区",
-          "image_main": "images/E000073_main.jpg",
-          "image_compare": "images/E000073_compare.jpg",
-          "location_id": "L000060"
+          "district": "绘空町",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000086_main.png",
+          "image_compare": "pic/E000086_compare.png",
+          "location_id": "L000061"
         }
       ]
     },
     {
-      "id": "L000061",
+      "id": "L000062",
       "x": 4949,
       "y": 5995,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000075",
+          "id": "E000088",
           "name": "叛逆披萨",
           "source_id": "S000071",
           "source_name": "叛逆的鲁鲁修",
@@ -1666,23 +1951,26 @@
           "remark": "CC最爱吃的食物",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000075_main.jpg",
-          "image_compare": "images/E000075_compare.jpg",
-          "location_id": "L000061"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000088_main.png",
+          "image_compare": "pic/E000088_compare.png",
+          "location_id": "L000062"
         }
       ]
     },
     {
-      "id": "L000062",
+      "id": "L000063",
       "x": 5049,
       "y": 5940,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000076",
+          "id": "E000089",
           "name": "龙女仆咖啡店",
           "source_id": "S000072",
           "source_name": "小林家的龙女仆",
@@ -1690,23 +1978,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000076_main.jpg",
-          "image_compare": "images/E000076_compare.jpg",
-          "location_id": "L000062"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000089_main.png",
+          "image_compare": "pic/E000089_compare.png",
+          "location_id": "L000063"
         }
       ]
     },
     {
-      "id": "L000063",
+      "id": "L000064",
       "x": 3529,
       "y": 5475,
       "city": "海特洛市",
-      "district": "米格尔区",
+      "district": "绘空町",
       "eggs": [
         {
-          "id": "E000077",
+          "id": "E000090",
           "name": "龙王象棋",
           "source_id": "S000073",
           "source_name": "龙王的工作",
@@ -1714,14 +2005,17 @@
           "remark": "龙王的牢饭",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
-          "district": "米格尔区",
-          "image_main": "images/E000077_main.jpg",
-          "image_compare": "images/E000077_compare.jpg",
-          "location_id": "L000063"
+          "district": "绘空町",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000090_main.png",
+          "image_compare": "pic/E000090_compare.png",
+          "location_id": "L000064"
         },
         {
-          "id": "E000127",
+          "id": "E000162",
           "name": "野犬餐厅",
           "source_id": "S000112",
           "source_name": "文豪野犬",
@@ -1729,23 +2023,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1YR3ozwEQ2",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000127_main.jpg",
-          "image_compare": "images/E000127_compare.jpg",
-          "location_id": "L000063"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000162_main.png",
+          "image_compare": "pic/E000162_compare.png",
+          "location_id": "L000064"
         }
       ]
     },
     {
-      "id": "L000064",
+      "id": "L000065",
       "x": 3644,
       "y": 5471,
       "city": "海特洛市",
-      "district": "米格尔区",
+      "district": "绘空町",
       "eggs": [
         {
-          "id": "E000078",
+          "id": "E000093",
           "name": "创战模型",
           "source_id": "S000074",
           "source_name": "高达创战者",
@@ -1753,14 +2050,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
-          "district": "米格尔区",
-          "image_main": "images/E000078_main.jpg",
-          "image_compare": "images/E000078_compare.jpg",
-          "location_id": "L000064"
+          "district": "绘空町",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000093_main.png",
+          "image_compare": "pic/E000093_compare.png",
+          "location_id": "L000065"
         },
         {
-          "id": "E000081",
+          "id": "E000098",
           "name": "群花播音培训",
           "source_id": "S000077",
           "source_name": "群花绽放仿如修罗",
@@ -1768,23 +2068,26 @@
           "remark": "广播剧播音相关",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000081_main.jpg",
-          "image_compare": "images/E000081_compare.jpg",
-          "location_id": "L000064"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000098_main.png",
+          "image_compare": "pic/E000098_compare.png",
+          "location_id": "L000065"
         }
       ]
     },
     {
-      "id": "L000065",
+      "id": "L000066",
       "x": 3464,
       "y": 5314,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000080",
+          "id": "E000096",
           "name": "创真饭店",
           "source_id": "S000076",
           "source_name": "食戟之灵",
@@ -1792,47 +2095,53 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000080_main.jpg",
-          "image_compare": "images/E000080_compare.jpg",
-          "location_id": "L000065"
-        }
-      ]
-    },
-    {
-      "id": "L000066",
-      "x": 5428,
-      "y": 6012,
-      "city": "海特洛市",
-      "district": "米格尔区",
-      "eggs": [
-        {
-          "id": "E000082",
-          "name": "白金拼图",
-          "source_id": "S000078",
-          "source_name": "黄金拼图",
-          "type": "场景广告牌",
-          "remark": "芳文社是天！❤",
-          "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
-          "is_unmapped": false,
-          "city": "海特洛市",
-          "district": "米格尔区",
-          "image_main": "images/E000082_main.jpg",
-          "image_compare": "images/E000082_compare.jpg",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000096_main.png",
+          "image_compare": "pic/E000096_compare.png",
           "location_id": "L000066"
         }
       ]
     },
     {
       "id": "L000067",
+      "x": 5428,
+      "y": 6012,
+      "city": "海特洛市",
+      "district": "米格尔区",
+      "eggs": [
+        {
+          "id": "E000099",
+          "name": "白金拼图",
+          "source_id": "S000078",
+          "source_name": "黄金拼图",
+          "type": "场景广告牌",
+          "remark": "芳文社是天！?",
+          "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
+          "is_unmapped": false,
+          "is_multi_location": true,
+          "city": "海特洛市",
+          "district": "米格尔区",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000099_main.png",
+          "image_compare": "pic/E000099_compare.png",
+          "location_id": "L000067"
+        }
+      ]
+    },
+    {
+      "id": "L000068",
       "x": 3548,
       "y": 5424,
       "city": "海特洛市",
       "district": "绘空町",
       "eggs": [
         {
-          "id": "E000083",
+          "id": "E000102",
           "name": "折千市场",
           "source_id": "S000079",
           "source_name": "冰菓",
@@ -1840,23 +2149,26 @@
           "remark": "折木奉太郎",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000083_main.jpg",
-          "image_compare": "images/E000083_compare.jpg",
-          "location_id": "L000067"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000102_main.png",
+          "image_compare": "pic/E000102_compare.png",
+          "location_id": "L000068"
         }
       ]
     },
     {
-      "id": "L000068",
+      "id": "L000069",
       "x": 2587,
       "y": 3137,
       "city": "海特洛市",
       "district": "未闻浦",
       "eggs": [
         {
-          "id": "E000084",
+          "id": "E000103",
           "name": "庭院",
           "source_id": "S000080",
           "source_name": "丹特丽安的书架",
@@ -1864,23 +2176,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "未闻浦",
-          "image_main": "images/E000084_main.jpg",
-          "image_compare": "images/E000084_compare.jpg",
-          "location_id": "L000068"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000103_main.png",
+          "image_compare": "pic/E000103_compare.png",
+          "location_id": "L000069"
         }
       ]
     },
     {
-      "id": "L000069",
+      "id": "L000070",
       "x": 2557,
       "y": 3360,
       "city": "海特洛市",
       "district": "未闻浦",
       "eggs": [
         {
-          "id": "E000085",
+          "id": "E000104",
           "name": "植物园",
           "source_id": "S000080",
           "source_name": "丹特丽安的书架",
@@ -1888,23 +2203,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "未闻浦",
-          "image_main": "images/E000085_main.jpg",
-          "image_compare": "images/E000085_compare.jpg",
-          "location_id": "L000069"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000104_main.png",
+          "image_compare": "pic/E000104_compare.png",
+          "location_id": "L000070"
         }
       ]
     },
     {
-      "id": "L000070",
+      "id": "L000071",
       "x": 4348,
       "y": 3898,
       "city": "海特洛市",
-      "district": "未闻浦",
+      "district": "桥间地",
       "eggs": [
         {
-          "id": "E000086",
+          "id": "E000106",
           "name": "异象卡车",
           "source_id": "S000081",
           "source_name": "怪兽卡车",
@@ -1912,23 +2230,26 @@
           "remark": "卢卡斯提尔饰演",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
-          "district": "未闻浦",
-          "image_main": "images/E000086_main.jpg",
-          "image_compare": "images/E000086_compare.jpg",
-          "location_id": "L000070"
+          "district": "桥间地",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000106_main.png",
+          "image_compare": "pic/E000106_compare.png",
+          "location_id": "L000071"
         }
       ]
     },
     {
-      "id": "L000071",
+      "id": "L000072",
       "x": 3466,
       "y": 5613,
       "city": "海特洛市",
       "district": "绘空町",
       "eggs": [
         {
-          "id": "E000087",
+          "id": "E000107",
           "name": "国王粗点心店",
           "source_id": "S000082",
           "source_name": "粗点心战争",
@@ -1936,23 +2257,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000087_main.jpg",
-          "image_compare": "images/E000087_compare.jpg",
-          "location_id": "L000071"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000107_main.png",
+          "image_compare": "pic/E000107_compare.png",
+          "location_id": "L000072"
         }
       ]
     },
     {
-      "id": "L000072",
+      "id": "L000073",
       "x": 2455,
       "y": 4726,
       "city": "海特洛市",
-      "district": "未闻浦",
+      "district": "绘空町",
       "eggs": [
         {
-          "id": "E000088",
+          "id": "E000108",
           "name": "心猎铁骑",
           "source_id": "S000083",
           "source_name": "假面骑士",
@@ -1960,23 +2284,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
-          "district": "未闻浦",
-          "image_main": "images/E000088_main.jpg",
-          "image_compare": "images/E000088_compare.jpg",
-          "location_id": "L000072"
+          "district": "绘空町",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000108_main.png",
+          "image_compare": "pic/E000108_compare.png",
+          "location_id": "L000073"
         }
       ]
     },
     {
-      "id": "L000073",
+      "id": "L000074",
       "x": 4083,
       "y": 6784,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000089",
+          "id": "E000109",
           "name": "夏成豆腐店",
           "source_id": "S000084",
           "source_name": "头文字D",
@@ -1984,23 +2311,26 @@
           "remark": "五连发卡弯+AE86",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000089_main.jpg",
-          "image_compare": "images/E000089_compare.jpg",
-          "location_id": "L000073"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000109_main.png",
+          "image_compare": "pic/E000109_compare.png",
+          "location_id": "L000074"
         }
       ]
     },
     {
-      "id": "L000074",
+      "id": "L000075",
       "x": 3140,
       "y": 3987,
       "city": "海特洛市",
       "district": "桥间地",
       "eggs": [
         {
-          "id": "E000090",
+          "id": "E000110",
           "name": "假安魂曲头发变拳",
           "source_id": "S000085",
           "source_name": "出包王女",
@@ -2008,23 +2338,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000090_main.jpg",
-          "image_compare": "images/E000090_compare.jpg",
-          "location_id": "L000074"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000110_main.png",
+          "image_compare": "pic/E000110_compare.png",
+          "location_id": "L000075"
         }
       ]
     },
     {
-      "id": "L000075",
+      "id": "L000076",
       "x": 5536,
       "y": 4472,
       "city": "海特洛市",
       "district": "新赫兰德区",
       "eggs": [
         {
-          "id": "E000091",
+          "id": "E000111",
           "name": "假安魂曲压路机",
           "source_id": "S000086",
           "source_name": "JOJO",
@@ -2032,23 +2365,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000091_main.jpg",
-          "image_compare": "images/E000091_compare.jpg",
-          "location_id": "L000075"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000111_main.png",
+          "image_compare": "pic/E000111_compare.png",
+          "location_id": "L000076"
         }
       ]
     },
     {
-      "id": "L000076",
+      "id": "L000077",
       "x": 3540,
       "y": 4216,
       "city": "海特洛市",
       "district": "桥间地",
       "eggs": [
         {
-          "id": "E000093",
+          "id": "E000113",
           "name": "月光当铺场景",
           "source_id": "S000087",
           "source_name": "鬼灭之刃",
@@ -2056,23 +2392,26 @@
           "remark": "无限城",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000093_main.jpg",
-          "image_compare": "images/E000093_compare.jpg",
-          "location_id": "L000076"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000113_main.png",
+          "image_compare": "pic/E000113_compare.png",
+          "location_id": "L000077"
         }
       ]
     },
     {
-      "id": "L000077",
+      "id": "L000078",
       "x": 3248,
       "y": 3495,
       "city": "海特洛市",
       "district": "桥间地",
       "eggs": [
         {
-          "id": "E000095",
+          "id": "E000115",
           "name": "塔吉多恋爱剧情白鹦鹉街路口",
           "source_id": "S000088",
           "source_name": "火影忍者",
@@ -2080,23 +2419,26 @@
           "remark": "315集佐助VS鼬\n“原谅我 佐助”",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000095_main.jpg",
-          "image_compare": "images/E000095_compare.jpg",
-          "location_id": "L000077"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000115_main.png",
+          "image_compare": "pic/E000115_compare.png",
+          "location_id": "L000078"
         }
       ]
     },
     {
-      "id": "L000078",
+      "id": "L000079",
       "x": 3320,
       "y": 4076,
       "city": "海特洛市",
       "district": "桥间地",
       "eggs": [
         {
-          "id": "E000096",
+          "id": "E000116",
           "name": "增殖的C",
           "source_id": "S000089",
           "source_name": "游戏玩王",
@@ -2104,23 +2446,26 @@
           "remark": "增值的G",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000096_main.jpg",
-          "image_compare": "images/E000096_compare.jpg",
-          "location_id": "L000078"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000116_main.png",
+          "image_compare": "pic/E000116_compare.png",
+          "location_id": "L000079"
         }
       ]
     },
     {
-      "id": "L000079",
+      "id": "L000080",
       "x": 2806,
       "y": 4391,
       "city": "海特洛市",
       "district": "绘空町",
       "eggs": [
         {
-          "id": "E000097",
+          "id": "E000117",
           "name": "liveHouse",
           "source_id": "S000090",
           "source_name": "孤独摇滚",
@@ -2128,14 +2473,17 @@
           "remark": "海报全是",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000097_main.jpg",
-          "image_compare": "images/E000097_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000117_main.png",
+          "image_compare": "pic/E000117_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000098",
+          "id": "E000118",
           "name": "左侧吉他",
           "source_id": "S000091",
           "source_name": "轻音少女",
@@ -2143,14 +2491,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000098_main.jpg",
-          "image_compare": "images/E000098_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000118_main.png",
+          "image_compare": "pic/E000118_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000099",
+          "id": "E000119",
           "name": "滑滑蛋包饭",
           "source_id": "S000091",
           "source_name": "轻音少女",
@@ -2158,14 +2509,17 @@
           "remark": "轻飘飘的时间（fuwafuwa)",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000099_main.jpg",
-          "image_compare": "images/E000099_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000119_main.png",
+          "image_compare": "pic/E000119_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000100",
+          "id": "E000120",
           "name": "你所不知道的故事",
           "source_id": "S000092",
           "source_name": "化物语",
@@ -2173,14 +2527,17 @@
           "remark": "化物语ED",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000100_main.jpg",
-          "image_compare": "images/E000100_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000120_main.png",
+          "image_compare": "pic/E000120_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000101",
+          "id": "E000121",
           "name": "禁止辱骂队友",
           "source_id": "S000093",
           "source_name": "摇滚乃是淑女的爱好",
@@ -2188,14 +2545,17 @@
           "remark": "乐器马赛克中指",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000101_main.jpg",
-          "image_compare": "images/E000101_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000121_main.png",
+          "image_compare": "pic/E000121_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000102",
+          "id": "E000122",
           "name": "LiveHouse规定",
           "source_id": "S000094",
           "source_name": "佐贺偶像是传奇",
@@ -2203,14 +2563,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000102_main.jpg",
-          "image_compare": "images/E000102_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000122_main.png",
+          "image_compare": "pic/E000122_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000103",
+          "id": "E000123",
           "name": "Moon\non the water",
           "source_id": "S000095",
           "source_name": "BECK",
@@ -2218,14 +2581,17 @@
           "remark": "动画内插曲",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000103_main.jpg",
-          "image_compare": "images/E000103_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000123_main.png",
+          "image_compare": "pic/E000123_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000104",
+          "id": "E000124",
           "name": "LEGENDS",
           "source_id": "S000096",
           "source_name": "BanG\nDream！·",
@@ -2233,14 +2599,17 @@
           "remark": "RAS",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000104_main.jpg",
-          "image_compare": "images/E000104_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000124_main.png",
+          "image_compare": "pic/E000124_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000105",
+          "id": "E000125",
           "name": "星之鼓动",
           "source_id": "S000096",
           "source_name": "BanG\nDream！·",
@@ -2248,14 +2617,17 @@
           "remark": "Poppin'Party\n歌曲STAR BEAT！和主唱户山香澄的吉他",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000105_main.jpg",
-          "image_compare": "images/E000105_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000125_main.png",
+          "image_compare": "pic/E000125_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000106",
+          "id": "E000126",
           "name": "幸运曲奇",
           "source_id": "S000097",
           "source_name": "AKB48",
@@ -2263,14 +2635,17 @@
           "remark": "第32张单曲作品",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000106_main.jpg",
-          "image_compare": "images/E000106_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000126_main.png",
+          "image_compare": "pic/E000126_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000107",
+          "id": "E000127",
           "name": "DIAMOND\nSTARDUST",
           "source_id": "S000098",
           "source_name": "Girls\n\nBand\n\nCry",
@@ -2278,14 +2653,17 @@
           "remark": "GBC\n乐队 DiamondDust钻石星尘",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000107_main.jpg",
-          "image_compare": "images/E000107_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000127_main.png",
+          "image_compare": "pic/E000127_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000108",
+          "id": "E000128",
           "name": "叹息的鼓手想要退队",
           "source_id": "S000099",
           "source_name": "叹息的亡灵想隐退",
@@ -2293,14 +2671,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000108_main.jpg",
-          "image_compare": "images/E000108_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000128_main.png",
+          "image_compare": "pic/E000128_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000109",
+          "id": "E000129",
           "name": "红色面具海报",
           "source_id": "S000100",
           "source_name": "BanG\nDream！·\nAve Mujica",
@@ -2308,14 +2689,17 @@
           "remark": "这里masquerade就是假面舞会的意思，mujica的世界观",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000109_main.jpg",
-          "image_compare": "images/E000109_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000129_main.png",
+          "image_compare": "pic/E000129_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000111",
+          "id": "E000131",
           "name": "心形Goodnight",
           "source_id": "S000101",
           "source_name": "wowoka/Miku",
@@ -2323,14 +2707,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000111_main.jpg",
-          "image_compare": "images/E000111_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000131_main.png",
+          "image_compare": "pic/E000131_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000122",
+          "id": "E000152",
           "name": "乐队剧情娜娜莉哈尼娅拍手",
           "source_id": "S000016",
           "source_name": "灌篮高手",
@@ -2338,14 +2725,17 @@
           "remark": "这个拍手是灌高绝杀后的樱木和流川",
           "link": "https://www.bilibili.com/video/BV1YR3ozwEQ2",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000122_main.jpg",
-          "image_compare": "images/E000122_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000152_main.png",
+          "image_compare": "pic/E000152_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000123",
+          "id": "E000153",
           "name": "乐队剧情娜娜莉哈尼娅拍手",
           "source_id": "S000109",
           "source_name": "咒术回战",
@@ -2353,14 +2743,17 @@
           "remark": "会赢的",
           "link": "https://www.bilibili.com/video/BV1YR3ozwEQ2",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000123_main.jpg",
-          "image_compare": "images/E000123_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000153_main.png",
+          "image_compare": "pic/E000153_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000125",
+          "id": "E000157",
           "name": "乐队剧情\n\n哈尼娅的乐器",
           "source_id": "S000111",
           "source_name": "MyGO",
@@ -2368,14 +2761,17 @@
           "remark": "千早爱音同款",
           "link": "https://www.bilibili.com/video/BV1YR3ozwEQ2",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000125_main.jpg",
-          "image_compare": "images/E000125_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000157_main.png",
+          "image_compare": "pic/E000157_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000126",
+          "id": "E000158",
           "name": "乐队剧情\n\n明音的乐器",
           "source_id": "S000111",
           "source_name": "MyGO",
@@ -2383,14 +2779,17 @@
           "remark": "要乐奈同款",
           "link": "https://www.bilibili.com/video/BV1YR3ozwEQ2",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000126_main.jpg",
-          "image_compare": "images/E000126_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000158_main.png",
+          "image_compare": "pic/E000158_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000128",
+          "id": "E000163",
           "name": "livehouse门口StarSign",
           "source_id": "S000090",
           "source_name": "孤独摇滚",
@@ -2398,14 +2797,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1YR3ozwEQ2",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000128_main.jpg",
-          "image_compare": "images/E000128_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000163_main.png",
+          "image_compare": "pic/E000163_compare.png",
+          "location_id": "L000080"
         },
         {
-          "id": "E000129",
+          "id": "E000167",
           "name": "乐队剧情明音哼的曲子",
           "source_id": "S000113",
           "source_name": "万能青年旅店",
@@ -2413,23 +2815,26 @@
           "remark": "秦皇岛",
           "link": "https://www.bilibili.com/video/BV1Jyo1BuEE5",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000129_main.jpg",
-          "image_compare": "images/E000129_compare.jpg",
-          "location_id": "L000079"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000167_main.png",
+          "image_compare": "pic/E000167_compare.png",
+          "location_id": "L000080"
         }
       ]
     },
     {
-      "id": "L000080",
+      "id": "L000081",
       "x": 5701,
       "y": 6287,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000110",
+          "id": "E000130",
           "name": "若叶盆栽",
           "source_id": "S000100",
           "source_name": "BanG\nDream！·\nAve Mujica",
@@ -2437,23 +2842,26 @@
           "remark": "Ave\nMujica 离人很远，离神很近了",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000110_main.jpg",
-          "image_compare": "images/E000110_compare.jpg",
-          "location_id": "L000080"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000130_main.png",
+          "image_compare": "pic/E000130_compare.png",
+          "location_id": "L000081"
         }
       ]
     },
     {
-      "id": "L000081",
+      "id": "L000082",
       "x": 5645,
       "y": 4889,
       "city": "海特洛市",
       "district": "新赫兰德区",
       "eggs": [
         {
-          "id": "E000112",
+          "id": "E000132",
           "name": "乐队剧情",
           "source_id": "S000102",
           "source_name": "BanG\nDream！·It's MyGO!!!!!",
@@ -2461,14 +2869,17 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000112_main.jpg",
-          "image_compare": "images/E000112_compare.jpg",
-          "location_id": "L000081"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000132_main.png",
+          "image_compare": "pic/E000132_compare.png",
+          "location_id": "L000082"
         },
         {
-          "id": "E000113",
+          "id": "E000133",
           "name": "乐队剧情长颈鹿屏幕",
           "source_id": "S000103",
           "source_name": "少女歌剧",
@@ -2476,14 +2887,17 @@
           "remark": "12集\n“长颈鹿”=“观众”",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000113_main.jpg",
-          "image_compare": "images/E000113_compare.jpg",
-          "location_id": "L000081"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000133_main.png",
+          "image_compare": "pic/E000133_compare.png",
+          "location_id": "L000082"
         },
         {
-          "id": "E000114",
+          "id": "E000134",
           "name": "乐队剧情",
           "source_id": "S000098",
           "source_name": "Girls\n\nBand\n\nCry",
@@ -2491,14 +2905,17 @@
           "remark": "空白与宣泄\n分镜",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000114_main.jpg",
-          "image_compare": "images/E000114_compare.jpg",
-          "location_id": "L000081"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000134_main.png",
+          "image_compare": "pic/E000134_compare.png",
+          "location_id": "L000082"
         },
         {
-          "id": "E000115",
+          "id": "E000135",
           "name": "乐队剧情",
           "source_id": "S000090",
           "source_name": "孤独摇滚",
@@ -2506,14 +2923,17 @@
           "remark": "红粉黄蓝四人组配色",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000115_main.jpg",
-          "image_compare": "images/E000115_compare.jpg",
-          "location_id": "L000081"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000135_main.png",
+          "image_compare": "pic/E000135_compare.png",
+          "location_id": "L000082"
         },
         {
-          "id": "E000116",
+          "id": "E000136",
           "name": "乐队剧情",
           "source_id": "S000104",
           "source_name": "四大少女乐队番",
@@ -2521,23 +2941,26 @@
           "remark": "归去来兮女士主唱，孤独摇滚配色四人组，GBC的姿势，演奏MyGO迷星叫",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000116_main.jpg",
-          "image_compare": "images/E000116_compare.jpg",
-          "location_id": "L000081"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000136_main.png",
+          "image_compare": "pic/E000136_compare.png",
+          "location_id": "L000082"
         }
       ]
     },
     {
-      "id": "L000082",
+      "id": "L000083",
       "x": 3956,
       "y": 3761,
       "city": "海特洛市",
-      "district": "未知区域",
+      "district": "桥间地",
       "eggs": [
         {
-          "id": "E000117",
+          "id": "E000137",
           "name": "传送点电话亭",
           "source_id": "S000105",
           "source_name": "神秘博士",
@@ -2545,23 +2968,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV16hZFB5EDf",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
-          "district": "未知区域",
-          "image_main": "images/E000117_main.jpg",
-          "image_compare": "images/E000117_compare.jpg",
-          "location_id": "L000082"
+          "district": "桥间地",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000137_main.png",
+          "image_compare": "pic/E000137_compare.png",
+          "location_id": "L000083"
         }
       ]
     },
     {
-      "id": "L000083",
+      "id": "L000084",
       "x": 2391,
       "y": 3964,
       "city": "海特洛市",
       "district": "绘空町",
       "eggs": [
         {
-          "id": "E000118",
+          "id": "E000138",
           "name": "安魂曲的家",
           "source_id": "S000106",
           "source_name": "干物妹小埋",
@@ -2569,23 +2995,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV16hZFB5EDf",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "image_main": "images/E000118_main.jpg",
-          "image_compare": "images/E000118_compare.jpg",
-          "location_id": "L000083"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000138_main.png",
+          "image_compare": "pic/E000138_compare.png",
+          "location_id": "L000084"
         }
       ]
     },
     {
-      "id": "L000084",
+      "id": "L000085",
       "x": 4131,
       "y": 6034,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000119",
+          "id": "E000140",
           "name": "圣托里斯大道",
           "source_id": "S000043",
           "source_name": "命运石之门",
@@ -2593,23 +3022,26 @@
           "remark": "大楼顶的人造卫星",
           "link": "https://www.bilibili.com/video/BV16hZFB5EDf",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000119_main.jpg",
-          "image_compare": "images/E000119_compare.jpg",
-          "location_id": "L000084"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000140_main.png",
+          "image_compare": "pic/E000140_compare.png",
+          "location_id": "L000085"
         }
       ]
     },
     {
-      "id": "L000085",
+      "id": "L000086",
       "x": 3569,
       "y": 5519,
       "city": "海特洛市",
-      "district": "米格尔区",
+      "district": "绘空町",
       "eggs": [
         {
-          "id": "E000120",
+          "id": "E000144",
           "name": "超银河驾驶",
           "source_id": "S000107",
           "source_name": "超银河传说",
@@ -2617,23 +3049,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1YM38zUEwj",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
-          "district": "米格尔区",
-          "image_main": "images/E000120_main.jpg",
-          "image_compare": "images/E000120_compare.jpg",
-          "location_id": "L000085"
+          "district": "绘空町",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000144_main.png",
+          "image_compare": "pic/E000144_compare.png",
+          "location_id": "L000086"
         }
       ]
     },
     {
-      "id": "L000086",
+      "id": "L000087",
       "x": 5998,
       "y": 3634,
       "city": "海特洛市",
       "district": "新赫兰德区",
       "eggs": [
         {
-          "id": "E000121",
+          "id": "E000151",
           "name": "海蛋广场特工Z世代全息投影",
           "source_id": "S000108",
           "source_name": "飞天小女警",
@@ -2641,23 +3076,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1YR3ozwEQ2",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "image_main": "images/E000121_main.jpg",
-          "image_compare": "images/E000121_compare.jpg",
-          "location_id": "L000086"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000151_main.png",
+          "image_compare": "pic/E000151_compare.png",
+          "location_id": "L000087"
         }
       ]
     },
     {
-      "id": "L000087",
+      "id": "L000088",
       "x": 1909,
       "y": 2491,
       "city": "海特洛市",
       "district": "未闻浦",
       "eggs": [
         {
-          "id": "E000124",
+          "id": "E000154",
           "name": "奥利哈刚理想馆",
           "source_id": "S000110",
           "source_name": "游戏王",
@@ -2665,23 +3103,26 @@
           "remark": "奥利哈刚之神",
           "link": "https://www.bilibili.com/video/BV1YR3ozwEQ2",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "未闻浦",
-          "image_main": "images/E000124_main.jpg",
-          "image_compare": "images/E000124_compare.jpg",
-          "location_id": "L000087"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000154_main.png",
+          "image_compare": "pic/E000154_compare.png",
+          "location_id": "L000088"
         }
       ]
     },
     {
-      "id": "L000088",
+      "id": "L000089",
       "x": 5878,
       "y": 6719,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000130",
+          "id": "E000168",
           "name": "秋千处",
           "source_id": "S000013",
           "source_name": "你的名字",
@@ -2689,23 +3130,26 @@
           "remark": "彗星坠落",
           "link": "https://www.bilibili.com/video/BV1tmRuBCE82",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000130_main.jpg",
-          "image_compare": "images/E000130_compare.jpg",
-          "location_id": "L000088"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000168_main.png",
+          "image_compare": "pic/E000168_compare.png",
+          "location_id": "L000089"
         }
       ]
     },
     {
-      "id": "L000089",
+      "id": "L000090",
       "x": 4904,
       "y": 6356,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000131",
+          "id": "E000169",
           "name": "水菱湖路电车岔道",
           "source_id": "S000114",
           "source_name": "秒速五厘米",
@@ -2713,23 +3157,26 @@
           "remark": "双车道+樱花",
           "link": "https://www.bilibili.com/video/BV1tmRuBCE82",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000131_main.jpg",
-          "image_compare": "images/E000131_compare.jpg",
-          "location_id": "L000089"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000169_main.png",
+          "image_compare": "pic/E000169_compare.png",
+          "location_id": "L000090"
         }
       ]
     },
     {
-      "id": "L000090",
+      "id": "L000091",
       "x": 4056,
       "y": 5882,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000132",
+          "id": "E000171",
           "name": "米格尔区高架弯道处",
           "source_id": "S000115",
           "source_name": "秋叶原广场",
@@ -2737,23 +3184,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV144R6BbEte",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000132_main.jpg",
-          "image_compare": "images/E000132_compare.jpg",
-          "location_id": "L000090"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000171_main.png",
+          "image_compare": "pic/E000171_compare.png",
+          "location_id": "L000091"
         }
       ]
     },
     {
-      "id": "L000091",
+      "id": "L000092",
       "x": 4176,
       "y": 5887,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000133",
+          "id": "E000172",
           "name": "麻将馆旁边\n\n天桥",
           "source_id": "S000116",
           "source_name": "秋叶原过去天桥",
@@ -2761,23 +3211,26 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV144R6BbEte",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000133_main.jpg",
-          "image_compare": "images/E000133_compare.jpg",
-          "location_id": "L000091"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000172_main.png",
+          "image_compare": "pic/E000172_compare.png",
+          "location_id": "L000092"
         }
       ]
     },
     {
-      "id": "L000092",
+      "id": "L000093",
       "x": 5508,
       "y": 6063,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000134",
+          "id": "E000173",
           "name": "薯条兽那儿",
           "source_id": "S000117",
           "source_name": "心斋桥",
@@ -2785,23 +3238,26 @@
           "remark": "补充",
           "link": "https://www.bilibili.com/video/BV1VvR8BVEn5",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000134_main.jpg",
-          "image_compare": "images/E000134_compare.jpg",
-          "location_id": "L000092"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000173_main.png",
+          "image_compare": "pic/E000173_compare.png",
+          "location_id": "L000093"
         }
       ]
     },
     {
-      "id": "L000093",
-      "x": 5205,
-      "y": 5939,
+      "id": "L000094",
+      "x": 3784,
+      "y": 3562,
       "city": "海特洛市",
       "district": "桥间地",
       "eggs": [
         {
-          "id": "E000135",
+          "id": "E000175",
           "name": "白鲸书店",
           "source_id": "S000118",
           "source_name": "白鲸书",
@@ -2809,23 +3265,26 @@
           "remark": "MOBY-DICK",
           "link": "",
           "is_unmapped": false,
+          "is_multi_location": true,
           "city": "海特洛市",
           "district": "桥间地",
-          "image_main": "images/E000135_main.jpg",
-          "image_compare": "images/E000135_compare.jpg",
-          "location_id": "L000093"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000175_main.png",
+          "image_compare": "pic/E000175_compare.png",
+          "location_id": "L000094"
         }
       ]
     },
     {
-      "id": "L000094",
+      "id": "L000095",
       "x": 4061,
       "y": 5956,
       "city": "海特洛市",
       "district": "米格尔区",
       "eggs": [
         {
-          "id": "E000136",
+          "id": "E000176",
           "name": "米格尔区粉爪支行西侧地下通道",
           "source_id": "S000119",
           "source_name": "八号出口",
@@ -2833,11 +3292,14 @@
           "remark": "",
           "link": "https://www.bilibili.com/video/BV1Xho7B5EXR",
           "is_unmapped": false,
+          "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "image_main": "images/E000136_main.jpg",
-          "image_compare": "images/E000136_compare.jpg",
-          "location_id": "L000094"
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000176_main.png",
+          "image_compare": "pic/E000176_compare.png",
+          "location_id": "L000095"
         }
       ]
     }
@@ -2896,846 +3358,803 @@
       "id": "S000008",
       "name": "CLANNAD",
       "egg_ids": [
-        "E000008",
-        "E000009"
+        "E000011",
+        "E000012"
       ]
     },
     {
       "id": "S000009",
       "name": "ET外星人",
       "egg_ids": [
-        "E000010"
+        "E000015"
       ]
     },
     {
       "id": "S000010",
       "name": "路人女主的养成方法",
       "egg_ids": [
-        "E000011"
+        "E000016"
       ]
     },
     {
       "id": "S000011",
       "name": "千与千寻",
       "egg_ids": [
-        "E000012"
+        "E000017"
       ]
     },
     {
       "id": "S000012",
       "name": "通往夏天的隧道",
       "egg_ids": [
-        "E000013"
+        "E000018"
       ]
     },
     {
       "id": "S000013",
       "name": "你的名字",
       "egg_ids": [
-        "E000014",
-        "E000130"
+        "E000019",
+        "E000168"
       ]
     },
     {
       "id": "S000014",
       "name": "天气之子",
       "egg_ids": [
-        "E000015"
+        "E000020"
       ]
     },
     {
       "id": "S000015",
       "name": "言叶之庭",
       "egg_ids": [
-        "E000016"
+        "E000021"
       ]
     },
     {
       "id": "S000016",
       "name": "灌篮高手",
       "egg_ids": [
-        "E000017",
-        "E000018",
-        "E000122"
+        "E000022",
+        "E000023",
+        "E000152"
       ]
     },
     {
       "id": "S000017",
       "name": "男子高中生的日常",
       "egg_ids": [
-        "E000019"
+        "E000024"
       ]
     },
     {
       "id": "S000018",
       "name": "中二病也要谈恋爱",
       "egg_ids": [
-        "E000020"
+        "E000025"
       ]
     },
     {
       "id": "S000019",
       "name": "魔卡少女樱",
       "egg_ids": [
-        "E000021",
-        "E000022"
+        "E000026",
+        "E000027"
       ]
     },
     {
       "id": "S000020",
       "name": "在下坂本，有何贵干",
       "egg_ids": [
-        "E000023"
+        "E000028"
       ]
     },
     {
       "id": "S000021",
       "name": "萤火之森",
       "egg_ids": [
-        "E000024"
+        "E000029"
       ]
     },
     {
       "id": "S000022",
       "name": "楚门的世界",
       "egg_ids": [
-        "E000025"
+        "E000030"
       ]
     },
     {
       "id": "S000023",
       "name": "蕾妮剧情线",
       "egg_ids": [
-        "E000026"
+        "E000032"
       ]
     },
     {
       "id": "S000024",
       "name": "塞尔达无双",
       "egg_ids": [
-        "E000027"
+        "E000033"
       ]
     },
     {
       "id": "S000025",
       "name": "Fate",
       "egg_ids": [
-        "E000028"
+        "E000034"
       ]
     },
     {
       "id": "S000026",
       "name": "白色相簿",
       "egg_ids": [
-        "E000029"
+        "E000036"
       ]
     },
     {
       "id": "S000027",
       "name": "摇曳露营",
       "egg_ids": [
-        "E000030"
+        "E000037"
       ]
     },
     {
       "id": "S000028",
       "name": "玉子市场",
       "egg_ids": [
-        "E000031"
+        "E000038"
       ]
     },
     {
       "id": "S000029",
       "name": "侵略乌贼娘",
       "egg_ids": [
-        "E000032"
+        "E000040"
       ]
     },
     {
       "id": "S000030",
       "name": "碧蓝之海",
       "egg_ids": [
-        "E000033"
+        "E000041"
       ]
     },
     {
       "id": "S000031",
       "name": "EVA",
       "egg_ids": [
-        "E000034",
-        "E000035"
+        "E000042",
+        "E000043"
       ]
     },
     {
       "id": "S000032",
       "name": "无头骑士异闻录",
       "egg_ids": [
-        "E000036"
+        "E000045"
       ]
     },
     {
       "id": "S000033",
       "name": "现视研",
       "egg_ids": [
-        "E000037"
+        "E000047"
       ]
     },
     {
       "id": "S000034",
       "name": "坂本日常",
       "egg_ids": [
-        "E000038"
+        "E000048"
       ]
     },
     {
       "id": "S000035",
       "name": "爱天使传说",
       "egg_ids": [
-        "E000039"
+        "E000049"
       ]
     },
     {
       "id": "S000036",
       "name": "狼与香辛料",
       "egg_ids": [
-        "E000040"
+        "E000050"
       ]
     },
     {
       "id": "S000037",
       "name": "夏目友人帐",
       "egg_ids": [
-        "E000041"
+        "E000051"
       ]
     },
     {
       "id": "S000038",
       "name": "迷糊餐厅",
       "egg_ids": [
-        "E000042"
+        "E000052"
       ]
     },
     {
       "id": "S000039",
       "name": "中华一番",
       "egg_ids": [
-        "E000043"
+        "E000053"
       ]
     },
     {
       "id": "S000040",
       "name": "胆大党",
       "egg_ids": [
-        "E000044"
+        "E000054"
       ]
     },
     {
       "id": "S000041",
       "name": "向阳素描",
       "egg_ids": [
-        "E000045"
+        "E000055"
       ]
     },
     {
       "id": "S000042",
       "name": "战姬绝唱",
       "egg_ids": [
-        "E000046"
+        "E000056"
       ]
     },
     {
       "id": "S000043",
       "name": "命运石之门",
       "egg_ids": [
-        "E000047",
-        "E000119"
+        "E000057",
+        "E000140"
       ]
     },
     {
       "id": "S000044",
       "name": "MM一族",
       "egg_ids": [
-        "E000048"
+        "E000058"
       ]
     },
     {
       "id": "S000045",
       "name": "恋语轻唱",
       "egg_ids": [
-        "E000049"
+        "E000059"
       ]
     },
     {
       "id": "S000046",
       "name": "素晴",
       "egg_ids": [
-        "E000050"
+        "E000060"
       ]
     },
     {
       "id": "S000047",
       "name": "柯南",
       "egg_ids": [
-        "E000051",
-        "E000094"
+        "E000061",
+        "E000114"
       ]
     },
     {
       "id": "S000048",
       "name": "赛马娘",
       "egg_ids": [
-        "E000052"
+        "E000062"
       ]
     },
     {
       "id": "S000049",
       "name": "2.5次元的诱惑",
       "egg_ids": [
-        "E000053"
+        "E000063"
       ]
     },
     {
       "id": "S000050",
       "name": "极道煮夫",
       "egg_ids": [
-        "E000054"
+        "E000064"
       ]
     },
     {
       "id": "S000051",
       "name": "草莓100%",
       "egg_ids": [
-        "E000055"
+        "E000065"
       ]
     },
     {
       "id": "S000052",
       "name": "药物少女的呢喃",
       "egg_ids": [
-        "E000056"
+        "E000066"
       ]
     },
     {
       "id": "S000053",
       "name": "钢之炼金术师",
       "egg_ids": [
-        "E000057"
+        "E000067"
       ]
     },
     {
       "id": "S000054",
       "name": "东方夜雀食堂",
       "egg_ids": [
-        "E000058"
+        "E000068"
       ]
     },
     {
       "id": "S000055",
       "name": "怪医黑杰克",
       "egg_ids": [
-        "E000059"
+        "E000069"
       ]
     },
     {
       "id": "S000056",
       "name": "乌冬面之国的金色毛贼",
       "egg_ids": [
-        "E000060"
+        "E000070"
       ]
     },
     {
       "id": "S000057",
       "name": "妙厨老爹",
       "egg_ids": [
-        "E000061"
+        "E000071"
       ]
     },
     {
       "id": "S000058",
       "name": "银魂",
       "egg_ids": [
-        "E000062"
+        "E000072"
       ]
     },
     {
       "id": "S000059",
       "name": "打工吧！魔王大人",
       "egg_ids": [
-        "E000063"
+        "E000073"
       ]
     },
     {
       "id": "S000060",
       "name": "东方project",
       "egg_ids": [
-        "E000064"
+        "E000074"
       ]
     },
     {
       "id": "S000061",
       "name": "东方project/琪露诺的算数教室",
       "egg_ids": [
-        "E000065"
+        "E000075"
       ]
     },
     {
       "id": "S000062",
       "name": "主播女孩重度依赖",
       "egg_ids": [
-        "E000066"
+        "E000077"
       ]
     },
     {
       "id": "S000063",
       "name": "恋如雨止",
       "egg_ids": [
-        "E000067"
+        "E000078"
       ]
     },
     {
       "id": "S000064",
       "name": "这个美术社大有问题",
       "egg_ids": [
-        "E000068"
+        "E000079"
       ]
     },
     {
       "id": "S000065",
       "name": "平凡职业成就世界最强",
       "egg_ids": [
-        "E000069"
+        "E000082"
       ]
     },
     {
       "id": "S000066",
       "name": "回转企鹅罐",
       "egg_ids": [
-        "E000070"
+        "E000083"
       ]
     },
     {
       "id": "S000067",
       "name": "闪乱神乐",
       "egg_ids": [
-        "E000071"
+        "E000084"
       ]
     },
     {
       "id": "S000068",
       "name": "水星领航员",
       "egg_ids": [
-        "E000072"
+        "E000085"
       ]
     },
     {
       "id": "S000069",
       "name": "向山进发",
       "egg_ids": [
-        "E000073"
+        "E000086"
       ]
     },
     {
       "id": "S000070",
       "name": "日式面包王",
       "egg_ids": [
-        "E000074"
+        "E000087"
       ]
     },
     {
       "id": "S000071",
       "name": "叛逆的鲁鲁修",
       "egg_ids": [
-        "E000075"
+        "E000088"
       ]
     },
     {
       "id": "S000072",
       "name": "小林家的龙女仆",
       "egg_ids": [
-        "E000076"
+        "E000089"
       ]
     },
     {
       "id": "S000073",
       "name": "龙王的工作",
       "egg_ids": [
-        "E000077"
+        "E000090"
       ]
     },
     {
       "id": "S000074",
       "name": "高达创战者",
       "egg_ids": [
-        "E000078"
+        "E000093"
       ]
     },
     {
       "id": "S000075",
       "name": "Keroro军曹",
       "egg_ids": [
-        "E000079"
+        "E000094"
       ]
     },
     {
       "id": "S000076",
       "name": "食戟之灵",
       "egg_ids": [
-        "E000080"
+        "E000096"
       ]
     },
     {
       "id": "S000077",
       "name": "群花绽放仿如修罗",
       "egg_ids": [
-        "E000081"
+        "E000098"
       ]
     },
     {
       "id": "S000078",
       "name": "黄金拼图",
       "egg_ids": [
-        "E000082"
+        "E000099"
       ]
     },
     {
       "id": "S000079",
       "name": "冰菓",
       "egg_ids": [
-        "E000083"
+        "E000102"
       ]
     },
     {
       "id": "S000080",
       "name": "丹特丽安的书架",
       "egg_ids": [
-        "E000084",
-        "E000085"
+        "E000103",
+        "E000104"
       ]
     },
     {
       "id": "S000081",
       "name": "怪兽卡车",
       "egg_ids": [
-        "E000086"
+        "E000106"
       ]
     },
     {
       "id": "S000082",
       "name": "粗点心战争",
       "egg_ids": [
-        "E000087"
+        "E000107"
       ]
     },
     {
       "id": "S000083",
       "name": "假面骑士",
       "egg_ids": [
-        "E000088"
+        "E000108"
       ]
     },
     {
       "id": "S000084",
       "name": "头文字D",
       "egg_ids": [
-        "E000089"
+        "E000109"
       ]
     },
     {
       "id": "S000085",
       "name": "出包王女",
       "egg_ids": [
-        "E000090"
+        "E000110"
       ]
     },
     {
       "id": "S000086",
       "name": "JOJO",
       "egg_ids": [
-        "E000091",
-        "E000092"
+        "E000111",
+        "E000112"
       ]
     },
     {
       "id": "S000087",
       "name": "鬼灭之刃",
       "egg_ids": [
-        "E000093"
+        "E000113"
       ]
     },
     {
       "id": "S000088",
       "name": "火影忍者",
       "egg_ids": [
-        "E000095"
+        "E000115"
       ]
     },
     {
       "id": "S000089",
       "name": "游戏玩王",
       "egg_ids": [
-        "E000096"
+        "E000116"
       ]
     },
     {
       "id": "S000090",
       "name": "孤独摇滚",
       "egg_ids": [
-        "E000097",
-        "E000115",
-        "E000128"
+        "E000117",
+        "E000135",
+        "E000163"
       ]
     },
     {
       "id": "S000091",
       "name": "轻音少女",
       "egg_ids": [
-        "E000098",
-        "E000099"
+        "E000118",
+        "E000119"
       ]
     },
     {
       "id": "S000092",
       "name": "化物语",
       "egg_ids": [
-        "E000100"
+        "E000120"
       ]
     },
     {
       "id": "S000093",
       "name": "摇滚乃是淑女的爱好",
       "egg_ids": [
-        "E000101"
+        "E000121"
       ]
     },
     {
       "id": "S000094",
       "name": "佐贺偶像是传奇",
       "egg_ids": [
-        "E000102"
+        "E000122"
       ]
     },
     {
       "id": "S000095",
       "name": "BECK",
       "egg_ids": [
-        "E000103"
+        "E000123"
       ]
     },
     {
       "id": "S000096",
       "name": "BanG\nDream！·",
       "egg_ids": [
-        "E000104",
-        "E000105"
+        "E000124",
+        "E000125"
       ]
     },
     {
       "id": "S000097",
       "name": "AKB48",
       "egg_ids": [
-        "E000106"
+        "E000126"
       ]
     },
     {
       "id": "S000098",
       "name": "Girls\n\nBand\n\nCry",
       "egg_ids": [
-        "E000107",
-        "E000114"
+        "E000127",
+        "E000134"
       ]
     },
     {
       "id": "S000099",
       "name": "叹息的亡灵想隐退",
       "egg_ids": [
-        "E000108"
+        "E000128"
       ]
     },
     {
       "id": "S000100",
       "name": "BanG\nDream！·\nAve Mujica",
       "egg_ids": [
-        "E000109",
-        "E000110"
+        "E000129",
+        "E000130"
       ]
     },
     {
       "id": "S000101",
       "name": "wowoka/Miku",
       "egg_ids": [
-        "E000111"
+        "E000131"
       ]
     },
     {
       "id": "S000102",
       "name": "BanG\nDream！·It's MyGO!!!!!",
       "egg_ids": [
-        "E000112"
+        "E000132"
       ]
     },
     {
       "id": "S000103",
       "name": "少女歌剧",
       "egg_ids": [
-        "E000113"
+        "E000133"
       ]
     },
     {
       "id": "S000104",
       "name": "四大少女乐队番",
       "egg_ids": [
-        "E000116"
+        "E000136"
       ]
     },
     {
       "id": "S000105",
       "name": "神秘博士",
       "egg_ids": [
-        "E000117"
+        "E000137"
       ]
     },
     {
       "id": "S000106",
       "name": "干物妹小埋",
       "egg_ids": [
-        "E000118"
+        "E000138"
       ]
     },
     {
       "id": "S000107",
       "name": "超银河传说",
       "egg_ids": [
-        "E000120"
+        "E000144"
       ]
     },
     {
       "id": "S000108",
       "name": "飞天小女警",
       "egg_ids": [
-        "E000121"
+        "E000151"
       ]
     },
     {
       "id": "S000109",
       "name": "咒术回战",
       "egg_ids": [
-        "E000123"
+        "E000153"
       ]
     },
     {
       "id": "S000110",
       "name": "游戏王",
       "egg_ids": [
-        "E000124"
+        "E000154"
       ]
     },
     {
       "id": "S000111",
       "name": "MyGO",
       "egg_ids": [
-        "E000125",
-        "E000126"
+        "E000157",
+        "E000158"
       ]
     },
     {
       "id": "S000112",
       "name": "文豪野犬",
       "egg_ids": [
-        "E000127"
+        "E000162"
       ]
     },
     {
       "id": "S000113",
       "name": "万能青年旅店",
       "egg_ids": [
-        "E000129"
+        "E000167"
       ]
     },
     {
       "id": "S000114",
       "name": "秒速五厘米",
       "egg_ids": [
-        "E000131"
+        "E000169"
       ]
     },
     {
       "id": "S000115",
       "name": "秋叶原广场",
       "egg_ids": [
-        "E000132"
+        "E000171"
       ]
     },
     {
       "id": "S000116",
       "name": "秋叶原过去天桥",
       "egg_ids": [
-        "E000133"
+        "E000172"
       ]
     },
     {
       "id": "S000117",
       "name": "心斋桥",
       "egg_ids": [
-        "E000134"
+        "E000173"
       ]
     },
     {
       "id": "S000118",
       "name": "白鲸书",
       "egg_ids": [
-        "E000135"
+        "E000175"
       ]
     },
     {
       "id": "S000119",
       "name": "八号出口",
       "egg_ids": [
-        "E000136"
+        "E000176"
       ]
     }
   ],
-  "unmapped": [
-    {
-      "id": "E000001",
-      "name": "娜娜莉人设",
-      "source_id": "S000001",
-      "source_name": "家庭教师",
-      "type": "角色",
-      "remark": "",
-      "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
-      "is_unmapped": true,
-      "city": "海特洛市",
-      "district": "桥间地",
-      "image_main": "images/E000001_main.jpg",
-      "image_compare": "images/E000001_compare.jpg"
-    },
-    {
-      "id": "E000002",
-      "name": "娜娜莉人设——尼尼历险记",
-      "source_id": "S000002",
-      "source_name": "成龙历险记",
-      "type": "角色",
-      "remark": "",
-      "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
-      "is_unmapped": true,
-      "city": "海特洛市",
-      "district": "桥间地",
-      "image_main": "images/E000002_main.jpg",
-      "image_compare": "images/E000002_compare.jpg"
-    },
-    {
-      "id": "E000003",
-      "name": "娜娜莉/哈尼娅人设",
-      "source_id": "S000003",
-      "source_name": "某科学的超电磁炮",
-      "type": "角色",
-      "remark": "",
-      "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
-      "is_unmapped": true,
-      "city": "海特洛市",
-      "district": "桥间地",
-      "image_main": "images/E000003_main.jpg",
-      "image_compare": "images/E000003_compare.jpg"
-    }
-  ]
+  "unmapped": []
 }
