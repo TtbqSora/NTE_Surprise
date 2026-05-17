@@ -200,11 +200,13 @@
     
     // 1. 创建自定义 CRS (坐标参考系统)。
     // 这步极其重要，它保证了你原本在 8K 大图上标的坐标 (0~8192) 在瓦片系统下依旧 100% 精准对齐。
-    // y轴反转是因为网页图片Y向向下增长，而一般地图Y向向上。
+    // 计算缩放比例因子
+    const scaleFactor = 1 / Math.pow(2, CONFIG.maxZoomLevel);
+    
     const customCRS = L.Util.extend({}, L.CRS.Simple, {
         transformation: new L.Transformation(
-            1 / Math.pow(2, CONFIG.maxZoomLevel), 0, 
-            1 / Math.pow(2, CONFIG.maxZoomLevel), 0
+            scaleFactor, 0, 
+            -scaleFactor, CONFIG.mapHeight * scaleFactor // 【修复点】Y轴取反（-scaleFactor），并向下偏移地图总高度，使原点回到左下角
         )
     });
 
