@@ -210,9 +210,13 @@
     });
     const bounds = [[0, 0], [CONFIG.mapHeight, CONFIG.mapWidth]];
     
+    // 修改点 2：扩大地图可拖动范围（设置上下左右各 4000 像素的缓冲边界），避免边缘回弹严重
+    const padding = 4000;
+    const maxBounds = [[-padding, -padding], [CONFIG.mapHeight + padding, CONFIG.mapWidth + padding]];
+    
     L.imageOverlay(CONFIG.mapImageUrl, bounds).addTo(map);
     map.setView([CONFIG.mapHeight / 2, CONFIG.mapWidth / 2], 0);
-    map.setMaxBounds(bounds);
+    map.setMaxBounds(maxBounds); // 使用扩大后的边界限制
 
     let isMarkingMode = false;
     let isClustered = false; // 初始化：不启用集群
@@ -289,6 +293,25 @@
         })
         .catch(err => console.error('获取 data.json 失败:', err));
 
+    // 独立生成弹窗 HTML 的函数，用于动态更新
+    function generatePopupHtml(egg, totalCount) {
+        const othersText = totalCount > 1 ? `<div class="text-[10px] text-gray-400 mt-1">该坐标点共 ${totalCount} 个彩蛋 (在右侧点击切换)</div>` : '';
+        
+        let popupImgHtml = '';
+        if (egg.has_main) {
+            popupImgHtml = `<img src="${egg.image_main}" class="w-full h-24 object-cover rounded border border-gray-600 mb-1" alt="游戏内截图">`;
+        }
+
+        return `
+            <div class="text-center min-w-[140px]">
+                <div class="text-xs font-bold mb-0.5 truncate w-36 text-gray-200" title="${egg.name}">${egg.name}</div>
+                <div class="text-[12px] text-yellow-500 mb-1.5 truncate w-36" title="${egg.source_name}">Neta: ${egg.source_name}</div>
+                ${popupImgHtml}
+                ${othersText}
+            </div>
+        `;
+    }
+
     function renderMarkers() {
         clusterGroup.clearLayers();
         normalGroup.clearLayers();
@@ -305,21 +328,8 @@
 
             // 弹窗内容构建
             const firstEgg = loc.eggs[0];
-            const othersText = loc.eggs.length > 1 ? `<div class="text-[10px] text-gray-400 mt-1">及另外 ${loc.eggs.length - 1} 个彩蛋</div>` : '';
+            const popupHtml = generatePopupHtml(firstEgg, loc.eggs.length);
             
-            let popupImgHtml = '';
-            if (firstEgg.has_main) {
-                popupImgHtml = `<img src="${firstEgg.image_main}" class="w-full h-24 object-cover rounded border border-gray-600 mb-1" alt="游戏内截图">`;
-            }
-
-            const popupHtml = `
-                <div class="text-center min-w-[140px]">
-                    <div class="text-xs font-bold mb-0.5 truncate w-36 text-gray-200" title="${firstEgg.name}">${firstEgg.name}</div>
-                    <div class="text-[12px] text-yellow-500 mb-1.5 truncate w-36" title="${firstEgg.source_name}">Neta: ${firstEgg.source_name}</div>
-                    ${popupImgHtml}
-                    ${othersText}
-                </div>
-            `;
             marker.bindPopup(popupHtml, { offset: [0, -10], closeButton: false, minWidth: 140 });
 
             marker.locationData = loc;
@@ -568,6 +578,16 @@
         } else {
             detailDiv.classList.add('hidden');
             if(icon) icon.classList.remove('rotate-180');
+        }
+
+        // 修改点 1：当侧边栏点击展开/收起某个彩蛋时，动态更新地图对应标记的弹窗内容
+        const eggId = id.replace('egg-', '');
+        const egg = eggMap[eggId];
+        if (egg && !egg.is_unmapped && egg.location) {
+            const targetMarker = allMarkers.find(m => m.locationData.id === egg.location.id);
+            if (targetMarker) {
+                targetMarker.setPopupContent(generatePopupHtml(egg, egg.location.eggs.length));
+            }
         }
     }
 
