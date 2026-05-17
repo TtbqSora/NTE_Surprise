@@ -116,7 +116,6 @@
                 <button onclick="map.zoomIn()" class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-lg text-white shadow transition"><i data-lucide="plus" class="w-4 h-4"></i></button>
                 <div class="w-6 h-px bg-gray-600 my-1"></div>
                 <button onclick="map.zoomOut()" class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-lg text-white shadow transition"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                <!-- 这里恢复的最小倍率修改为瓦片视角的 0 -->
                 <button onclick="map.setZoom(2)" class="w-8 h-8 flex items-center justify-center bg-blue-900 hover:bg-blue-800 rounded-lg text-blue-200 shadow transition mt-2" title="恢复全局视角"><i data-lucide="maximize" class="w-4 h-4"></i></button>
             </div>
 
@@ -142,6 +141,21 @@
         </div>
     </div>
 
+    <!-- ==================== 额外功能区域 ==================== -->
+    
+    <!-- 图片查看器 (Lightbox) 开始 -->
+    <!-- 【功能移除说明】：如果你后续发现 Webp 图片被高度压缩，放大后画质太模糊，想要移除这个大图功能：
+         1. 删除下面整个 id="image-viewer" 的 div 节点。
+         2. 到底部 <script> 标签的最后面，删除 `openImageViewer` 和 `closeImageViewer` 两个函数。
+         3. 搜索全局代码中的 `onclick="openImageViewer('...')"` 并将它们从 HTML 模板字符串中删掉即可。 -->
+    <div id="image-viewer" class="hidden fixed inset-0 z-[9999] bg-black/90 flex justify-center items-center p-4 md:p-8 transition-opacity duration-300 opacity-0 pointer-events-auto" onclick="closeImageViewer()">
+        <img id="viewer-image" src="" class="max-w-full max-h-full object-contain shadow-2xl rounded" alt="大图预览" onclick="event.stopPropagation()">
+        <button class="absolute top-4 right-4 md:top-6 md:right-6 text-white bg-gray-800/60 hover:bg-gray-600 rounded-full p-2 transition-colors cursor-pointer" onclick="closeImageViewer()" title="关闭">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+    </div>
+    <!-- 图片查看器 (Lightbox) 结束 -->
+
 <script>
     lucide.createIcons();
 
@@ -150,8 +164,8 @@
         mapHeight: 8192,
         panExtraLeftOffset: 100,
         panDuration: 0.5,
-        minPanZoom: 4, // 瓦片模式下平移时的目标缩放级别需要调大一点 (因为 z=5 才是最大)
-        maxZoomLevel: 5 // 对应你 Python 脚本切图的 MAX_ZOOM
+        minPanZoom: 4, 
+        maxZoomLevel: 5 
     };
 
     let db = { locations: [], sources: [], unmapped: [] };
@@ -160,7 +174,6 @@
     const sourceEggsMap = {}; 
     const cityDistrictsMap = {}; 
 
-    // 自定义排序函数
     function sortByNameEngFirst(a, b) {
         const nameA = a.name || '';
         const nameB = b.name || '';
@@ -196,43 +209,34 @@
         }
     }
 
-    // ---------------- 地图初始化 (瓦片模式核心修改) ---------------- //
-    
-    // 1. 创建自定义 CRS (坐标参考系统)。
-    // 这步极其重要，它保证了你原本在 8K 大图上标的坐标 (0~8192) 在瓦片系统下依旧 100% 精准对齐。
-    // 计算缩放比例因子
     const scaleFactor = 1 / Math.pow(2, CONFIG.maxZoomLevel);
     
     const customCRS = L.Util.extend({}, L.CRS.Simple, {
         transformation: new L.Transformation(
             scaleFactor, 0, 
-            -scaleFactor, CONFIG.mapHeight * scaleFactor // 【修复点】Y轴取反（-scaleFactor），并向下偏移地图总高度，使原点回到左下角
+            -scaleFactor, CONFIG.mapHeight * scaleFactor 
         )
     });
 
     const map = L.map('map', { 
-        crs: customCRS,       // 使用我们上面定义的自定义坐标系映射
-        minZoom: 2,           // 瓦片图通常从 0 开始
-        maxZoom: 5,           // 最高到 5
+        crs: customCRS,       
+        minZoom: 2,           
+        maxZoom: 5,           
         zoomControl: false, 
         attributionControl: false 
     });
 
-    // 扩大拖动边界，防止边缘疯狂回弹。因为采用了新的缩放逻辑，这里的 padding 值可以减小
     const padding = 1000; 
     const maxBounds = [[-padding, -padding], [CONFIG.mapHeight + padding, CONFIG.mapWidth + padding]];
     map.setMaxBounds(maxBounds);
 
-    // 2. 加载瓦片图层
-    // {z}/{x}/{z}_{x}_{y}.webp 严格匹配 Python 脚本生成的命名规则
     L.tileLayer('tiles/{z}/{x}/{z}_{x}_{y}.webp', {
         minZoom: 2,
         maxZoom: 5,
         noWrap: true,
-        bounds: [[0, 0], [CONFIG.mapHeight, CONFIG.mapWidth]] // 限制只在这 8192 范围内加载瓦片
+        bounds: [[0, 0], [CONFIG.mapHeight, CONFIG.mapWidth]] 
     }).addTo(map);
 
-    // 初始视角
     map.setView([CONFIG.mapHeight / 2, CONFIG.mapWidth / 2], 1);
 
     let isMarkingMode = false;
@@ -247,25 +251,16 @@
 
     const allMarkers = [];
 
-    // ---------------- 缩放 UI 更新与图标大小自适应 ---------------- //
     function updateZoomUI() {
         const zoom = map.getZoom();
-        
-        // 由于瓦片模式下，真正的 1:1 是 z=5，z=0 是缩小状态
-        // 我们可以根据公式把当前的 zoom 等级转化为一个相对易懂的倍率显示给用户
-        // 比如 z=5 显示 1.0x，z=4 显示 0.5x
         const relativeScale = Math.pow(2, zoom - CONFIG.maxZoomLevel);
         document.getElementById('zoom-text').innerText = `${relativeScale.toFixed(2)}x`;
-
-        // 根据瓦片的缩放级别调整标记大小，保证不显得太大或太小
-        // z=0..5 映射到合适的缩放系数
         const markerScale = 0.4 + (zoom * 0.2); 
         document.documentElement.style.setProperty('--marker-scale', Math.max(0.4, markerScale));
     }
     map.on('zoom', updateZoomUI);
     updateZoomUI();
 
-    // ---------------- 侧边栏拖拽调宽功能 ---------------- //
     const sidebar = document.getElementById('sidebar');
     const resizer = document.getElementById('sidebar-resizer');
     let isResizing = false;
@@ -293,7 +288,6 @@
         }
     });
 
-    // ---------------- 加载外部 JSON 数据 ---------------- //
     fetch('data.json')
         .then(response => response.json())
         .then(data => {
@@ -314,13 +308,18 @@
         
         let popupImgHtml = '';
         if (egg.has_main) {
-            popupImgHtml = `<img src="${egg.image_main}" class="w-full h-24 object-cover rounded border border-gray-600 mb-1" alt="游戏内截图">`;
+            // [修改2/修改3]: 使用 object-contain 保证狭长图片不被裁剪，统一高度背景，并加入点击查看大图
+            popupImgHtml = `
+                <div class="w-full h-28 bg-black/50 rounded border border-gray-600 mb-1.5 flex items-center justify-center overflow-hidden cursor-pointer hover:border-gray-400 transition-colors" onclick="openImageViewer('${egg.image_main}')" title="点击查看大图">
+                    <img src="${egg.image_main}" class="max-w-full max-h-full object-contain p-0.5" alt="游戏内截图">
+                </div>
+            `;
         }
 
         return `
-            <div class="text-center min-w-[140px]">
-                <div class="text-xs font-bold mb-0.5 truncate w-36 text-gray-200" title="${egg.name}">${egg.name}</div>
-                <div class="text-[12px] text-yellow-500 mb-1.5 truncate w-36" title="${egg.source_name}">Neta: ${egg.source_name}</div>
+            <div class="text-center min-w-[140px] max-w-[200px]">
+                <div class="text-xs font-bold mb-0.5 truncate w-36 text-gray-200 mx-auto" title="${egg.name}">${egg.name}</div>
+                <div class="text-[12px] text-yellow-500 mb-1.5 truncate w-36 mx-auto" title="${egg.source_name}">Neta: ${egg.source_name}</div>
                 ${popupImgHtml}
                 ${othersText}
             </div>
@@ -382,7 +381,6 @@
     function panMapTo(latlng) {
         const targetZoom = Math.max(map.getZoom(), CONFIG.minPanZoom);
         const sidebarWidth = sidebar.offsetWidth;
-        // 补偿计算需要基于新的缩放层级机制
         const totalOffsetX = (sidebarWidth / 2) + CONFIG.panExtraLeftOffset;
         
         const targetPoint = map.project(latlng, targetZoom).add([totalOffsetX, 0]);
@@ -395,7 +393,6 @@
         if(!isMarkingMode) closeSidebar();
     });
 
-    // ---------------- 侧边栏视图管理 ---------------- //
     function openSidebar(view, payload = null) {
         sidebar.classList.remove('translate-x-full');
         renderSidebarContent(view, payload);
@@ -513,14 +510,11 @@
             
             const multiTag = egg.is_multi_location ? '<span class="bg-purple-900 text-purple-200 text-[10px] px-1.5 py-0.5 rounded shrink-0 border border-purple-700" title="该彩蛋在地图中有多处出现，此为代表点位">多点位</span>' : '';
 
-            // --- 新增：智能处理提供者/链接字段 ---
             let providerHtml = '';
             if (egg.link) {
                 if (egg.link.startsWith('http')) {
-                    // 如果是网址，渲染为可点击的超链接
                     providerHtml = `<div class="mt-3 text-right"><a href="${egg.link}" target="_blank" class="text-[10px] text-blue-400 hover:text-blue-300 transition flex items-center justify-end gap-1"><i data-lucide="external-link" class="w-3 h-3"></i> 来源参考</a></div>`;
                 } else {
-                    // 如果是纯文本名字，渲染为提供者小字
                     providerHtml = `<div class="mt-3 text-right text-[10px] text-gray-500 flex items-center justify-end gap-1"><i data-lucide="user" class="w-3 h-3"></i> 信息提供: ${egg.link}</div>`;
                 }
             }
@@ -546,9 +540,7 @@
                     
                     ${generateEggImagesHTML(egg)}
                     
-                    <!-- 渲染提供者信息 -->
                     ${providerHtml}
-
                 </div>
             </div>`;
         }).join('');
@@ -561,17 +553,22 @@
         let html = `<div class="grid ${cols} gap-2 mt-2">`;
         
         if (egg.has_main) {
+            // [修改1/修改3]: Flex上下布局防止文字遮挡，并添加点击查看大图
             html += `
-                <div class="relative group overflow-hidden rounded border border-gray-600 bg-black">
-                    <img src="${egg.image_main}" class="w-full h-auto max-h-32 object-contain" alt="游戏内截图">
-                    <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-center text-[10px] py-1 text-gray-300">游戏内截图</div>
+                <div class="flex flex-col group overflow-hidden rounded border border-gray-600 bg-black cursor-pointer hover:border-gray-400 transition-colors" onclick="openImageViewer('${egg.image_main}')" title="点击查看大图">
+                    <div class="flex-1 flex items-center justify-center p-0.5">
+                        <img src="${egg.image_main}" class="w-full h-auto max-h-32 object-contain" alt="游戏内截图">
+                    </div>
+                    <div class="bg-gray-800 text-center text-[10px] py-1.5 text-gray-300 border-t border-gray-700">游戏内截图</div>
                 </div>`;
         }
         if (egg.has_compare) {
             html += `
-                <div class="relative group overflow-hidden rounded border border-gray-600 bg-black">
-                    <img src="${egg.image_compare}" class="w-full h-auto max-h-32 object-contain" alt="出处对比图">
-                    <div class="absolute bottom-0 left-0 right-0 bg-black/70 text-center text-[10px] py-1 text-gray-300">出处对比图</div>
+                <div class="flex flex-col group overflow-hidden rounded border border-gray-600 bg-black cursor-pointer hover:border-gray-400 transition-colors" onclick="openImageViewer('${egg.image_compare}')" title="点击查看大图">
+                    <div class="flex-1 flex items-center justify-center p-0.5">
+                        <img src="${egg.image_compare}" class="w-full h-auto max-h-32 object-contain" alt="出处对比图">
+                    </div>
+                    <div class="bg-gray-800 text-center text-[10px] py-1.5 text-gray-300 border-t border-gray-700">出处对比图</div>
                 </div>`;
         }
         
@@ -604,7 +601,6 @@
             if(icon) icon.classList.remove('rotate-180');
         }
 
-        // 联动弹窗
         const eggId = id.replace('egg-', '');
         const egg = eggMap[eggId];
         if (egg && !egg.is_unmapped && egg.location) {
@@ -702,6 +698,29 @@
         map.removeLayer(currentLayerGroup);
         currentLayerGroup = isClustered ? clusterGroup : normalGroup;
         map.addLayer(currentLayerGroup);
+    }
+
+    // ================== 图片查看器（Lightbox）逻辑 ==================
+    // 【移除说明】如果要去掉大图功能，将下面两个函数直接删除即可。
+    function openImageViewer(imgSrc) {
+        const viewer = document.getElementById('image-viewer');
+        const viewerImg = document.getElementById('viewer-image');
+        viewerImg.src = imgSrc;
+        viewer.classList.remove('hidden');
+        // 短暂延迟触发渐入动画
+        setTimeout(() => {
+            viewer.classList.remove('opacity-0');
+        }, 10);
+    }
+
+    function closeImageViewer() {
+        const viewer = document.getElementById('image-viewer');
+        viewer.classList.add('opacity-0');
+        // 等待渐出动画完成后隐藏并清空图片
+        setTimeout(() => {
+            viewer.classList.add('hidden');
+            document.getElementById('viewer-image').src = '';
+        }, 300);
     }
 
 </script>
