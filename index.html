@@ -513,6 +513,18 @@
             
             const multiTag = egg.is_multi_location ? '<span class="bg-purple-900 text-purple-200 text-[10px] px-1.5 py-0.5 rounded shrink-0 border border-purple-700" title="该彩蛋在地图中有多处出现，此为代表点位">多点位</span>' : '';
 
+            // --- 新增：智能处理提供者/链接字段 ---
+            let providerHtml = '';
+            if (egg.link) {
+                if (egg.link.startsWith('http')) {
+                    // 如果是网址，渲染为可点击的超链接
+                    providerHtml = `<div class="mt-3 text-right"><a href="${egg.link}" target="_blank" class="text-[10px] text-blue-400 hover:text-blue-300 transition flex items-center justify-end gap-1"><i data-lucide="external-link" class="w-3 h-3"></i> 来源参考</a></div>`;
+                } else {
+                    // 如果是纯文本名字，渲染为提供者小字
+                    providerHtml = `<div class="mt-3 text-right text-[10px] text-gray-500 flex items-center justify-end gap-1"><i data-lucide="user" class="w-3 h-3"></i> 信息提供: ${egg.link}</div>`;
+                }
+            }
+
             return `
             <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 shadow-sm shrink-0">
                 <div class="p-3 cursor-pointer hover:bg-gray-700 flex justify-between items-center group" ${clickAction}>
@@ -533,6 +545,9 @@
                     <p class="text-xs text-gray-400 mb-3">${egg.remark || '暂无备注说明'}</p>
                     
                     ${generateEggImagesHTML(egg)}
+                    
+                    <!-- 渲染提供者信息 -->
+                    ${providerHtml}
 
                 </div>
             </div>`;
