@@ -81,7 +81,6 @@
                     <div id="settings-menu" class="hidden absolute top-full left-0 mt-3 bg-gray-800 border border-gray-700 rounded-lg p-4 shadow-xl w-56">
                         <h3 class="text-sm font-semibold text-gray-400 mb-4 uppercase">地图设置</h3>
                         
-                        <!-- 增加的 GitHub 链接项 -->
                         <a href="https://github.com/TtbqSora/NTE_Surprise" target="_blank" class="flex items-center justify-between cursor-pointer mb-5 group text-decoration-none">
                             <span class="text-sm text-gray-200 group-hover:text-white flex items-center gap-2">
                                 <i data-lucide="github" class="w-4 h-4"></i> GitHub 仓库
@@ -117,7 +116,8 @@
                 <button onclick="map.zoomIn()" class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-lg text-white shadow transition"><i data-lucide="plus" class="w-4 h-4"></i></button>
                 <div class="w-6 h-px bg-gray-600 my-1"></div>
                 <button onclick="map.zoomOut()" class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-lg text-white shadow transition"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                <button onclick="map.setZoom(map.getMinZoom())" class="w-8 h-8 flex items-center justify-center bg-blue-900 hover:bg-blue-800 rounded-lg text-blue-200 shadow transition mt-2" title="恢复最小倍率"><i data-lucide="maximize" class="w-4 h-4"></i></button>
+                <!-- 这里恢复的最小倍率修改为瓦片视角的 0 -->
+                <button onclick="map.setZoom(2)" class="w-8 h-8 flex items-center justify-center bg-blue-900 hover:bg-blue-800 rounded-lg text-blue-200 shadow transition mt-2" title="恢复全局视角"><i data-lucide="maximize" class="w-4 h-4"></i></button>
             </div>
 
             <!-- 左下角按钮组 -->
@@ -148,10 +148,10 @@
     const CONFIG = {
         mapWidth: 8192, 
         mapHeight: 8192,
-        mapImageUrl: 'map.jpg',
         panExtraLeftOffset: 150,
         panDuration: 0.5,
-        minPanZoom: 0 
+        minPanZoom: 2, // 瓦片模式下平移时的目标缩放级别需要调大一点 (因为 z=5 才是最大)
+        maxZoomLevel: 5 // 对应你 Python 脚本切图的 MAX_ZOOM
     };
 
     let db = { locations: [], sources: [], unmapped: [] };
@@ -160,19 +160,17 @@
     const sourceEggsMap = {}; 
     const cityDistrictsMap = {}; 
 
-    // 自定义排序函数：英文/数字优先，其次中文按拼音
+    // 自定义排序函数
     function sortByNameEngFirst(a, b) {
         const nameA = a.name || '';
         const nameB = b.name || '';
         
-        // 匹配是否以英文字母或数字开头
         const isAlnumA = /^[a-zA-Z0-9]/i.test(nameA);
         const isAlnumB = /^[a-zA-Z0-9]/i.test(nameB);
         
         if (isAlnumA && !isAlnumB) return -1;
         if (!isAlnumA && isAlnumB) return 1;
         
-        // 同类型则使用 localeCompare (拼音顺序)
         return nameA.localeCompare(nameB, 'zh-CN');
     }
     
@@ -193,39 +191,55 @@
             sourceEggsMap[egg.source_id].push(egg);
         });
 
-        // 对每一个出处内部收集到的彩蛋列表也进行排序
         for (let srcId in sourceEggsMap) {
             sourceEggsMap[srcId].sort(sortByNameEngFirst);
         }
     }
 
-    // ---------------- 地图初始化 ---------------- //
+    // ---------------- 地图初始化 (瓦片模式核心修改) ---------------- //
+    
+    // 1. 创建自定义 CRS (坐标参考系统)。
+    // 这步极其重要，它保证了你原本在 8K 大图上标的坐标 (0~8192) 在瓦片系统下依旧 100% 精准对齐。
+    // y轴反转是因为网页图片Y向向下增长，而一般地图Y向向上。
+    const customCRS = L.Util.extend({}, L.CRS.Simple, {
+        transformation: new L.Transformation(
+            1 / Math.pow(2, CONFIG.maxZoomLevel), 0, 
+            1 / Math.pow(2, CONFIG.maxZoomLevel), 0
+        )
+    });
+
     const map = L.map('map', { 
-        crs: L.CRS.Simple, 
-        minZoom: -2, 
-        maxZoom: 2, 
-        zoomSnap: 0.25,
+        crs: customCRS,       // 使用我们上面定义的自定义坐标系映射
+        minZoom: 2,           // 瓦片图通常从 0 开始
+        maxZoom: 5,           // 最高到 5
         zoomControl: false, 
         attributionControl: false 
     });
-    const bounds = [[0, 0], [CONFIG.mapHeight, CONFIG.mapWidth]];
-    
-    // 修改点 2：扩大地图可拖动范围（设置上下左右各 4000 像素的缓冲边界），避免边缘回弹严重
-    const padding = 4000;
+
+    // 扩大拖动边界，防止边缘疯狂回弹。因为采用了新的缩放逻辑，这里的 padding 值可以减小
+    const padding = 1000; 
     const maxBounds = [[-padding, -padding], [CONFIG.mapHeight + padding, CONFIG.mapWidth + padding]];
-    
-    L.imageOverlay(CONFIG.mapImageUrl, bounds).addTo(map);
-    map.setView([CONFIG.mapHeight / 2, CONFIG.mapWidth / 2], 0);
-    map.setMaxBounds(maxBounds); // 使用扩大后的边界限制
+    map.setMaxBounds(maxBounds);
+
+    // 2. 加载瓦片图层
+    // {z}/{x}/{z}_{x}_{y}.webp 严格匹配 Python 脚本生成的命名规则
+    L.tileLayer('tiles/{z}/{x}/{z}_{x}_{y}.webp', {
+        minZoom: 2,
+        maxZoom: 5,
+        noWrap: true,
+        bounds: [[0, 0], [CONFIG.mapHeight, CONFIG.mapWidth]] // 限制只在这 8192 范围内加载瓦片
+    }).addTo(map);
+
+    // 初始视角
+    map.setView([CONFIG.mapHeight / 2, CONFIG.mapWidth / 2], 1);
 
     let isMarkingMode = false;
-    let isClustered = false; // 初始化：不启用集群
+    let isClustered = false; 
     let activeRegionFilter = null; 
     let currentSelectedMarker = null; 
     
     const clusterGroup = L.markerClusterGroup({ maxClusterRadius: 50, spiderfyOnMaxZoom: true, zoomToBoundsOnClick: true });
     const normalGroup = L.layerGroup();
-    // 修改点 1：默认初始加载散点图层
     let currentLayerGroup = normalGroup;
     map.addLayer(currentLayerGroup);
 
@@ -234,10 +248,16 @@
     // ---------------- 缩放 UI 更新与图标大小自适应 ---------------- //
     function updateZoomUI() {
         const zoom = map.getZoom();
-        const scaleText = Math.pow(2, zoom).toFixed(2);
-        document.getElementById('zoom-text').innerText = `${scaleText}x`;
+        
+        // 由于瓦片模式下，真正的 1:1 是 z=5，z=0 是缩小状态
+        // 我们可以根据公式把当前的 zoom 等级转化为一个相对易懂的倍率显示给用户
+        // 比如 z=5 显示 1.0x，z=4 显示 0.5x
+        const relativeScale = Math.pow(2, zoom - CONFIG.maxZoomLevel);
+        document.getElementById('zoom-text').innerText = `${relativeScale.toFixed(2)}x`;
 
-        const markerScale = 1 + (zoom * 0.2); 
+        // 根据瓦片的缩放级别调整标记大小，保证不显得太大或太小
+        // z=0..5 映射到合适的缩放系数
+        const markerScale = 0.4 + (zoom * 0.2); 
         document.documentElement.style.setProperty('--marker-scale', Math.max(0.4, markerScale));
     }
     map.on('zoom', updateZoomUI);
@@ -276,16 +296,10 @@
         .then(response => response.json())
         .then(data => {
             db = data;
-            
-            // 应用自定义的英文/数字优先排序规则
             db.sources.sort(sortByNameEngFirst);
-            
-            // 为地图上的每个点位内的彩蛋列表排序
             db.locations.forEach(loc => {
                 loc.eggs.sort(sortByNameEngFirst);
             });
-
-            // 为非地图彩蛋排序
             db.unmapped.sort(sortByNameEngFirst);
             
             buildIndexes(); 
@@ -293,7 +307,6 @@
         })
         .catch(err => console.error('获取 data.json 失败:', err));
 
-    // 独立生成弹窗 HTML 的函数，用于动态更新
     function generatePopupHtml(egg, totalCount) {
         const othersText = totalCount > 1 ? `<div class="text-[10px] text-gray-400 mt-1">该坐标点共 ${totalCount} 个彩蛋 (在右侧点击切换)</div>` : '';
         
@@ -326,7 +339,6 @@
                 icon: L.divIcon({ className: 'custom-marker', html: '<div class="marker-inner"></div>', iconSize: [16, 16], iconAnchor: [8, 8] })
             });
 
-            // 弹窗内容构建
             const firstEgg = loc.eggs[0];
             const popupHtml = generatePopupHtml(firstEgg, loc.eggs.length);
             
@@ -358,7 +370,6 @@
         });
     }
 
-    // 解决 Leaflet 渲染复用导致高亮类名丢失的问题
     map.on('popupopen', function(e) {
         if(currentSelectedMarker && currentSelectedMarker.getElement()) {
             const inner = currentSelectedMarker.getElement().querySelector('.marker-inner');
@@ -369,6 +380,7 @@
     function panMapTo(latlng) {
         const targetZoom = Math.max(map.getZoom(), CONFIG.minPanZoom);
         const sidebarWidth = sidebar.offsetWidth;
+        // 补偿计算需要基于新的缩放层级机制
         const totalOffsetX = (sidebarWidth / 2) + CONFIG.panExtraLeftOffset;
         
         const targetPoint = map.project(latlng, targetZoom).add([totalOffsetX, 0]);
@@ -491,7 +503,6 @@
         lucide.createIcons();
     }
 
-    // ---------------- HTML 生成器与交互逻辑 ---------------- //
     function generateEggListHTML(eggs, isFromSourceView = false) {
         if(eggs.length === 0) return `<div class="text-center text-gray-500 mt-10">暂无数据</div>`;
         return eggs.map((egg) => {
@@ -499,7 +510,6 @@
             const clickAction = isFromSourceView ? `onclick="handleSourceEggClick('${egg.id}')"` : `onclick="toggleEggDetail('egg-${egg.id}')"`;
             
             const multiTag = egg.is_multi_location ? '<span class="bg-purple-900 text-purple-200 text-[10px] px-1.5 py-0.5 rounded shrink-0 border border-purple-700" title="该彩蛋在地图中有多处出现，此为代表点位">多点位</span>' : '';
-            // 修改点 2：移除了此处的 unmappedTag / NP 标签渲染
 
             return `
             <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 shadow-sm shrink-0">
@@ -527,11 +537,8 @@
         }).join('');
     }
 
-    // 动态生成图片 HTML 块
     function generateEggImagesHTML(egg) {
-        if (!egg.has_main && !egg.has_compare) {
-            return ''; 
-        }
+        if (!egg.has_main && !egg.has_compare) return ''; 
         
         let cols = (egg.has_main && egg.has_compare) ? 'grid-cols-2' : 'grid-cols-1';
         let html = `<div class="grid ${cols} gap-2 mt-2">`;
@@ -580,7 +587,7 @@
             if(icon) icon.classList.remove('rotate-180');
         }
 
-        // 修改点 1：当侧边栏点击展开/收起某个彩蛋时，动态更新地图对应标记的弹窗内容
+        // 联动弹窗
         const eggId = id.replace('egg-', '');
         const egg = eggMap[eggId];
         if (egg && !egg.is_unmapped && egg.location) {
@@ -631,7 +638,6 @@
         lucide.createIcons();
     }
 
-    // ---------------- 设置与工具 ---------------- //
     function toggleSettings() {
         document.getElementById('settings-menu').classList.toggle('hidden');
     }
