@@ -255,8 +255,8 @@
         const zoom = map.getZoom();
         const relativeScale = Math.pow(2, zoom - CONFIG.maxZoomLevel);
         document.getElementById('zoom-text').innerText = `${relativeScale.toFixed(2)}x`;
-        const markerScale = 0.4 + (zoom * 0.2); 
-        document.documentElement.style.setProperty('--marker-scale', Math.max(0.4, markerScale));
+        const markerScale = 0.25 + (zoom * 0.2); 
+        document.documentElement.style.setProperty('--marker-scale', Math.max(0.25, markerScale));
     }
     map.on('zoom', updateZoomUI);
     updateZoomUI();
