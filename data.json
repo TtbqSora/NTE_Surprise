@@ -21,8 +21,8 @@
           "district": "米格尔区",
           "has_main": true,
           "has_compare": true,
-          "image_main": "pic/E000094_main.png",
-          "image_compare": "pic/E000094_compare.png",
+          "image_main": "pic/E000094_main.webp",
+          "image_compare": "pic/E000094_compare.webp",
           "location_id": "L000001"
         }
       ]
@@ -48,8 +48,8 @@
           "district": "米格尔区",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000097_main.png",
-          "image_compare": "pic/E000097_compare.png",
+          "image_main": "pic/E000097_main.webp",
+          "image_compare": "pic/E000097_compare.webp",
           "location_id": "L000002"
         }
       ]
@@ -75,8 +75,8 @@
           "district": "米格尔区",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000102_main.png",
-          "image_compare": "pic/E000102_compare.png",
+          "image_main": "pic/E000102_main.webp",
+          "image_compare": "pic/E000102_compare.webp",
           "location_id": "L000003"
         }
       ]
@@ -102,8 +102,8 @@
           "district": "新赫兰德区",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000101_main.png",
-          "image_compare": "pic/E000101_compare.png",
+          "image_main": "pic/E000101_main.webp",
+          "image_compare": "pic/E000101_compare.webp",
           "location_id": "L000004"
         }
       ]
@@ -129,8 +129,8 @@
           "district": "新赫兰德区",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000136_main.png",
-          "image_compare": "pic/E000136_compare.png",
+          "image_main": "pic/E000136_main.webp",
+          "image_compare": "pic/E000136_compare.webp",
           "location_id": "L000005"
         }
       ]
@@ -156,8 +156,8 @@
           "district": "米格尔区",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000096_main.png",
-          "image_compare": "pic/E000096_compare.png",
+          "image_main": "pic/E000096_main.webp",
+          "image_compare": "pic/E000096_compare.webp",
           "location_id": "L000006"
         }
       ]
@@ -183,8 +183,8 @@
           "district": "米格尔区",
           "has_main": true,
           "has_compare": true,
-          "image_main": "pic/E000077_main.png",
-          "image_compare": "pic/E000077_compare.png",
+          "image_main": "pic/E000077_main.webp",
+          "image_compare": "pic/E000077_compare.webp",
           "location_id": "L000007"
         }
       ]
@@ -210,8 +210,8 @@
           "district": "未闻浦",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000033_main.png",
-          "image_compare": "pic/E000033_compare.png",
+          "image_main": "pic/E000033_main.webp",
+          "image_compare": "pic/E000033_compare.webp",
           "location_id": "L000008"
         }
       ]
@@ -237,8 +237,8 @@
           "district": "新赫兰德区",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000137_main.png",
-          "image_compare": "pic/E000137_compare.png",
+          "image_main": "pic/E000137_main.webp",
+          "image_compare": "pic/E000137_compare.webp",
           "location_id": "L000009"
         }
       ]
@@ -264,8 +264,8 @@
           "district": "未闻浦",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000031_main.png",
-          "image_compare": "pic/E000031_compare.png",
+          "image_main": "pic/E000031_main.webp",
+          "image_compare": "pic/E000031_compare.webp",
           "location_id": "L000010"
         }
       ]
@@ -289,10 +289,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000057_main.png",
-          "image_compare": "pic/E000057_compare.png",
+          "image_main": "pic/E000057_main.webp",
+          "image_compare": "pic/E000057_compare.webp",
           "location_id": "L000011"
         }
       ]
@@ -316,10 +316,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000132_main.png",
-          "image_compare": "pic/E000132_compare.png",
+          "image_main": "pic/E000132_main.webp",
+          "image_compare": "pic/E000132_compare.webp",
           "location_id": "L000012"
         }
       ]
@@ -343,10 +343,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000034_main.png",
-          "image_compare": "pic/E000034_compare.png",
+          "image_main": "pic/E000034_main.webp",
+          "image_compare": "pic/E000034_compare.webp",
           "location_id": "L000013"
         }
       ]
@@ -370,10 +370,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000067_main.png",
-          "image_compare": "pic/E000067_compare.png",
+          "image_main": "pic/E000067_main.webp",
+          "image_compare": "pic/E000067_compare.webp",
           "location_id": "L000014"
         }
       ]
@@ -397,10 +397,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000047_main.png",
-          "image_compare": "pic/E000047_compare.png",
+          "image_main": "pic/E000047_main.webp",
+          "image_compare": "pic/E000047_compare.webp",
           "location_id": "L000015"
         }
       ]
@@ -418,16 +418,16 @@
           "source_id": "S000017",
           "source_name": "男子高中生的日常",
           "type": "场景",
-          "remark": "隔壁超市薯片半价/今天的风儿甚是喧嚣啊",
+          "remark": "一次性交互；薯片半价/今天的风儿甚是喧嚣啊",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000069_main.png",
-          "image_compare": "pic/E000069_compare.png",
+          "image_main": "pic/E000069_main.webp",
+          "image_compare": "pic/E000069_compare.webp",
           "location_id": "L000016"
         }
       ]
@@ -451,10 +451,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000028_main.png",
-          "image_compare": "pic/E000028_compare.png",
+          "image_main": "pic/E000028_main.webp",
+          "image_compare": "pic/E000028_compare.webp",
           "location_id": "L000017"
         },
         {
@@ -469,10 +469,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000029_main.png",
-          "image_compare": "pic/E000029_compare.png",
+          "image_main": "pic/E000029_main.webp",
+          "image_compare": "pic/E000029_compare.webp",
           "location_id": "L000017"
         }
       ]
@@ -496,10 +496,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000084_main.png",
-          "image_compare": "pic/E000084_compare.png",
+          "image_main": "pic/E000084_main.webp",
+          "image_compare": "pic/E000084_compare.webp",
           "location_id": "L000018"
         }
       ]
@@ -523,10 +523,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "绘空町",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000027_main.png",
-          "image_compare": "pic/E000027_compare.png",
+          "image_main": "pic/E000027_main.webp",
+          "image_compare": "pic/E000027_compare.webp",
           "location_id": "L000019"
         }
       ]
@@ -550,10 +550,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000055_main.png",
-          "image_compare": "pic/E000055_compare.png",
+          "image_main": "pic/E000055_main.webp",
+          "image_compare": "pic/E000055_compare.webp",
           "location_id": "L000020"
         }
       ]
@@ -577,10 +577,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000048_main.png",
-          "image_compare": "pic/E000048_compare.png",
+          "image_main": "pic/E000048_main.webp",
+          "image_compare": "pic/E000048_compare.webp",
           "location_id": "L000021"
         }
       ]
@@ -604,10 +604,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000063_main.png",
-          "image_compare": "pic/E000063_compare.png",
+          "image_main": "pic/E000063_main.webp",
+          "image_compare": "pic/E000063_compare.webp",
           "location_id": "L000022"
         },
         {
@@ -622,10 +622,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000064_main.png",
-          "image_compare": "pic/E000064_compare.png",
+          "image_main": "pic/E000064_main.webp",
+          "image_compare": "pic/E000064_compare.webp",
           "location_id": "L000022"
         },
         {
@@ -642,8 +642,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000065_main.png",
-          "image_compare": "pic/E000065_compare.png",
+          "image_main": "pic/E000065_main.webp",
+          "image_compare": "pic/E000065_compare.webp",
           "location_id": "L000022"
         },
         {
@@ -660,8 +660,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000066_main.png",
-          "image_compare": "pic/E000066_compare.png",
+          "image_main": "pic/E000066_main.webp",
+          "image_compare": "pic/E000066_compare.webp",
           "location_id": "L000022"
         }
       ]
@@ -685,10 +685,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000070_main.png",
-          "image_compare": "pic/E000070_compare.png",
+          "image_main": "pic/E000070_main.webp",
+          "image_compare": "pic/E000070_compare.webp",
           "location_id": "L000023"
         }
       ]
@@ -712,10 +712,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000089_main.png",
-          "image_compare": "pic/E000089_compare.png",
+          "image_main": "pic/E000089_main.webp",
+          "image_compare": "pic/E000089_compare.webp",
           "location_id": "L000024"
         }
       ]
@@ -741,8 +741,8 @@
           "district": "绘空町",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000005_main.png",
-          "image_compare": "pic/E000005_compare.png",
+          "image_main": "pic/E000005_main.webp",
+          "image_compare": "pic/E000005_compare.webp",
           "location_id": "L000025"
         }
       ]
@@ -766,10 +766,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "未闻浦",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000030_main.png",
-          "image_compare": "pic/E000030_compare.png",
+          "image_main": "pic/E000030_main.webp",
+          "image_compare": "pic/E000030_compare.webp",
           "location_id": "L000026"
         }
       ]
@@ -793,10 +793,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000072_main.png",
-          "image_compare": "pic/E000072_compare.png",
+          "image_main": "pic/E000072_main.webp",
+          "image_compare": "pic/E000072_compare.webp",
           "location_id": "L000027"
         }
       ]
@@ -820,10 +820,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000076_main.png",
-          "image_compare": "pic/E000076_compare.png",
+          "image_main": "pic/E000076_main.webp",
+          "image_compare": "pic/E000076_compare.webp",
           "location_id": "L000028"
         }
       ]
@@ -847,10 +847,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "M10区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000134_main.png",
-          "image_compare": "pic/E000134_compare.png",
+          "image_main": "pic/E000134_main.webp",
+          "image_compare": "pic/E000134_compare.webp",
           "location_id": "L000029"
         }
       ]
@@ -874,10 +874,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "新赫兰德区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000138_main.png",
-          "image_compare": "pic/E000138_compare.png",
+          "image_main": "pic/E000138_main.webp",
+          "image_compare": "pic/E000138_compare.webp",
           "location_id": "L000030"
         }
       ]
@@ -901,10 +901,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "未闻浦",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000007_main.png",
-          "image_compare": "pic/E000007_compare.png",
+          "image_main": "pic/E000007_main.webp",
+          "image_compare": "pic/E000007_compare.webp",
           "location_id": "L000031"
         }
       ]
@@ -928,10 +928,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000117_main.png",
-          "image_compare": "pic/E000117_compare.png",
+          "image_main": "pic/E000117_main.webp",
+          "image_compare": "pic/E000117_compare.webp",
           "location_id": "L000032"
         }
       ]
@@ -955,10 +955,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000118_main.png",
-          "image_compare": "pic/E000118_compare.png",
+          "image_main": "pic/E000118_main.webp",
+          "image_compare": "pic/E000118_compare.webp",
           "location_id": "L000033"
         }
       ]
@@ -975,17 +975,17 @@
           "name": "猫丸拉面",
           "source_id": "S000035",
           "source_name": "夏目友人帐",
-          "type": "广告牌",
+          "type": "场景",
           "remark": "对话还有\n拉面赤猫 的成分",
           "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
           "is_unmapped": false,
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000109_main.png",
-          "image_compare": "pic/E000109_compare.png",
+          "image_main": "pic/E000109_main.webp",
+          "image_compare": "pic/E000109_compare.webp",
           "location_id": "L000034"
         }
       ]
@@ -1009,10 +1009,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000122_main.png",
-          "image_compare": "pic/E000122_compare.png",
+          "image_main": "pic/E000122_main.webp",
+          "image_compare": "pic/E000122_compare.webp",
           "location_id": "L000035"
         },
         {
@@ -1027,10 +1027,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000123_main.png",
-          "image_compare": "pic/E000123_compare.png",
+          "image_main": "pic/E000123_main.webp",
+          "image_compare": "pic/E000123_compare.webp",
           "location_id": "L000035"
         },
         {
@@ -1045,10 +1045,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000124_main.png",
-          "image_compare": "pic/E000124_compare.png",
+          "image_main": "pic/E000124_main.webp",
+          "image_compare": "pic/E000124_compare.webp",
           "location_id": "L000035"
         }
       ]
@@ -1072,10 +1072,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000116_main.png",
-          "image_compare": "pic/E000116_compare.png",
+          "image_main": "pic/E000116_main.webp",
+          "image_compare": "pic/E000116_compare.webp",
           "location_id": "L000036"
         }
       ]
@@ -1099,10 +1099,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000120_main.png",
-          "image_compare": "pic/E000120_compare.png",
+          "image_main": "pic/E000120_main.webp",
+          "image_compare": "pic/E000120_compare.webp",
           "location_id": "L000037"
         }
       ]
@@ -1126,10 +1126,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000092_main.png",
-          "image_compare": "pic/E000092_compare.png",
+          "image_main": "pic/E000092_main.webp",
+          "image_compare": "pic/E000092_compare.webp",
           "location_id": "L000038"
         },
         {
@@ -1146,8 +1146,8 @@
           "district": "米格尔区",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000093_main.png",
-          "image_compare": "pic/E000093_compare.png",
+          "image_main": "pic/E000093_main.webp",
+          "image_compare": "pic/E000093_compare.webp",
           "location_id": "L000038"
         }
       ]
@@ -1171,10 +1171,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000099_main.png",
-          "image_compare": "pic/E000099_compare.png",
+          "image_main": "pic/E000099_main.webp",
+          "image_compare": "pic/E000099_compare.webp",
           "location_id": "L000039"
         }
       ]
@@ -1198,10 +1198,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000086_main.png",
-          "image_compare": "pic/E000086_compare.png",
+          "image_main": "pic/E000086_main.webp",
+          "image_compare": "pic/E000086_compare.webp",
           "location_id": "L000040"
         },
         {
@@ -1216,10 +1216,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000085_main.png",
-          "image_compare": "pic/E000085_compare.png",
+          "image_main": "pic/E000085_main.webp",
+          "image_compare": "pic/E000085_compare.webp",
           "location_id": "L000040"
         },
         {
@@ -1236,8 +1236,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000087_main.png",
-          "image_compare": "pic/E000087_compare.png",
+          "image_main": "pic/E000087_main.webp",
+          "image_compare": "pic/E000087_compare.webp",
           "location_id": "L000040"
         }
       ]
@@ -1263,8 +1263,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000073_main.png",
-          "image_compare": "pic/E000073_compare.png",
+          "image_main": "pic/E000073_main.webp",
+          "image_compare": "pic/E000073_compare.webp",
           "location_id": "L000041"
         }
       ]
@@ -1288,10 +1288,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000125_main.png",
-          "image_compare": "pic/E000125_compare.png",
+          "image_main": "pic/E000125_main.webp",
+          "image_compare": "pic/E000125_compare.webp",
           "location_id": "L000042"
         },
         {
@@ -1306,10 +1306,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000126_main.png",
-          "image_compare": "pic/E000126_compare.png",
+          "image_main": "pic/E000126_main.webp",
+          "image_compare": "pic/E000126_compare.webp",
           "location_id": "L000042"
         },
         {
@@ -1324,10 +1324,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000127_main.png",
-          "image_compare": "pic/E000127_compare.png",
+          "image_main": "pic/E000127_main.webp",
+          "image_compare": "pic/E000127_compare.webp",
           "location_id": "L000042"
         },
         {
@@ -1342,10 +1342,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000128_main.png",
-          "image_compare": "pic/E000128_compare.png",
+          "image_main": "pic/E000128_main.webp",
+          "image_compare": "pic/E000128_compare.webp",
           "location_id": "L000042"
         }
       ]
@@ -1369,10 +1369,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000083_main.png",
-          "image_compare": "pic/E000083_compare.png",
+          "image_main": "pic/E000083_main.webp",
+          "image_compare": "pic/E000083_compare.webp",
           "location_id": "L000043"
         }
       ]
@@ -1396,10 +1396,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000088_main.png",
-          "image_compare": "pic/E000088_compare.png",
+          "image_main": "pic/E000088_main.webp",
+          "image_compare": "pic/E000088_compare.webp",
           "location_id": "L000044"
         }
       ]
@@ -1423,10 +1423,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000115_main.png",
-          "image_compare": "pic/E000115_compare.png",
+          "image_main": "pic/E000115_main.webp",
+          "image_compare": "pic/E000115_compare.webp",
           "location_id": "L000045"
         }
       ]
@@ -1450,10 +1450,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000091_main.png",
-          "image_compare": "pic/E000091_compare.png",
+          "image_main": "pic/E000091_main.webp",
+          "image_compare": "pic/E000091_compare.webp",
           "location_id": "L000046"
         }
       ]
@@ -1477,10 +1477,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000131_main.png",
-          "image_compare": "pic/E000131_compare.png",
+          "image_main": "pic/E000131_main.webp",
+          "image_compare": "pic/E000131_compare.webp",
           "location_id": "L000047"
         },
         {
@@ -1497,8 +1497,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000130_main.png",
-          "image_compare": "pic/E000130_compare.png",
+          "image_main": "pic/E000130_main.webp",
+          "image_compare": "pic/E000130_compare.webp",
           "location_id": "L000047"
         }
       ]
@@ -1522,10 +1522,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000095_main.png",
-          "image_compare": "pic/E000095_compare.png",
+          "image_main": "pic/E000095_main.webp",
+          "image_compare": "pic/E000095_compare.webp",
           "location_id": "L000048"
         }
       ]
@@ -1551,8 +1551,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000105_main.png",
-          "image_compare": "pic/E000105_compare.png",
+          "image_main": "pic/E000105_main.webp",
+          "image_compare": "pic/E000105_compare.webp",
           "location_id": "L000049"
         }
       ]
@@ -1576,10 +1576,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000121_main.png",
-          "image_compare": "pic/E000121_compare.png",
+          "image_main": "pic/E000121_main.webp",
+          "image_compare": "pic/E000121_compare.webp",
           "location_id": "L000050"
         }
       ]
@@ -1605,8 +1605,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000078_main.png",
-          "image_compare": "pic/E000078_compare.png",
+          "image_main": "pic/E000078_main.webp",
+          "image_compare": "pic/E000078_compare.webp",
           "location_id": "L000051"
         },
         {
@@ -1623,8 +1623,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000079_main.png",
-          "image_compare": "pic/E000079_compare.png",
+          "image_main": "pic/E000079_main.webp",
+          "image_compare": "pic/E000079_compare.webp",
           "location_id": "L000051"
         }
       ]
@@ -1650,8 +1650,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000050_main.png",
-          "image_compare": "pic/E000050_compare.png",
+          "image_main": "pic/E000050_main.webp",
+          "image_compare": "pic/E000050_compare.webp",
           "location_id": "L000052"
         }
       ]
@@ -1675,10 +1675,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000129_main.png",
-          "image_compare": "pic/E000129_compare.png",
+          "image_main": "pic/E000129_main.webp",
+          "image_compare": "pic/E000129_compare.webp",
           "location_id": "L000053"
         }
       ]
@@ -1704,8 +1704,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000042_main.png",
-          "image_compare": "pic/E000042_compare.png",
+          "image_main": "pic/E000042_main.webp",
+          "image_compare": "pic/E000042_compare.webp",
           "location_id": "L000054"
         }
       ]
@@ -1731,8 +1731,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000040_main.png",
-          "image_compare": "pic/E000040_compare.png",
+          "image_main": "pic/E000040_main.webp",
+          "image_compare": "pic/E000040_compare.webp",
           "location_id": "L000055"
         }
       ]
@@ -1756,10 +1756,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000098_main.png",
-          "image_compare": "pic/E000098_compare.png",
+          "image_main": "pic/E000098_main.webp",
+          "image_compare": "pic/E000098_compare.webp",
           "location_id": "L000056"
         }
       ]
@@ -1785,8 +1785,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000038_main.png",
-          "image_compare": "pic/E000038_compare.png",
+          "image_main": "pic/E000038_main.webp",
+          "image_compare": "pic/E000038_compare.webp",
           "location_id": "L000057"
         }
       ]
@@ -1810,10 +1810,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000100_main.png",
-          "image_compare": "pic/E000100_compare.png",
+          "image_main": "pic/E000100_main.webp",
+          "image_compare": "pic/E000100_compare.webp",
           "location_id": "L000058"
         }
       ]
@@ -1839,8 +1839,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000144_main.png",
-          "image_compare": "pic/E000144_compare.png",
+          "image_main": "pic/E000144_main.webp",
+          "image_compare": "pic/E000144_compare.webp",
           "location_id": "L000059"
         }
       ]
@@ -1866,8 +1866,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000051_main.png",
-          "image_compare": "pic/E000051_compare.png",
+          "image_main": "pic/E000051_main.webp",
+          "image_compare": "pic/E000051_compare.webp",
           "location_id": "L000060"
         },
         {
@@ -1884,8 +1884,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000052_main.png",
-          "image_compare": "pic/E000052_compare.png",
+          "image_main": "pic/E000052_main.webp",
+          "image_compare": "pic/E000052_compare.webp",
           "location_id": "L000060"
         }
       ]
@@ -1911,8 +1911,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000039_main.png",
-          "image_compare": "pic/E000039_compare.png",
+          "image_main": "pic/E000039_main.webp",
+          "image_compare": "pic/E000039_compare.webp",
           "location_id": "L000061"
         }
       ]
@@ -1938,8 +1938,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000041_main.png",
-          "image_compare": "pic/E000041_compare.png",
+          "image_main": "pic/E000041_main.webp",
+          "image_compare": "pic/E000041_compare.webp",
           "location_id": "L000062"
         }
       ]
@@ -1963,10 +1963,10 @@
           "is_multi_location": true,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000082_main.png",
-          "image_compare": "pic/E000082_compare.png",
+          "image_main": "pic/E000082_main.webp",
+          "image_compare": "pic/E000082_compare.webp",
           "location_id": "L000063"
         }
       ]
@@ -1992,8 +1992,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000043_main.png",
-          "image_compare": "pic/E000043_compare.png",
+          "image_main": "pic/E000043_main.webp",
+          "image_compare": "pic/E000043_compare.webp",
           "location_id": "L000064"
         },
         {
@@ -2010,8 +2010,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000044_main.png",
-          "image_compare": "pic/E000044_compare.png",
+          "image_main": "pic/E000044_main.webp",
+          "image_compare": "pic/E000044_compare.webp",
           "location_id": "L000064"
         }
       ]
@@ -2037,8 +2037,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000074_main.png",
-          "image_compare": "pic/E000074_compare.png",
+          "image_main": "pic/E000074_main.webp",
+          "image_compare": "pic/E000074_compare.webp",
           "location_id": "L000065"
         }
       ]
@@ -2064,8 +2064,8 @@
           "district": "未闻浦",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000006_main.png",
-          "image_compare": "pic/E000006_compare.png",
+          "image_main": "pic/E000006_main.webp",
+          "image_compare": "pic/E000006_compare.webp",
           "location_id": "L000066"
         }
       ]
@@ -2091,8 +2091,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000081_main.png",
-          "image_compare": "pic/E000081_compare.png",
+          "image_main": "pic/E000081_main.webp",
+          "image_compare": "pic/E000081_compare.webp",
           "location_id": "L000067"
         }
       ]
@@ -2118,8 +2118,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000080_main.png",
-          "image_compare": "pic/E000080_compare.png",
+          "image_main": "pic/E000080_main.webp",
+          "image_compare": "pic/E000080_compare.webp",
           "location_id": "L000068"
         }
       ]
@@ -2145,8 +2145,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000037_main.png",
-          "image_compare": "pic/E000037_compare.png",
+          "image_main": "pic/E000037_main.webp",
+          "image_compare": "pic/E000037_compare.webp",
           "location_id": "L000069"
         }
       ]
@@ -2172,8 +2172,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000068_main.png",
-          "image_compare": "pic/E000068_compare.png",
+          "image_main": "pic/E000068_main.webp",
+          "image_compare": "pic/E000068_compare.webp",
           "location_id": "L000070"
         }
       ]
@@ -2199,8 +2199,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000046_main.png",
-          "image_compare": "pic/E000046_compare.png",
+          "image_main": "pic/E000046_main.webp",
+          "image_compare": "pic/E000046_compare.webp",
           "location_id": "L000071"
         }
       ]
@@ -2226,8 +2226,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000145_main.png",
-          "image_compare": "pic/E000145_compare.png",
+          "image_main": "pic/E000145_main.webp",
+          "image_compare": "pic/E000145_compare.webp",
           "location_id": "L000072"
         }
       ]
@@ -2253,8 +2253,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000146_main.png",
-          "image_compare": "pic/E000146_compare.png",
+          "image_main": "pic/E000146_main.webp",
+          "image_compare": "pic/E000146_compare.webp",
           "location_id": "L000073"
         }
       ]
@@ -2280,8 +2280,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000019_main.png",
-          "image_compare": "pic/E000019_compare.png",
+          "image_main": "pic/E000019_main.webp",
+          "image_compare": "pic/E000019_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2298,8 +2298,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000011_main.png",
-          "image_compare": "pic/E000011_compare.png",
+          "image_main": "pic/E000011_main.webp",
+          "image_compare": "pic/E000011_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2316,8 +2316,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000010_main.png",
-          "image_compare": "pic/E000010_compare.png",
+          "image_main": "pic/E000010_main.webp",
+          "image_compare": "pic/E000010_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2334,8 +2334,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000018_main.png",
-          "image_compare": "pic/E000018_compare.png",
+          "image_main": "pic/E000018_main.webp",
+          "image_compare": "pic/E000018_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2352,8 +2352,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000015_main.png",
-          "image_compare": "pic/E000015_compare.png",
+          "image_main": "pic/E000015_main.webp",
+          "image_compare": "pic/E000015_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2370,8 +2370,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000016_main.png",
-          "image_compare": "pic/E000016_compare.png",
+          "image_main": "pic/E000016_main.webp",
+          "image_compare": "pic/E000016_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2388,8 +2388,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000009_main.png",
-          "image_compare": "pic/E000009_compare.png",
+          "image_main": "pic/E000009_main.webp",
+          "image_compare": "pic/E000009_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2406,8 +2406,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000017_main.png",
-          "image_compare": "pic/E000017_compare.png",
+          "image_main": "pic/E000017_main.webp",
+          "image_compare": "pic/E000017_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2424,8 +2424,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000014_main.png",
-          "image_compare": "pic/E000014_compare.png",
+          "image_main": "pic/E000014_main.webp",
+          "image_compare": "pic/E000014_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2442,8 +2442,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000008_main.png",
-          "image_compare": "pic/E000008_compare.png",
+          "image_main": "pic/E000008_main.webp",
+          "image_compare": "pic/E000008_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2460,8 +2460,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000012_main.png",
-          "image_compare": "pic/E000012_compare.png",
+          "image_main": "pic/E000012_main.webp",
+          "image_compare": "pic/E000012_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2478,8 +2478,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000013_main.png",
-          "image_compare": "pic/E000013_compare.png",
+          "image_main": "pic/E000013_main.webp",
+          "image_compare": "pic/E000013_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2496,8 +2496,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000020_main.png",
-          "image_compare": "pic/E000020_compare.png",
+          "image_main": "pic/E000020_main.webp",
+          "image_compare": "pic/E000020_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2514,8 +2514,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000023_main.png",
-          "image_compare": "pic/E000023_compare.png",
+          "image_main": "pic/E000023_main.webp",
+          "image_compare": "pic/E000023_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2532,8 +2532,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000024_main.png",
-          "image_compare": "pic/E000024_compare.png",
+          "image_main": "pic/E000024_main.webp",
+          "image_compare": "pic/E000024_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2550,8 +2550,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000021_main.png",
-          "image_compare": "pic/E000021_compare.png",
+          "image_main": "pic/E000021_main.webp",
+          "image_compare": "pic/E000021_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2568,8 +2568,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000022_main.png",
-          "image_compare": "pic/E000022_compare.png",
+          "image_main": "pic/E000022_main.webp",
+          "image_compare": "pic/E000022_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2586,8 +2586,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000026_main.png",
-          "image_compare": "pic/E000026_compare.png",
+          "image_main": "pic/E000026_main.webp",
+          "image_compare": "pic/E000026_compare.webp",
           "location_id": "L000074"
         },
         {
@@ -2604,8 +2604,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000025_main.png",
-          "image_compare": "pic/E000025_compare.png",
+          "image_main": "pic/E000025_main.webp",
+          "image_compare": "pic/E000025_compare.webp",
           "location_id": "L000074"
         }
       ]
@@ -2631,8 +2631,8 @@
           "district": "新赫兰德区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000104_main.png",
-          "image_compare": "pic/E000104_compare.png",
+          "image_main": "pic/E000104_main.webp",
+          "image_compare": "pic/E000104_compare.webp",
           "location_id": "L000075"
         }
       ]
@@ -2658,8 +2658,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000032_main.png",
-          "image_compare": "pic/E000032_compare.png",
+          "image_main": "pic/E000032_main.webp",
+          "image_compare": "pic/E000032_compare.webp",
           "location_id": "L000076"
         }
       ]
@@ -2685,8 +2685,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000119_main.png",
-          "image_compare": "pic/E000119_compare.png",
+          "image_main": "pic/E000119_main.webp",
+          "image_compare": "pic/E000119_compare.webp",
           "location_id": "L000077"
         }
       ]
@@ -2712,8 +2712,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000035_main.png",
-          "image_compare": "pic/E000035_compare.png",
+          "image_main": "pic/E000035_main.webp",
+          "image_compare": "pic/E000035_compare.webp",
           "location_id": "L000078"
         }
       ]
@@ -2739,8 +2739,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000060_main.png",
-          "image_compare": "pic/E000060_compare.png",
+          "image_main": "pic/E000060_main.webp",
+          "image_compare": "pic/E000060_compare.webp",
           "location_id": "L000079"
         }
       ]
@@ -2766,8 +2766,8 @@
           "district": "绘空町",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000003_main.png",
-          "image_compare": "pic/E000003_compare.png",
+          "image_main": "pic/E000003_main.webp",
+          "image_compare": "pic/E000003_compare.webp",
           "location_id": "L000080"
         }
       ]
@@ -2791,10 +2791,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "桥间地",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000045_main.png",
-          "image_compare": "pic/E000045_compare.png",
+          "image_main": "pic/E000045_main.webp",
+          "image_compare": "pic/E000045_compare.webp",
           "location_id": "L000081"
         }
       ]
@@ -2820,8 +2820,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000036_main.png",
-          "image_compare": "pic/E000036_compare.png",
+          "image_main": "pic/E000036_main.webp",
+          "image_compare": "pic/E000036_compare.webp",
           "location_id": "L000082"
         }
       ]
@@ -2847,8 +2847,8 @@
           "district": "绘空町",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000002_main.png",
-          "image_compare": "pic/E000002_compare.png",
+          "image_main": "pic/E000002_main.webp",
+          "image_compare": "pic/E000002_compare.webp",
           "location_id": "L000083"
         }
       ]
@@ -2874,8 +2874,8 @@
           "district": "绘空町",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000049_main.png",
-          "image_compare": "pic/E000049_compare.png",
+          "image_main": "pic/E000049_main.webp",
+          "image_compare": "pic/E000049_compare.webp",
           "location_id": "L000084"
         }
       ]
@@ -2901,8 +2901,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000054_main.png",
-          "image_compare": "pic/E000054_compare.png",
+          "image_main": "pic/E000054_main.webp",
+          "image_compare": "pic/E000054_compare.webp",
           "location_id": "L000085"
         }
       ]
@@ -2928,8 +2928,8 @@
           "district": "新赫兰德区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000090_main.png",
-          "image_compare": "pic/E000090_compare.png",
+          "image_main": "pic/E000090_main.webp",
+          "image_compare": "pic/E000090_compare.webp",
           "location_id": "L000086"
         }
       ]
@@ -2955,8 +2955,8 @@
           "district": "新赫兰德区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000110_main.png",
-          "image_compare": "pic/E000110_compare.png",
+          "image_main": "pic/E000110_main.webp",
+          "image_compare": "pic/E000110_compare.webp",
           "location_id": "L000087"
         },
         {
@@ -2973,8 +2973,8 @@
           "district": "新赫兰德区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000111_main.png",
-          "image_compare": "pic/E000111_compare.png",
+          "image_main": "pic/E000111_main.webp",
+          "image_compare": "pic/E000111_compare.webp",
           "location_id": "L000087"
         },
         {
@@ -2991,8 +2991,8 @@
           "district": "新赫兰德区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000112_main.png",
-          "image_compare": "pic/E000112_compare.png",
+          "image_main": "pic/E000112_main.webp",
+          "image_compare": "pic/E000112_compare.webp",
           "location_id": "L000087"
         },
         {
@@ -3009,8 +3009,8 @@
           "district": "新赫兰德区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000113_main.png",
-          "image_compare": "pic/E000113_compare.png",
+          "image_main": "pic/E000113_main.webp",
+          "image_compare": "pic/E000113_compare.webp",
           "location_id": "L000087"
         },
         {
@@ -3027,8 +3027,8 @@
           "district": "新赫兰德区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000114_main.png",
-          "image_compare": "pic/E000114_compare.png",
+          "image_main": "pic/E000114_main.webp",
+          "image_compare": "pic/E000114_compare.webp",
           "location_id": "L000087"
         }
       ]
@@ -3054,8 +3054,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000061_main.png",
-          "image_compare": "pic/E000061_compare.png",
+          "image_main": "pic/E000061_main.webp",
+          "image_compare": "pic/E000061_compare.webp",
           "location_id": "L000088"
         }
       ]
@@ -3081,8 +3081,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000056_main.png",
-          "image_compare": "pic/E000056_compare.png",
+          "image_main": "pic/E000056_main.webp",
+          "image_compare": "pic/E000056_compare.webp",
           "location_id": "L000089"
         }
       ]
@@ -3108,8 +3108,8 @@
           "district": "新赫兰德区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000075_main.png",
-          "image_compare": "pic/E000075_compare.png",
+          "image_main": "pic/E000075_main.webp",
+          "image_compare": "pic/E000075_compare.webp",
           "location_id": "L000090"
         }
       ]
@@ -3135,8 +3135,8 @@
           "district": "新赫兰德区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000106_main.png",
-          "image_compare": "pic/E000106_compare.png",
+          "image_main": "pic/E000106_main.webp",
+          "image_compare": "pic/E000106_compare.webp",
           "location_id": "L000091"
         },
         {
@@ -3153,8 +3153,8 @@
           "district": "新赫兰德区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000107_main.png",
-          "image_compare": "pic/E000107_compare.png",
+          "image_main": "pic/E000107_main.webp",
+          "image_compare": "pic/E000107_compare.webp",
           "location_id": "L000091"
         }
       ]
@@ -3180,8 +3180,8 @@
           "district": "未闻浦",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000001_main.png",
-          "image_compare": "pic/E000001_compare.png",
+          "image_main": "pic/E000001_main.webp",
+          "image_compare": "pic/E000001_compare.webp",
           "location_id": "L000092"
         }
       ]
@@ -3207,8 +3207,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000172_main.png",
-          "image_compare": "pic/E000172_compare.png",
+          "image_main": "pic/E000172_main.webp",
+          "image_compare": "pic/E000172_compare.webp",
           "location_id": "L000093"
         }
       ]
@@ -3234,8 +3234,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000133_main.png",
-          "image_compare": "pic/E000133_compare.png",
+          "image_main": "pic/E000133_main.webp",
+          "image_compare": "pic/E000133_compare.webp",
           "location_id": "L000094"
         }
       ]
@@ -3259,10 +3259,10 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "米格尔区",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000071_main.png",
-          "image_compare": "pic/E000071_compare.png",
+          "image_main": "pic/E000071_main.webp",
+          "image_compare": "pic/E000071_compare.webp",
           "location_id": "L000095"
         }
       ]
@@ -3288,8 +3288,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000147_main.png",
-          "image_compare": "pic/E000147_compare.png",
+          "image_main": "pic/E000147_main.webp",
+          "image_compare": "pic/E000147_compare.webp",
           "location_id": "L000096"
         },
         {
@@ -3306,8 +3306,8 @@
           "district": "桥间地",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000053_main.png",
-          "image_compare": "pic/E000053_compare.png",
+          "image_main": "pic/E000053_main.webp",
+          "image_compare": "pic/E000053_compare.webp",
           "location_id": "L000096"
         }
       ]
@@ -3333,8 +3333,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000058_main.png",
-          "image_compare": "pic/E000058_compare.png",
+          "image_main": "pic/E000058_main.webp",
+          "image_compare": "pic/E000058_compare.webp",
           "location_id": "L000097"
         }
       ]
@@ -3360,8 +3360,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000062_main.png",
-          "image_compare": "pic/E000062_compare.png",
+          "image_main": "pic/E000062_main.webp",
+          "image_compare": "pic/E000062_compare.webp",
           "location_id": "L000098"
         }
       ]
@@ -3387,8 +3387,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000103_main.png",
-          "image_compare": "pic/E000103_compare.png",
+          "image_main": "pic/E000103_main.webp",
+          "image_compare": "pic/E000103_compare.webp",
           "location_id": "L000099"
         }
       ]
@@ -3414,8 +3414,8 @@
           "district": "新赫兰德区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000108_main.png",
-          "image_compare": "pic/E000108_compare.png",
+          "image_main": "pic/E000108_main.webp",
+          "image_compare": "pic/E000108_compare.webp",
           "location_id": "L000100"
         }
       ]
@@ -3441,8 +3441,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000059_main.png",
-          "image_compare": "pic/E000059_compare.png",
+          "image_main": "pic/E000059_main.webp",
+          "image_compare": "pic/E000059_compare.webp",
           "location_id": "L000101"
         }
       ]
@@ -3468,8 +3468,8 @@
           "district": "未闻浦",
           "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000004_main.png",
-          "image_compare": "pic/E000004_compare.png",
+          "image_main": "pic/E000004_main.webp",
+          "image_compare": "pic/E000004_compare.webp",
           "location_id": "L000102"
         }
       ]
@@ -3495,8 +3495,8 @@
           "district": "新赫兰德区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000135_main.png",
-          "image_compare": "pic/E000135_compare.png",
+          "image_main": "pic/E000135_main.webp",
+          "image_compare": "pic/E000135_compare.webp",
           "location_id": "L000103"
         }
       ]
@@ -3522,8 +3522,8 @@
           "district": "米格尔区",
           "has_main": false,
           "has_compare": false,
-          "image_main": "pic/E000139_main.png",
-          "image_compare": "pic/E000139_compare.png",
+          "image_main": "pic/E000139_main.webp",
+          "image_compare": "pic/E000139_compare.webp",
           "location_id": "L000104"
         }
       ]
@@ -4451,8 +4451,8 @@
       "district": "桥间地",
       "has_main": true,
       "has_compare": false,
-      "image_main": "pic/E000142_main.png",
-      "image_compare": "pic/E000142_compare.png"
+      "image_main": "pic/E000142_main.webp",
+      "image_compare": "pic/E000142_compare.webp"
     },
     {
       "id": "E000140",
@@ -4468,8 +4468,8 @@
       "district": "桥间地",
       "has_main": true,
       "has_compare": false,
-      "image_main": "pic/E000140_main.png",
-      "image_compare": "pic/E000140_compare.png"
+      "image_main": "pic/E000140_main.webp",
+      "image_compare": "pic/E000140_compare.webp"
     },
     {
       "id": "E000141",
@@ -4485,8 +4485,8 @@
       "district": "桥间地",
       "has_main": true,
       "has_compare": false,
-      "image_main": "pic/E000141_main.png",
-      "image_compare": "pic/E000141_compare.png"
+      "image_main": "pic/E000141_main.webp",
+      "image_compare": "pic/E000141_compare.webp"
     },
     {
       "id": "E000143",
@@ -4502,8 +4502,8 @@
       "district": "未知区域",
       "has_main": false,
       "has_compare": false,
-      "image_main": "pic/E000143_main.png",
-      "image_compare": "pic/E000143_compare.png"
+      "image_main": "pic/E000143_main.webp",
+      "image_compare": "pic/E000143_compare.webp"
     },
     {
       "id": "E000148",
@@ -4519,8 +4519,8 @@
       "district": "未知区域",
       "has_main": false,
       "has_compare": false,
-      "image_main": "pic/E000148_main.png",
-      "image_compare": "pic/E000148_compare.png"
+      "image_main": "pic/E000148_main.webp",
+      "image_compare": "pic/E000148_compare.webp"
     }
   ]
 }
