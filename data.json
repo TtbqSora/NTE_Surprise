@@ -2684,7 +2684,7 @@
           "city": "海特洛市",
           "district": "新赫兰德区",
           "has_main": true,
-          "has_compare": true,
+          "has_compare": false,
           "image_main": "pic/E000108_main.webp",
           "image_compare": "pic/E000108_compare.webp",
           "location_id": "L000079"
@@ -3551,7 +3551,7 @@
       "x": 4048,
       "y": 6051,
       "city": "海特洛市",
-      "district": "新赫兰德区",
+      "district": "米格尔区",
       "eggs": [
         {
           "id": "E000159",
@@ -3564,7 +3564,7 @@
           "is_unmapped": false,
           "is_multi_location": true,
           "city": "海特洛市",
-          "district": "新赫兰德区",
+          "district": "米格尔区",
           "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000159_main.webp",
@@ -3659,7 +3659,7 @@
       "x": 7037,
       "y": 6804,
       "city": "海特洛市",
-      "district": "桥间地",
+      "district": "米格尔区",
       "eggs": [
         {
           "id": "E000175",
@@ -3672,7 +3672,7 @@
           "is_unmapped": false,
           "is_multi_location": true,
           "city": "海特洛市",
-          "district": "桥间地",
+          "district": "米格尔区",
           "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000175_main.webp",
