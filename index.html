@@ -23,7 +23,7 @@
         
         /* 标记点基础样式 */
         .custom-marker .marker-inner {
-            width: 16px; height: 16px;
+            width: 14px; height: 14px;
             background-color: #ff3b30;
             border: 2px solid white;
             border-radius: 50%;
@@ -255,8 +255,8 @@
         const zoom = map.getZoom();
         const relativeScale = Math.pow(2, zoom - CONFIG.maxZoomLevel);
         document.getElementById('zoom-text').innerText = `${relativeScale.toFixed(2)}x`;
-        const markerScale = 0.25 + (zoom * 0.2); 
-        document.documentElement.style.setProperty('--marker-scale', Math.max(0.25, markerScale));
+        const markerScale = 0.2 + (zoom * 0.15); 
+        document.documentElement.style.setProperty('--marker-scale', Math.max(0.2, markerScale));
     }
     map.on('zoom', updateZoomUI);
     updateZoomUI();
@@ -422,8 +422,8 @@
                 header.innerHTML = `
                     <div class="flex-1">
                         ${backBtnHtml}
-                        <h2 class="text-lg font-bold text-white">坐标: [${loc.x}, ${loc.y}]</h2>
-                        <p class="text-sm text-gray-400">${loc.city} - ${loc.district}</p>
+                        <h2 class="text-lg font-bold text-white">${loc.city} - ${loc.district}</h2>
+                        <p class="text-xs text-gray-500 mt-1 font-mono">坐标: [${loc.x}, ${loc.y}]</p>
                     </div>
                     <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full self-start"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
                 `;
