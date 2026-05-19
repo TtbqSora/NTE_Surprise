@@ -2628,7 +2628,7 @@
       "eggs": [
         {
           "id": "E000106",
-          "name": "Qm?服装店",
+          "name": "Q立方服装店",
           "source_id": "S000092",
           "source_name": "吊带袜天使",
           "type": "海报",
@@ -2646,7 +2646,7 @@
         },
         {
           "id": "E000107",
-          "name": "Qm?服装店",
+          "name": "Q立方服装店",
           "source_id": "S000093",
           "source_name": "飞天小女警",
           "type": "海报",
@@ -2678,7 +2678,7 @@
           "source_name": "涩谷十字路口",
           "type": "场景",
           "remark": "",
-          "link": "https://www.bilibili.com/video/BV1QxoVBwE4s",
+          "link": "B站：_英梨梨_/亚琪菈",
           "is_unmapped": false,
           "is_multi_location": false,
           "city": "海特洛市",
@@ -3680,6 +3680,33 @@
           "location_id": "L000109"
         }
       ]
+    },
+    {
+      "id": "L000110",
+      "x": 2638,
+      "y": 5087,
+      "city": "海特洛市",
+      "district": "绘空町",
+      "eggs": [
+        {
+          "id": "E000176",
+          "name": "西班牙楼梯",
+          "source_id": "S000021",
+          "source_name": "MyGO",
+          "type": "场景",
+          "remark": "",
+          "link": "小黑盒-东方红萌馆",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "绘空町",
+          "has_main": true,
+          "has_compare": false,
+          "image_main": "pic/E000176_main.webp",
+          "image_compare": "pic/E000176_compare.webp",
+          "location_id": "L000110"
+        }
+      ]
     }
   ],
   "sources": [
@@ -3837,7 +3864,8 @@
       "egg_ids": [
         "E000023",
         "E000024",
-        "E000110"
+        "E000110",
+        "E000176"
       ]
     },
     {
