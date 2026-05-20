@@ -1050,6 +1050,24 @@
           "image_main": "pic/E000045_main.webp",
           "image_compare": "pic/E000045_compare.webp",
           "location_id": "L000025"
+        },
+        {
+          "id": "E000178",
+          "name": "月光当铺",
+          "source_id": "S000130",
+          "source_name": "第8号当铺",
+          "type": "剧情",
+          "remark": "同类心愿交易都可能",
+          "link": "小黑盒-东方红萌馆",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "桥间地",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000178_main.webp",
+          "image_compare": "pic/E000178_compare.webp",
+          "location_id": "L000025"
         }
       ]
     },
@@ -3707,6 +3725,33 @@
           "location_id": "L000110"
         }
       ]
+    },
+    {
+      "id": "L000111",
+      "x": 4121,
+      "y": 6669,
+      "city": "海特洛市",
+      "district": "米格尔区",
+      "eggs": [
+        {
+          "id": "E000177",
+          "name": "摇曳镇二层楼",
+          "source_id": "S000058",
+          "source_name": "柯南",
+          "type": "场景",
+          "remark": "毛利事务所",
+          "link": "x小黑盒-泽城诗乃",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "米格尔区",
+          "has_main": true,
+          "has_compare": false,
+          "image_main": "pic/E000177_main.webp",
+          "image_compare": "pic/E000177_compare.webp",
+          "location_id": "L000111"
+        }
+      ]
     }
   ],
   "sources": [
@@ -4134,7 +4179,8 @@
       "name": "柯南",
       "egg_ids": [
         "E000066",
-        "E000088"
+        "E000088",
+        "E000177"
       ]
     },
     {
@@ -4638,6 +4684,13 @@
       "name": "四月是你的谎言",
       "egg_ids": [
         "E000172"
+      ]
+    },
+    {
+      "id": "S000130",
+      "name": "第8号当铺",
+      "egg_ids": [
+        "E000178"
       ]
     }
   ],
