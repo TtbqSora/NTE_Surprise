@@ -159,14 +159,70 @@
 <script>
     lucide.createIcons();
 
+    // 1. 更新 CONFIG，加入偏移量
     const CONFIG = {
-        mapWidth: 8192, 
-        mapHeight: 8192,
+        mapWidth: 10240,    // 修改为新图尺寸
+        mapHeight: 10240,   // 修改为新图尺寸
+        offsetX: 2048,      // 重点：向左扩展的像素量
+        offsetY: 2048,      // 重点：向下扩展的像素量
         panExtraLeftOffset: 100,
         panDuration: 0.5,
         minPanZoom: 4, 
         maxZoomLevel: 5 
     };
+
+    const scaleFactor = 1 / Math.pow(2, CONFIG.maxZoomLevel);
+    
+    // 2. 更新坐标转换矩阵，让 Leaflet 知道旧的 (0,0) 点现在在哪里
+    const customCRS = L.Util.extend({}, L.CRS.Simple, {
+        transformation: new L.Transformation(
+            scaleFactor, 
+            CONFIG.offsetX * scaleFactor, 
+            -scaleFactor, 
+            (CONFIG.mapHeight - CONFIG.offsetY) * scaleFactor 
+        )
+    });
+
+    const map = L.map('map', { 
+        crs: customCRS,       
+        minZoom: 2,           
+        maxZoom: 5,           
+        zoomControl: false, 
+        attributionControl: false 
+    });
+
+    // 3. 计算支持负数的全新边界
+    const minX = -CONFIG.offsetX;
+    const minY = -CONFIG.offsetY;
+    const maxX = CONFIG.mapWidth - CONFIG.offsetX;
+    const maxY = CONFIG.mapHeight - CONFIG.offsetY;
+
+    const padding = 2048; 
+    const maxBounds = [[minY - padding, minX - padding], [maxY + padding, maxX + padding]];
+    map.setMaxBounds(maxBounds);
+
+    // 4. 更新 tileLayer 的限制范围
+    L.tileLayer('tiles/{z}/{x}/{z}_{x}_{y}.webp', {
+        minZoom: 2,
+        maxZoom: 5,
+        noWrap: true,
+        bounds: [[minY, minX], [maxY, maxX]] 
+    }).addTo(map);
+
+    // 5. 初始视角可以设定在新地图的旧中心点
+    map.setView([(CONFIG.mapHeight / 2) - CONFIG.offsetY, (CONFIG.mapWidth / 2) - CONFIG.offsetX], 1);
+
+    let isMarkingMode = false;
+    let isClustered = false; 
+    let activeRegionFilter = null; 
+    let currentSelectedMarker = null; 
+    
+    const clusterGroup = L.markerClusterGroup({ maxClusterRadius: 50, spiderfyOnMaxZoom: true, zoomToBoundsOnClick: true });
+    const normalGroup = L.layerGroup();
+    let currentLayerGroup = normalGroup;
+    map.addLayer(currentLayerGroup);
+
+    const allMarkers = [];
 
     let db = { locations: [], sources: [], unmapped: [] };
 
@@ -209,47 +265,6 @@
         }
     }
 
-    const scaleFactor = 1 / Math.pow(2, CONFIG.maxZoomLevel);
-    
-    const customCRS = L.Util.extend({}, L.CRS.Simple, {
-        transformation: new L.Transformation(
-            scaleFactor, 0, 
-            -scaleFactor, CONFIG.mapHeight * scaleFactor 
-        )
-    });
-
-    const map = L.map('map', { 
-        crs: customCRS,       
-        minZoom: 2,           
-        maxZoom: 5,           
-        zoomControl: false, 
-        attributionControl: false 
-    });
-
-    const padding = 1000; 
-    const maxBounds = [[-padding, -padding], [CONFIG.mapHeight + padding, CONFIG.mapWidth + padding]];
-    map.setMaxBounds(maxBounds);
-
-    L.tileLayer('tiles/{z}/{x}/{z}_{x}_{y}.webp', {
-        minZoom: 2,
-        maxZoom: 5,
-        noWrap: true,
-        bounds: [[0, 0], [CONFIG.mapHeight, CONFIG.mapWidth]] 
-    }).addTo(map);
-
-    map.setView([CONFIG.mapHeight / 2, CONFIG.mapWidth / 2], 1);
-
-    let isMarkingMode = false;
-    let isClustered = false; 
-    let activeRegionFilter = null; 
-    let currentSelectedMarker = null; 
-    
-    const clusterGroup = L.markerClusterGroup({ maxClusterRadius: 50, spiderfyOnMaxZoom: true, zoomToBoundsOnClick: true });
-    const normalGroup = L.layerGroup();
-    let currentLayerGroup = normalGroup;
-    map.addLayer(currentLayerGroup);
-
-    const allMarkers = [];
 
     function updateZoomUI() {
         const zoom = map.getZoom();
