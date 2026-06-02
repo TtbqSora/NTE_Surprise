@@ -203,7 +203,7 @@
 
     // 4. 更新 tileLayer 的限制范围
     L.tileLayer('tiles/{z}/{x}/{z}_{x}_{y}.webp', {
-        minZoom: 2,
+        minZoom: 1,
         maxZoom: 5,
         noWrap: true,
         bounds: [[minY, minX], [maxY, maxX]] 
