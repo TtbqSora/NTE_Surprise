@@ -13,7 +13,7 @@
           "source_id": "S000001",
           "source_name": "游戏王",
           "type": "场景",
-          "remark": "奥利哈刚之神",
+          "remark": "奥利哈刚之神（原001）",
           "link": "https://www.bilibili.com/video/BV1YR3ozwEQ2",
           "is_unmapped": false,
           "is_multi_location": false,
@@ -1054,7 +1054,7 @@
         {
           "id": "E000178",
           "name": "月光当铺",
-          "source_id": "S000130",
+          "source_id": "S000131",
           "source_name": "第8号当铺",
           "type": "剧情",
           "remark": "同类心愿交易都可能",
@@ -3539,6 +3539,33 @@
     },
     {
       "id": "L000104",
+      "x": 3834,
+      "y": 7092,
+      "city": "海特洛市",
+      "district": "未知区域",
+      "eggs": [
+        {
+          "id": "E000154",
+          "name": "五连发卡弯",
+          "source_id": "S000126",
+          "source_name": "吹响吧！上低音号！",
+          "type": "场景",
+          "remark": "大吉山\n\n安魂曲坐摩天轮剧情也说了地面看起来像星星一样",
+          "link": "https://www.bilibili.com/video/BV1kH6nBFELB/",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "未知区域",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000154_main.webp",
+          "image_compare": "pic/E000154_compare.webp",
+          "location_id": "L000104"
+        }
+      ]
+    },
+    {
+      "id": "L000105",
       "x": 3551,
       "y": 5483,
       "city": "海特洛市",
@@ -3547,7 +3574,7 @@
         {
           "id": "E000158",
           "name": "Game大作战",
-          "source_id": "S000126",
+          "source_id": "S000127",
           "source_name": "约会大作战",
           "type": "广告牌",
           "remark": "",
@@ -3560,12 +3587,12 @@
           "has_compare": false,
           "image_main": "pic/E000158_main.webp",
           "image_compare": "pic/E000158_compare.webp",
-          "location_id": "L000104"
+          "location_id": "L000105"
         }
       ]
     },
     {
-      "id": "L000105",
+      "id": "L000106",
       "x": 4048,
       "y": 6051,
       "city": "海特洛市",
@@ -3587,12 +3614,12 @@
           "has_compare": false,
           "image_main": "pic/E000159_main.webp",
           "image_compare": "pic/E000159_compare.webp",
-          "location_id": "L000105"
+          "location_id": "L000106"
         }
       ]
     },
     {
-      "id": "L000106",
+      "id": "L000107",
       "x": 3426,
       "y": 5368,
       "city": "海特洛市",
@@ -3601,7 +3628,7 @@
         {
           "id": "E000160",
           "name": "绿松糕点",
-          "source_id": "S000127",
+          "source_id": "S000128",
           "source_name": "相合之物",
           "type": "广告牌",
           "remark": "",
@@ -3614,12 +3641,12 @@
           "has_compare": false,
           "image_main": "pic/E000160_main.webp",
           "image_compare": "pic/E000160_compare.webp",
-          "location_id": "L000106"
+          "location_id": "L000107"
         }
       ]
     },
     {
-      "id": "L000107",
+      "id": "L000108",
       "x": 3448,
       "y": 5516,
       "city": "海特洛市",
@@ -3628,7 +3655,7 @@
         {
           "id": "E000162",
           "name": "覆面系\n不要",
-          "source_id": "S000128",
+          "source_id": "S000129",
           "source_name": "覆面系",
           "type": "广告牌",
           "remark": "",
@@ -3641,12 +3668,12 @@
           "has_compare": false,
           "image_main": "pic/E000162_main.webp",
           "image_compare": "pic/E000162_compare.webp",
-          "location_id": "L000107"
+          "location_id": "L000108"
         }
       ]
     },
     {
-      "id": "L000108",
+      "id": "L000109",
       "x": 4003,
       "y": 3524,
       "city": "海特洛市",
@@ -3655,7 +3682,7 @@
         {
           "id": "E000172",
           "name": "祈福墙台词",
-          "source_id": "S000129",
+          "source_id": "S000130",
           "source_name": "四月是你的谎言",
           "type": "场景",
           "remark": "台词\n\n我是否住进你的心房了呢",
@@ -3668,12 +3695,12 @@
           "has_compare": false,
           "image_main": "pic/E000172_main.webp",
           "image_compare": "pic/E000172_compare.webp",
-          "location_id": "L000108"
+          "location_id": "L000109"
         }
       ]
     },
     {
-      "id": "L000109",
+      "id": "L000110",
       "x": 7037,
       "y": 6804,
       "city": "海特洛市",
@@ -3695,12 +3722,12 @@
           "has_compare": false,
           "image_main": "pic/E000175_main.webp",
           "image_compare": "pic/E000175_compare.webp",
-          "location_id": "L000109"
+          "location_id": "L000110"
         }
       ]
     },
     {
-      "id": "L000110",
+      "id": "L000111",
       "x": 2638,
       "y": 5087,
       "city": "海特洛市",
@@ -3722,12 +3749,12 @@
           "has_compare": false,
           "image_main": "pic/E000176_main.webp",
           "image_compare": "pic/E000176_compare.webp",
-          "location_id": "L000110"
+          "location_id": "L000111"
         }
       ]
     },
     {
-      "id": "L000111",
+      "id": "L000112",
       "x": 4121,
       "y": 6669,
       "city": "海特洛市",
@@ -3749,7 +3776,115 @@
           "has_compare": false,
           "image_main": "pic/E000177_main.webp",
           "image_compare": "pic/E000177_compare.webp",
-          "location_id": "L000111"
+          "location_id": "L000112"
+        }
+      ]
+    },
+    {
+      "id": "L000113",
+      "x": 718,
+      "y": 16,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "eggs": [
+        {
+          "id": "E000180",
+          "name": "向阳岛码头",
+          "source_id": "S000132",
+          "source_name": "夏日重现",
+          "type": "场景",
+          "remark": "",
+          "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "向阳岛",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000180_main.webp",
+          "image_compare": "pic/E000180_compare.webp",
+          "location_id": "L000113"
+        }
+      ]
+    },
+    {
+      "id": "L000114",
+      "x": 251,
+      "y": 152,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "eggs": [
+        {
+          "id": "E000186",
+          "name": "向阳岛钓鱼点",
+          "source_id": "S000135",
+          "source_name": "夏日口袋",
+          "type": "场景",
+          "remark": "",
+          "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "向阳岛",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000186_main.webp",
+          "image_compare": "pic/E000186_compare.webp",
+          "location_id": "L000114"
+        }
+      ]
+    },
+    {
+      "id": "L000115",
+      "x": 766,
+      "y": 85,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "eggs": [
+        {
+          "id": "E000196",
+          "name": "向阳岛码头自行车",
+          "source_id": "S000132",
+          "source_name": "夏日重现",
+          "type": "场景",
+          "remark": "（仅主线一次性） \n注意：一边刹车没有刹车线",
+          "link": "https://www.bilibili.com/video/BV1o4Vp6FEi2",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "向阳岛",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000196_main.webp",
+          "image_compare": "pic/E000196_compare.webp",
+          "location_id": "L000115"
+        }
+      ]
+    },
+    {
+      "id": "L000116",
+      "x": 6190,
+      "y": 5587,
+      "city": "海特洛市",
+      "district": "未知区域",
+      "eggs": [
+        {
+          "id": "E000209",
+          "name": "北极星乐器店",
+          "source_id": "S000021",
+          "source_name": "MyGO",
+          "type": "",
+          "remark": "",
+          "link": "https://www.taptap.cn/moment/806938393970737711?share_id=df325b85500b&utm_medium=share&utm_source=copylink",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "未知区域",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000209_main.webp",
+          "image_compare": "pic/E000209_compare.webp",
+          "location_id": "L000116"
         }
       ]
     }
@@ -3910,7 +4045,8 @@
         "E000023",
         "E000024",
         "E000110",
-        "E000176"
+        "E000176",
+        "E000209"
       ]
     },
     {
@@ -4660,37 +4796,123 @@
     },
     {
       "id": "S000126",
+      "name": "吹响吧！上低音号！",
+      "egg_ids": [
+        "E000154"
+      ]
+    },
+    {
+      "id": "S000127",
       "name": "约会大作战",
       "egg_ids": [
         "E000158"
       ]
     },
     {
-      "id": "S000127",
+      "id": "S000128",
       "name": "相合之物",
       "egg_ids": [
         "E000160"
       ]
     },
     {
-      "id": "S000128",
+      "id": "S000129",
       "name": "覆面系",
       "egg_ids": [
         "E000162"
       ]
     },
     {
-      "id": "S000129",
+      "id": "S000130",
       "name": "四月是你的谎言",
       "egg_ids": [
-        "E000172"
+        "E000172",
+        "E000191",
+        "E000192",
+        "E000193",
+        "E000194",
+        "E000195"
       ]
     },
     {
-      "id": "S000130",
+      "id": "S000131",
       "name": "第8号当铺",
       "egg_ids": [
         "E000178"
+      ]
+    },
+    {
+      "id": "S000132",
+      "name": "夏日重现",
+      "egg_ids": [
+        "E000180",
+        "E000196",
+        "E000197",
+        "E000201",
+        "E000204"
+      ]
+    },
+    {
+      "id": "S000133",
+      "name": "擅长捉弄人的高木同学",
+      "egg_ids": [
+        "E000182",
+        "E000183",
+        "E000184"
+      ]
+    },
+    {
+      "id": "S000134",
+      "name": "白沙的水族馆",
+      "egg_ids": [
+        "E000185"
+      ]
+    },
+    {
+      "id": "S000135",
+      "name": "夏日口袋",
+      "egg_ids": [
+        "E000186",
+        "E000187",
+        "E000188",
+        "E000190",
+        "E000179"
+      ]
+    },
+    {
+      "id": "S000136",
+      "name": "暮然回首",
+      "egg_ids": [
+        "E000198"
+      ]
+    },
+    {
+      "id": "S000137",
+      "name": "Google地图街景",
+      "egg_ids": [
+        "E000199"
+      ]
+    },
+    {
+      "id": "S000138",
+      "name": "画中世界",
+      "egg_ids": [
+        "E000200"
+      ]
+    },
+    {
+      "id": "S000139",
+      "name": "底特律变人",
+      "egg_ids": [
+        "E000205"
+      ]
+    },
+    {
+      "id": "S000140",
+      "name": "艾迪芬奇的记忆",
+      "egg_ids": [
+        "E000206",
+        "E000207"
       ]
     }
   ],
@@ -4779,6 +5001,380 @@
       "has_compare": false,
       "image_main": "pic/E000148_main.webp",
       "image_compare": "pic/E000148_compare.webp"
+    },
+    {
+      "id": "E000182",
+      "name": "向阳岛高台铃铛",
+      "source_id": "S000133",
+      "source_name": "擅长捉弄人的高木同学",
+      "type": "场景",
+      "remark": "",
+      "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000182_main.webp",
+      "image_compare": "pic/E000182_compare.webp"
+    },
+    {
+      "id": "E000183",
+      "name": "向阳岛水中路",
+      "source_id": "S000133",
+      "source_name": "擅长捉弄人的高木同学",
+      "type": "场景",
+      "remark": "天使之路",
+      "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000183_main.webp",
+      "image_compare": "pic/E000183_compare.webp"
+    },
+    {
+      "id": "E000184",
+      "name": "向阳岛候车亭",
+      "source_id": "S000133",
+      "source_name": "擅长捉弄人的高木同学",
+      "type": "场景",
+      "remark": "",
+      "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000184_main.webp",
+      "image_compare": "pic/E000184_compare.webp"
+    },
+    {
+      "id": "E000185",
+      "name": "向阳岛海边秋千",
+      "source_id": "S000134",
+      "source_name": "白沙的水族馆",
+      "type": "场景",
+      "remark": "",
+      "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000185_main.webp",
+      "image_compare": "pic/E000185_compare.webp"
+    },
+    {
+      "id": "E000187",
+      "name": "向阳岛",
+      "source_id": "S000135",
+      "source_name": "夏日口袋",
+      "type": "场景",
+      "remark": "灯塔",
+      "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000187_main.webp",
+      "image_compare": "pic/E000187_compare.webp"
+    },
+    {
+      "id": "E000188",
+      "name": "向阳岛",
+      "source_id": "S000135",
+      "source_name": "夏日口袋",
+      "type": "场景",
+      "remark": "向日葵海",
+      "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000188_main.webp",
+      "image_compare": "pic/E000188_compare.webp"
+    },
+    {
+      "id": "E000190",
+      "name": "向阳岛",
+      "source_id": "S000135",
+      "source_name": "夏日口袋",
+      "type": "场景",
+      "remark": "海边下坡",
+      "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000190_main.webp",
+      "image_compare": "pic/E000190_compare.webp"
+    },
+    {
+      "id": "E000179",
+      "name": "向阳岛",
+      "source_id": "S000135",
+      "source_name": "夏日口袋",
+      "type": "场景",
+      "remark": "搁浅的船",
+      "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000179_main.webp",
+      "image_compare": "pic/E000179_compare.webp"
+    },
+    {
+      "id": "E000191",
+      "name": "洄廊剧情音乐厅",
+      "source_id": "S000130",
+      "source_name": "四月是你的谎言",
+      "type": "场景",
+      "remark": "",
+      "link": "https://www.bilibili.com/video/BV1jcVb6GEYV",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000191_main.webp",
+      "image_compare": "pic/E000191_compare.webp"
+    },
+    {
+      "id": "E000192",
+      "name": "洄廊医院走廊",
+      "source_id": "S000130",
+      "source_name": "四月是你的谎言",
+      "type": "剧情",
+      "remark": "",
+      "link": "https://www.bilibili.com/video/BV1jcVb6GEYV",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000192_main.webp",
+      "image_compare": "pic/E000192_compare.webp"
+    },
+    {
+      "id": "E000193",
+      "name": "洄廊医院剧情",
+      "source_id": "S000130",
+      "source_name": "四月是你的谎言",
+      "type": "剧情",
+      "remark": "可露丽\n宫园薰（金发，撒谎）",
+      "link": "https://www.bilibili.com/video/BV1jcVb6GEYV",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000193_main.webp",
+      "image_compare": "pic/E000193_compare.webp"
+    },
+    {
+      "id": "E000194",
+      "name": "洄廊医院剧情",
+      "source_id": "S000130",
+      "source_name": "四月是你的谎言",
+      "type": "场景",
+      "remark": "游乐场球形屋",
+      "link": "https://www.bilibili.com/video/BV1jcVb6GEYV",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000194_main.webp",
+      "image_compare": "pic/E000194_compare.webp"
+    },
+    {
+      "id": "E000195",
+      "name": "洄廊医院隐藏剧情",
+      "source_id": "S000130",
+      "source_name": "四月是你的谎言",
+      "type": "场景",
+      "remark": "不和房间NPC对话进入 \n（隐藏支线）",
+      "link": "https://www.bilibili.com/video/BV1j2Vh6JEVW",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000195_main.webp",
+      "image_compare": "pic/E000195_compare.webp"
+    },
+    {
+      "id": "E000197",
+      "name": "向阳岛NPC对话",
+      "source_id": "S000132",
+      "source_name": "夏日重现",
+      "type": "剧情",
+      "remark": "影子生物 \n巨人梗：永远驱逐",
+      "link": "https://www.bilibili.com/video/BV18HVW6pEtD",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000197_main.webp",
+      "image_compare": "pic/E000197_compare.webp"
+    },
+    {
+      "id": "E000198",
+      "name": "洄廊娜娜莉内心世界",
+      "source_id": "S000136",
+      "source_name": "暮然回首",
+      "type": "剧情",
+      "remark": "娜娜莉的动作",
+      "link": "https://www.bilibili.com/video/BV1h8G96vEK5",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000198_main.webp",
+      "image_compare": "pic/E000198_compare.webp"
+    },
+    {
+      "id": "E000199",
+      "name": "洄廊娜娜莉内心世界",
+      "source_id": "S000137",
+      "source_name": "Google地图街景",
+      "type": "剧情",
+      "remark": "",
+      "link": "https://www.bilibili.com/video/BV1h8G96vEK5",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000199_main.webp",
+      "image_compare": "pic/E000199_compare.webp"
+    },
+    {
+      "id": "E000200",
+      "name": "洄廊娜娜莉内心世界",
+      "source_id": "S000138",
+      "source_name": "画中世界",
+      "type": "剧情",
+      "remark": "",
+      "link": "",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000200_main.webp",
+      "image_compare": "pic/E000200_compare.webp"
+    },
+    {
+      "id": "E000201",
+      "name": "向阳岛NPC对话",
+      "source_id": "S000132",
+      "source_name": "夏日重现",
+      "type": "剧情",
+      "remark": "（仅主线一次性）射钉枪",
+      "link": "https://www.taptap.cn/moment/809379340272797211",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000201_main.webp",
+      "image_compare": "pic/E000201_compare.webp"
+    },
+    {
+      "id": "E000204",
+      "name": "洄廊海边烟雾人影",
+      "source_id": "S000132",
+      "source_name": "夏日重现",
+      "type": "场景",
+      "remark": "",
+      "link": "https://www.taptap.cn/moment/809379340272797211",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000204_main.webp",
+      "image_compare": "pic/E000204_compare.webp"
+    },
+    {
+      "id": "E000205",
+      "name": "洄廊鱼腥乐园",
+      "source_id": "S000139",
+      "source_name": "底特律变人",
+      "type": "场景",
+      "remark": "存疑",
+      "link": "https://www.taptap.cn/moment/809379340272797211",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000205_main.webp",
+      "image_compare": "pic/E000205_compare.webp"
+    },
+    {
+      "id": "E000206",
+      "name": "洄廊小达芙的家",
+      "source_id": "S000140",
+      "source_name": "艾迪芬奇的记忆",
+      "type": "场景",
+      "remark": "",
+      "link": "https://www.taptap.cn/moment/809379340272797211",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000206_main.webp",
+      "image_compare": "pic/E000206_compare.webp"
+    },
+    {
+      "id": "E000207",
+      "name": "洄廊鱼腥乐园",
+      "source_id": "S000140",
+      "source_name": "艾迪芬奇的记忆",
+      "type": "剧情",
+      "remark": "游戏剧情",
+      "link": "https://www.bilibili.com/video/BV1jSVH6xEWs",
+      "is_unmapped": true,
+      "is_multi_location": false,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "has_main": false,
+      "has_compare": false,
+      "image_main": "pic/E000207_main.webp",
+      "image_compare": "pic/E000207_compare.webp"
     }
   ]
 }
