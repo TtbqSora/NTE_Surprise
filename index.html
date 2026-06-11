@@ -63,11 +63,10 @@
         #sidebar { min-width: 300px; max-width: 800px; }
         .sidebar-width { width: 360px; } 
 
-        /* 【本次修改】大图查看器中图片的样式，支持抓取光标 */
         #viewer-image {
             cursor: grab;
-            user-select: none; /* 防止拖拽时选中文本 */
-            -webkit-user-drag: none; /* 防止浏览器默认的图片拖拽 */
+            user-select: none; 
+            -webkit-user-drag: none; 
         }
         #viewer-image:active {
             cursor: grabbing;
@@ -81,7 +80,7 @@
     <div id="ui-layer" class="flex justify-between items-stretch">
         
         <div class="relative flex-1">
-            <!-- 1. 左上角设置按钮  -->
+            <!-- 左上角设置按钮  -->
             <div class="absolute top-6 left-6 pointer-events-auto z-50">
                 <div class="relative">
                     <button onclick="toggleSettings()" class="bg-gray-800/90 hover:bg-gray-700 p-3 rounded-full shadow-lg border border-gray-600 transition group" title="地图设置">
@@ -154,17 +153,11 @@
     <!-- ==================== 额外功能区域 ==================== -->
     
     <!-- 图片查看器 (Lightbox) 开始 -->
-    <!-- 【本次修改】为父容器保留了点击关闭的逻辑，并在底部添加了滚轮缩放和拖拽脚本 -->
     <div id="image-viewer" class="hidden fixed inset-0 z-[9999] bg-black/90 flex justify-center items-center overflow-hidden transition-opacity duration-300 opacity-0 pointer-events-auto">
-        
-        <!-- 【本次修改】提示文字 -->
         <div class="absolute top-6 left-1/2 transform -translate-x-1/2 text-gray-400 text-sm bg-gray-900/80 px-4 py-1.5 rounded-full pointer-events-none z-50 shadow-lg border border-gray-700 flex items-center gap-2">
             <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 滚轮缩放 / 拖拽平移
         </div>
-
-        <!-- 图片容器 -->
         <img id="viewer-image" src="" class="max-w-[90vw] max-h-[90vh] object-contain shadow-2xl" alt="大图预览">
-        
         <button class="absolute top-4 right-4 md:top-6 md:right-6 text-white bg-gray-800/80 hover:bg-gray-600 border border-gray-600 shadow-lg rounded-full p-2.5 transition-colors cursor-pointer z-50" onclick="closeImageViewer()" title="关闭">
             <i data-lucide="x" class="w-6 h-6"></i>
         </button>
@@ -176,21 +169,20 @@
 
     // 1. 更新 CONFIG，加入偏移量
     const CONFIG = {
-        mapWidth: 10240,    // 修改为新图尺寸
-        mapHeight: 10240,   // 修改为新图尺寸
-        offsetX: 2048,      // 重点：向左扩展的像素量
-        offsetY: 2048,      // 重点：向下扩展的像素量
-        panExtraLeftOffset: 100,
+        mapWidth: 10240,
+        mapHeight: 10240,
+        offsetX: 2048,
+        offsetY: 2048,
+        panExtraLeftOffset: 2048,
         panDuration: 0.5,
         minPanZoom: 4, 
         maxZoomLevel: 5,
-        defaultClustered: true,           // 【新增】默认是否开启点位集群合并 (true=开启，false=关闭)
-        disableClusterZoomLevel: 4        // 【新增】当放大到该级别(如4级)及以上时，自动散开点位不再聚合
+        defaultClustered: true,           
+        disableClusterZoomLevel: 4        
     };
 
     const scaleFactor = 1 / Math.pow(2, CONFIG.maxZoomLevel);
     
-    // 2. 更新坐标转换矩阵，让 Leaflet 知道旧的 (0,0) 点现在在哪里
     const customCRS = L.Util.extend({}, L.CRS.Simple, {
         transformation: new L.Transformation(
             scaleFactor, 
@@ -208,7 +200,6 @@
         attributionControl: false 
     });
 
-    // 3. 计算支持负数的全新边界
     const minX = -CONFIG.offsetX;
     const minY = -CONFIG.offsetY;
     const maxX = CONFIG.mapWidth - CONFIG.offsetX;
@@ -218,7 +209,6 @@
     const maxBounds = [[minY - padding, minX - padding], [maxY + padding, maxX + padding]];
     map.setMaxBounds(maxBounds);
 
-    // 4. 更新 tileLayer 的限制范围
     L.tileLayer('tiles/{z}/{x}/{z}_{x}_{y}.webp', {
         minZoom: 1,
         maxZoom: 5,
@@ -226,15 +216,13 @@
         bounds: [[minY, minX], [maxY, maxX]] 
     }).addTo(map);
 
-    // 5. 初始视角可以设定在新地图的旧中心点
     map.setView([(CONFIG.mapHeight / 2) - CONFIG.offsetY, (CONFIG.mapWidth / 2) - CONFIG.offsetX], 1);
 
     let isMarkingMode = false;
-    let isClustered = CONFIG.defaultClustered; // 【修改】从 CONFIG 读取默认状态
+    let isClustered = CONFIG.defaultClustered; 
     let activeRegionFilter = null; 
     let currentSelectedMarker = null; 
     
-    // 【修改】添加 disableClusteringAtZoom 属性
     const clusterGroup = L.markerClusterGroup({ 
         maxClusterRadius: 50, 
         spiderfyOnMaxZoom: true, 
@@ -243,17 +231,13 @@
     });
     const normalGroup = L.layerGroup();
     
-    // 【修改】根据默认状态决定初始加载的图层
     let currentLayerGroup = isClustered ? clusterGroup : normalGroup;
     map.addLayer(currentLayerGroup);
 
-    // 【新增】同步初始状态到设置面板的开关按钮
     document.getElementById('toggle-cluster').checked = isClustered;
 
     const allMarkers = [];
-
     let db = { locations: [], sources: [], unmapped: [] };
-
     const eggMap = {}; 
     const sourceEggsMap = {}; 
     const cityDistrictsMap = {}; 
@@ -346,14 +330,16 @@
         })
         .catch(err => console.error('获取 data.json 失败:', err));
 
-    // 【本次修改】：重写地图标记点弹窗生成逻辑，支持对比图
     function generatePopupHtml(egg, totalCount) {
         const othersText = totalCount > 1 ? `<div class="text-[10px] text-gray-400 mt-1">该坐标点共 ${totalCount} 个彩蛋 (在右侧点击切换)</div>` : '';
         
+        // 【优化1】根据是否有两张图片来动态决定外层容器的最小和最大宽度
+        const hasBothImages = egg.has_main && egg.has_compare;
+        const widthClass = hasBothImages ? 'min-w-[280px] max-w-[340px]' : 'min-w-[160px] max-w-[240px]';
+
         let popupImgHtml = '';
         if (egg.has_main || egg.has_compare) {
-            // 如果两张图都有，使用 grid-cols-2 并排；如果只有一张，使用 grid-cols-1 占满
-            const colsClass = (egg.has_main && egg.has_compare) ? 'grid-cols-2' : 'grid-cols-1';
+            const colsClass = hasBothImages ? 'grid-cols-2' : 'grid-cols-1';
             
             popupImgHtml += `<div class="grid ${colsClass} gap-1.5 w-full mb-1.5">`;
             
@@ -377,7 +363,7 @@
         }
 
         return `
-            <div class="text-center min-w-[150px] max-w-[240px]">
+            <div class="text-center ${widthClass}">
                 <div class="text-xs font-bold mb-0.5 truncate text-gray-200 mx-auto" title="${egg.name}">${egg.name}</div>
                 <div class="text-[12px] text-yellow-500 mb-2 truncate mx-auto" title="${egg.source_name}">Neta: ${egg.source_name}</div>
                 ${popupImgHtml}
@@ -403,8 +389,8 @@
             const firstEgg = loc.eggs[0];
             const popupHtml = generatePopupHtml(firstEgg, loc.eggs.length);
             
-            // 【本次修改】略微增加了弹窗的最小宽度以适应可能存在的两张并排图片
-            marker.bindPopup(popupHtml, { offset: [0, -10], closeButton: false, minWidth: 160 });
+            // 降低基础 minWidth，让 CSS 完全接管两张图情况下的扩宽
+            marker.bindPopup(popupHtml, { offset: [0, -10], closeButton: false, minWidth: 150 });
 
             marker.locationData = loc;
             
@@ -422,7 +408,8 @@
                     if(inner) inner.classList.add('marker-selected');
                 }
 
-                openSidebar('LOCATION', { loc: loc });
+                // 【优化2】传入手动展开的彩蛋 ID，默认展开此点位的第一个彩蛋
+                openSidebar('LOCATION', { loc: loc, expandEggId: firstEgg.id });
                 panMapTo(latlng);
             });
             
@@ -488,7 +475,8 @@
                     </div>
                     <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full self-start"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
                 `;
-                content.innerHTML = generateEggListHTML(loc.eggs);
+                // 传入需要默认展开的 expandEggId
+                content.innerHTML = generateEggListHTML(loc.eggs, false, payload.expandEggId);
                 break;
             
             case 'CITIES':
@@ -563,7 +551,8 @@
         lucide.createIcons();
     }
 
-    function generateEggListHTML(eggs, isFromSourceView = false) {
+    // 【优化2】接受一个 expandEggId 参数用于默认展开
+    function generateEggListHTML(eggs, isFromSourceView = false, expandEggId = null) {
         if(eggs.length === 0) return `<div class="text-center text-gray-500 mt-10">暂无数据</div>`;
         return eggs.map((egg) => {
             const isUnmapped = egg.is_unmapped;
@@ -580,6 +569,9 @@
                 }
             }
 
+            // 判断是否应该处于展开状态
+            const isExpanded = (expandEggId === egg.id) && !isFromSourceView;
+
             return `
             <div class="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 shadow-sm shrink-0">
                 <div class="p-3 cursor-pointer hover:bg-gray-700 flex justify-between items-center group" ${clickAction}>
@@ -590,9 +582,9 @@
                     </div>
                     ${isFromSourceView ? 
                         `<i data-lucide="${isUnmapped ? 'chevron-down' : 'map-pin'}" class="text-gray-400 w-4 h-4 shrink-0 ml-2"></i>` : 
-                        `<i data-lucide="chevron-down" id="icon-egg-${egg.id}" class="text-gray-400 transition-transform w-4 h-4 shrink-0 ml-2"></i>`}
+                        `<i data-lucide="chevron-down" id="icon-egg-${egg.id}" class="text-gray-400 transition-transform w-4 h-4 shrink-0 ml-2 ${isExpanded ? 'rotate-180' : ''}"></i>`}
                 </div>
-                <div id="detail-egg-${egg.id}" class="hidden p-3 border-t border-gray-700 bg-gray-900">
+                <div id="detail-egg-${egg.id}" class="${isExpanded ? '' : 'hidden'} p-3 border-t border-gray-700 bg-gray-900">
                     <div class="flex justify-between items-start mb-2">
                         ${!isFromSourceView ? `<p class="text-xs text-yellow-500 font-semibold">出处: ${egg.source_name}</p>` : '<div></div>'}
                         <span class="text-[10px] font-mono text-gray-500 bg-gray-800 px-1 rounded">${egg.id}</span>
@@ -644,7 +636,8 @@
             const targetMarker = allMarkers.find(m => m.locationData.id === egg.location.id);
             if (targetMarker) {
                 targetMarker.fire('click');
-                openSidebar('LOCATION', { loc: egg.location, backTo: egg.source_id });
+                // 【优化2】如果您是从出处列表点击的，此时覆盖原本默认展开第一个彩蛋的操作，精准展开您点击的那个！
+                openSidebar('LOCATION', { loc: egg.location, backTo: egg.source_id, expandEggId: egg.id });
                 setTimeout(() => targetMarker.openPopup(), 100); 
             }
         }
@@ -760,21 +753,18 @@
         map.addLayer(currentLayerGroup);
     }
 
-    // ================== 【本次修改】图片查看器（Lightbox）高级交互逻辑 ==================
+    // ================== 图片查看器（Lightbox）高级交互逻辑 ==================
     const viewer = document.getElementById('image-viewer');
     const viewerImg = document.getElementById('viewer-image');
     
-    // 缩放与平移状态变量
     let imgScale = 1;
     let imgPanX = 0;
     let imgPanY = 0;
     
-    // 拖拽控制变量
     let isDraggingImg = false;
     let dragStartX = 0;
     let dragStartY = 0;
 
-    // 应用变换属性到图片
     function updateViewerTransform() {
         viewerImg.style.transform = `translate(${imgPanX}px, ${imgPanY}px) scale(${imgScale})`;
     }
@@ -782,7 +772,6 @@
     function openImageViewer(imgSrc) {
         viewerImg.src = imgSrc;
         
-        // 重置状态
         imgScale = 1;
         imgPanX = 0;
         imgPanY = 0;
@@ -799,7 +788,6 @@
         setTimeout(() => {
             viewer.classList.add('hidden');
             viewerImg.src = '';
-            // 重置状态以防下次打开瞬间看到残影
             imgScale = 1;
             imgPanX = 0;
             imgPanY = 0;
@@ -807,30 +795,23 @@
         }, 300);
     }
 
-    // --- 1. 鼠标滚轮缩放 ---
     viewer.addEventListener('wheel', (e) => {
-        // 只有当图片查看器打开时才处理
         if (viewer.classList.contains('hidden')) return;
         
-        e.preventDefault(); // 防止网页背景滚动
+        e.preventDefault(); 
 
-        // 缩放速度系数
         const zoomSensitivity = 0.1;
         const delta = e.deltaY < 0 ? 1 : -1;
         let newScale = imgScale * (1 + delta * zoomSensitivity);
         
-        // 限制缩放范围 (最小0.5倍，最大10倍)
         newScale = Math.max(0.5, Math.min(newScale, 10));
 
-        // 如果要实现“以鼠标为中心缩放”，这里需要复杂的坐标系换算。
-        // 为了稳定性和移动端兼容，此处采用简单的“以图片中心点缩放”并保持现有的平移偏移。
         imgScale = newScale;
         updateViewerTransform();
     }, { passive: false });
 
-    // --- 2. 鼠标拖拽平移 ---
     viewerImg.addEventListener('mousedown', (e) => {
-        e.preventDefault(); // 阻止浏览器默认的拖拽图片行为
+        e.preventDefault(); 
         isDraggingImg = true;
         // 记录鼠标按下时，相对于当前平移位置的偏移量
         dragStartX = e.clientX - imgPanX;
@@ -839,7 +820,6 @@
 
     window.addEventListener('mousemove', (e) => {
         if (!isDraggingImg) return;
-        // 计算新的平移位置
         imgPanX = e.clientX - dragStartX;
         imgPanY = e.clientY - dragStartY;
         updateViewerTransform();
@@ -849,14 +829,12 @@
         isDraggingImg = false;
     });
 
-    // --- 3. 关闭逻辑处理 ---
-    // 点击黑底关闭
     viewer.addEventListener('click', (e) => {
         if (e.target === viewer) {
             closeImageViewer();
         }
     });
-    // 防止点击图片触发关闭
+
     viewerImg.addEventListener('click', (e) => {
         e.stopPropagation();
     });
