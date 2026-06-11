@@ -2702,7 +2702,7 @@
           "city": "海特洛市",
           "district": "新赫兰德区",
           "has_main": true,
-          "has_compare": false,
+          "has_compare": true,
           "image_main": "pic/E000108_main.webp",
           "image_compare": "pic/E000108_compare.webp",
           "location_id": "L000079"
@@ -3674,6 +3674,33 @@
     },
     {
       "id": "L000109",
+      "x": 6190,
+      "y": 5587,
+      "city": "海特洛市",
+      "district": "未知区域",
+      "eggs": [
+        {
+          "id": "E000168",
+          "name": "北极星店铺",
+          "source_id": "S000021",
+          "source_name": "MyGO",
+          "type": "场景",
+          "remark": "徽标",
+          "link": "https://www.bilibili.com/video/BV1YR3ozwEQ2",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "未知区域",
+          "has_main": false,
+          "has_compare": false,
+          "image_main": "pic/E000168_main.webp",
+          "image_compare": "pic/E000168_compare.webp",
+          "location_id": "L000109"
+        }
+      ]
+    },
+    {
+      "id": "L000110",
       "x": 4003,
       "y": 3524,
       "city": "海特洛市",
@@ -3695,12 +3722,12 @@
           "has_compare": false,
           "image_main": "pic/E000172_main.webp",
           "image_compare": "pic/E000172_compare.webp",
-          "location_id": "L000109"
+          "location_id": "L000110"
         }
       ]
     },
     {
-      "id": "L000110",
+      "id": "L000111",
       "x": 7037,
       "y": 6804,
       "city": "海特洛市",
@@ -3722,12 +3749,12 @@
           "has_compare": false,
           "image_main": "pic/E000175_main.webp",
           "image_compare": "pic/E000175_compare.webp",
-          "location_id": "L000110"
+          "location_id": "L000111"
         }
       ]
     },
     {
-      "id": "L000111",
+      "id": "L000112",
       "x": 2638,
       "y": 5087,
       "city": "海特洛市",
@@ -3749,12 +3776,12 @@
           "has_compare": false,
           "image_main": "pic/E000176_main.webp",
           "image_compare": "pic/E000176_compare.webp",
-          "location_id": "L000111"
+          "location_id": "L000112"
         }
       ]
     },
     {
-      "id": "L000112",
+      "id": "L000113",
       "x": 4121,
       "y": 6669,
       "city": "海特洛市",
@@ -3776,12 +3803,12 @@
           "has_compare": false,
           "image_main": "pic/E000177_main.webp",
           "image_compare": "pic/E000177_compare.webp",
-          "location_id": "L000112"
+          "location_id": "L000113"
         }
       ]
     },
     {
-      "id": "L000113",
+      "id": "L000114",
       "x": 718,
       "y": 16,
       "city": "海特洛市",
@@ -3799,16 +3826,43 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "向阳岛",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000180_main.webp",
           "image_compare": "pic/E000180_compare.webp",
-          "location_id": "L000113"
+          "location_id": "L000114"
         }
       ]
     },
     {
-      "id": "L000114",
+      "id": "L000115",
+      "x": 132,
+      "y": -31,
+      "city": "海特洛市",
+      "district": "向阳岛",
+      "eggs": [
+        {
+          "id": "E000181",
+          "name": "向阳岛海边",
+          "source_id": "S000132",
+          "source_name": "夏日重现",
+          "type": "场景",
+          "remark": "日都岛海滩会面",
+          "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
+          "is_unmapped": false,
+          "is_multi_location": false,
+          "city": "海特洛市",
+          "district": "向阳岛",
+          "has_main": true,
+          "has_compare": false,
+          "image_main": "pic/E000181_main.webp",
+          "image_compare": "pic/E000181_compare.webp",
+          "location_id": "L000115"
+        }
+      ]
+    },
+    {
+      "id": "L000116",
       "x": 883,
       "y": -283,
       "city": "海特洛市",
@@ -3826,16 +3880,16 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "向阳岛",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000182_main.webp",
           "image_compare": "pic/E000182_compare.webp",
-          "location_id": "L000114"
+          "location_id": "L000116"
         }
       ]
     },
     {
-      "id": "L000115",
+      "id": "L000117",
       "x": 1335,
       "y": -291,
       "city": "海特洛市",
@@ -3853,16 +3907,16 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "向阳岛",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000183_main.webp",
           "image_compare": "pic/E000183_compare.webp",
-          "location_id": "L000115"
+          "location_id": "L000117"
         }
       ]
     },
     {
-      "id": "L000116",
+      "id": "L000118",
       "x": 579,
       "y": -49,
       "city": "海特洛市",
@@ -3880,16 +3934,16 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "向阳岛",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000184_main.webp",
           "image_compare": "pic/E000184_compare.webp",
-          "location_id": "L000116"
+          "location_id": "L000118"
         }
       ]
     },
     {
-      "id": "L000117",
+      "id": "L000119",
       "x": 1123,
       "y": -226,
       "city": "海特洛市",
@@ -3897,26 +3951,26 @@
       "eggs": [
         {
           "id": "E000185",
-          "name": "向阳岛海边秋千",
+          "name": "海边秋千",
           "source_id": "S000134",
           "source_name": "白沙的水族馆",
           "type": "场景",
-          "remark": "",
+          "remark": "前瞻是斜的",
           "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
           "is_unmapped": false,
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "向阳岛",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000185_main.webp",
           "image_compare": "pic/E000185_compare.webp",
-          "location_id": "L000117"
+          "location_id": "L000119"
         }
       ]
     },
     {
-      "id": "L000118",
+      "id": "L000120",
       "x": 251,
       "y": 152,
       "city": "海特洛市",
@@ -3934,16 +3988,16 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "向阳岛",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000186_main.webp",
           "image_compare": "pic/E000186_compare.webp",
-          "location_id": "L000118"
+          "location_id": "L000120"
         }
       ]
     },
     {
-      "id": "L000119",
+      "id": "L000121",
       "x": 853,
       "y": -352,
       "city": "海特洛市",
@@ -3951,7 +4005,7 @@
       "eggs": [
         {
           "id": "E000187",
-          "name": "向阳岛",
+          "name": "向阳岛灯塔",
           "source_id": "S000135",
           "source_name": "夏日口袋",
           "type": "场景",
@@ -3961,16 +4015,16 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "向阳岛",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000187_main.webp",
           "image_compare": "pic/E000187_compare.webp",
-          "location_id": "L000119"
+          "location_id": "L000121"
         }
       ]
     },
     {
-      "id": "L000120",
+      "id": "L000122",
       "x": 459,
       "y": -159,
       "city": "海特洛市",
@@ -3978,11 +4032,11 @@
       "eggs": [
         {
           "id": "E000188",
-          "name": "向阳岛",
+          "name": "向日葵海",
           "source_id": "S000135",
           "source_name": "夏日口袋",
           "type": "场景",
-          "remark": "向日葵海",
+          "remark": "",
           "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
           "is_unmapped": false,
           "is_multi_location": false,
@@ -3992,12 +4046,12 @@
           "has_compare": false,
           "image_main": "pic/E000188_main.webp",
           "image_compare": "pic/E000188_compare.webp",
-          "location_id": "L000120"
+          "location_id": "L000122"
         }
       ]
     },
     {
-      "id": "L000121",
+      "id": "L000123",
       "x": 699,
       "y": -519,
       "city": "海特洛市",
@@ -4005,26 +4059,26 @@
       "eggs": [
         {
           "id": "E000190",
-          "name": "向阳岛",
+          "name": "海边下坡",
           "source_id": "S000135",
           "source_name": "夏日口袋",
           "type": "场景",
-          "remark": "海边下坡",
+          "remark": "",
           "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
           "is_unmapped": false,
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "向阳岛",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000190_main.webp",
           "image_compare": "pic/E000190_compare.webp",
-          "location_id": "L000121"
+          "location_id": "L000123"
         }
       ]
     },
     {
-      "id": "L000122",
+      "id": "L000124",
       "x": 388,
       "y": -585,
       "city": "海特洛市",
@@ -4032,26 +4086,26 @@
       "eggs": [
         {
           "id": "E000179",
-          "name": "向阳岛",
+          "name": "搁浅的船",
           "source_id": "S000135",
           "source_name": "夏日口袋",
           "type": "场景",
-          "remark": "搁浅的船",
+          "remark": "",
           "link": "https://www.bilibili.com/video/BV1h8G96vEu8/",
           "is_unmapped": false,
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "向阳岛",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000179_main.webp",
           "image_compare": "pic/E000179_compare.webp",
-          "location_id": "L000122"
+          "location_id": "L000124"
         }
       ]
     },
     {
-      "id": "L000123",
+      "id": "L000125",
       "x": 187,
       "y": -391,
       "city": "海特洛市",
@@ -4069,11 +4123,11 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "向阳岛",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000191_main.webp",
           "image_compare": "pic/E000191_compare.webp",
-          "location_id": "L000123"
+          "location_id": "L000125"
         },
         {
           "id": "E000192",
@@ -4091,7 +4145,7 @@
           "has_compare": false,
           "image_main": "pic/E000192_main.webp",
           "image_compare": "pic/E000192_compare.webp",
-          "location_id": "L000123"
+          "location_id": "L000125"
         },
         {
           "id": "E000193",
@@ -4109,7 +4163,7 @@
           "has_compare": false,
           "image_main": "pic/E000193_main.webp",
           "image_compare": "pic/E000193_compare.webp",
-          "location_id": "L000123"
+          "location_id": "L000125"
         },
         {
           "id": "E000194",
@@ -4127,7 +4181,7 @@
           "has_compare": false,
           "image_main": "pic/E000194_main.webp",
           "image_compare": "pic/E000194_compare.webp",
-          "location_id": "L000123"
+          "location_id": "L000125"
         },
         {
           "id": "E000195",
@@ -4145,7 +4199,7 @@
           "has_compare": false,
           "image_main": "pic/E000195_main.webp",
           "image_compare": "pic/E000195_compare.webp",
-          "location_id": "L000123"
+          "location_id": "L000125"
         },
         {
           "id": "E000198",
@@ -4163,7 +4217,7 @@
           "has_compare": false,
           "image_main": "pic/E000198_main.webp",
           "image_compare": "pic/E000198_compare.webp",
-          "location_id": "L000123"
+          "location_id": "L000125"
         },
         {
           "id": "E000199",
@@ -4171,7 +4225,7 @@
           "source_id": "S000137",
           "source_name": "Google地图街景",
           "type": "剧情",
-          "remark": "",
+          "remark": "经典日本少女动作",
           "link": "https://www.bilibili.com/video/BV1h8G96vEK5",
           "is_unmapped": false,
           "is_multi_location": false,
@@ -4181,7 +4235,7 @@
           "has_compare": false,
           "image_main": "pic/E000199_main.webp",
           "image_compare": "pic/E000199_compare.webp",
-          "location_id": "L000123"
+          "location_id": "L000125"
         },
         {
           "id": "E000200",
@@ -4189,7 +4243,7 @@
           "source_id": "S000138",
           "source_name": "画中世界",
           "type": "剧情",
-          "remark": "",
+          "remark": "表现方式",
           "link": "",
           "is_unmapped": false,
           "is_multi_location": false,
@@ -4199,7 +4253,7 @@
           "has_compare": false,
           "image_main": "pic/E000200_main.webp",
           "image_compare": "pic/E000200_compare.webp",
-          "location_id": "L000123"
+          "location_id": "L000125"
         },
         {
           "id": "E000204",
@@ -4217,7 +4271,7 @@
           "has_compare": false,
           "image_main": "pic/E000204_main.webp",
           "image_compare": "pic/E000204_compare.webp",
-          "location_id": "L000123"
+          "location_id": "L000125"
         },
         {
           "id": "E000205",
@@ -4235,7 +4289,7 @@
           "has_compare": false,
           "image_main": "pic/E000205_main.webp",
           "image_compare": "pic/E000205_compare.webp",
-          "location_id": "L000123"
+          "location_id": "L000125"
         },
         {
           "id": "E000206",
@@ -4253,7 +4307,7 @@
           "has_compare": false,
           "image_main": "pic/E000206_main.webp",
           "image_compare": "pic/E000206_compare.webp",
-          "location_id": "L000123"
+          "location_id": "L000125"
         },
         {
           "id": "E000207",
@@ -4271,12 +4325,12 @@
           "has_compare": false,
           "image_main": "pic/E000207_main.webp",
           "image_compare": "pic/E000207_compare.webp",
-          "location_id": "L000123"
+          "location_id": "L000125"
         }
       ]
     },
     {
-      "id": "L000124",
+      "id": "L000126",
       "x": 766,
       "y": 85,
       "city": "海特洛市",
@@ -4284,7 +4338,7 @@
       "eggs": [
         {
           "id": "E000196",
-          "name": "向阳岛码头自行车",
+          "name": "码头自行车",
           "source_id": "S000132",
           "source_name": "夏日重现",
           "type": "场景",
@@ -4294,16 +4348,16 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "向阳岛",
-          "has_main": false,
-          "has_compare": false,
+          "has_main": true,
+          "has_compare": true,
           "image_main": "pic/E000196_main.webp",
           "image_compare": "pic/E000196_compare.webp",
-          "location_id": "L000124"
+          "location_id": "L000126"
         }
       ]
     },
     {
-      "id": "L000125",
+      "id": "L000127",
       "x": 686,
       "y": -128,
       "city": "海特洛市",
@@ -4311,7 +4365,7 @@
       "eggs": [
         {
           "id": "E000197",
-          "name": "向阳岛NPC对话",
+          "name": "NPC对话",
           "source_id": "S000132",
           "source_name": "夏日重现",
           "type": "剧情",
@@ -4325,12 +4379,12 @@
           "has_compare": false,
           "image_main": "pic/E000197_main.webp",
           "image_compare": "pic/E000197_compare.webp",
-          "location_id": "L000125"
+          "location_id": "L000127"
         }
       ]
     },
     {
-      "id": "L000126",
+      "id": "L000128",
       "x": 585,
       "y": -117,
       "city": "海特洛市",
@@ -4348,38 +4402,38 @@
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "向阳岛",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
           "image_main": "pic/E000201_main.webp",
           "image_compare": "pic/E000201_compare.webp",
-          "location_id": "L000126"
+          "location_id": "L000128"
         }
       ]
     },
     {
-      "id": "L000127",
-      "x": 6190,
-      "y": 5587,
+      "id": "L000129",
+      "x": 233,
+      "y": 56,
       "city": "海特洛市",
       "district": "未知区域",
       "eggs": [
         {
-          "id": "E000209",
-          "name": "北极星乐器店",
-          "source_id": "S000021",
-          "source_name": "MyGO",
+          "id": "E000216",
+          "name": "钓鱼点岛屿连接处",
+          "source_id": "S000135",
+          "source_name": "夏日口袋",
           "type": "",
           "remark": "",
-          "link": "https://www.taptap.cn/moment/806938393970737711?share_id=df325b85500b&utm_medium=share&utm_source=copylink",
+          "link": "",
           "is_unmapped": false,
           "is_multi_location": false,
           "city": "海特洛市",
           "district": "未知区域",
-          "has_main": false,
+          "has_main": true,
           "has_compare": false,
-          "image_main": "pic/E000209_main.webp",
-          "image_compare": "pic/E000209_compare.webp",
-          "location_id": "L000127"
+          "image_main": "pic/E000216_main.webp",
+          "image_compare": "pic/E000216_compare.webp",
+          "location_id": "L000129"
         }
       ]
     }
@@ -4540,8 +4594,8 @@
         "E000023",
         "E000024",
         "E000110",
-        "E000176",
-        "E000209"
+        "E000168",
+        "E000176"
       ]
     },
     {
@@ -5341,6 +5395,7 @@
       "name": "夏日重现",
       "egg_ids": [
         "E000180",
+        "E000181",
         "E000196",
         "E000197",
         "E000201",
@@ -5371,7 +5426,8 @@
         "E000187",
         "E000188",
         "E000190",
-        "E000179"
+        "E000179",
+        "E000216"
       ]
     },
     {
