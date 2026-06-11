@@ -173,7 +173,8 @@
         mapHeight: 10240,
         offsetX: 2048,
         offsetY: 2048,
-        panExtraLeftOffset: 2048,
+        paddingExtraMax: 4096,
+        panExtraLeftOffset: 100,
         panDuration: 0.5,
         minPanZoom: 4, 
         maxZoomLevel: 5,
@@ -205,7 +206,7 @@
     const maxX = CONFIG.mapWidth - CONFIG.offsetX;
     const maxY = CONFIG.mapHeight - CONFIG.offsetY;
 
-    const padding = 2048; 
+    const padding = CONFIG.paddingExtraMax; 
     const maxBounds = [[minY - padding, minX - padding], [maxY + padding, maxX + padding]];
     map.setMaxBounds(maxBounds);
 
