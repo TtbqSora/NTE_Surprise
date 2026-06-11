@@ -62,6 +62,16 @@
 
         #sidebar { min-width: 300px; max-width: 800px; }
         .sidebar-width { width: 360px; } 
+
+        /* 【本次修改】大图查看器中图片的样式，支持抓取光标 */
+        #viewer-image {
+            cursor: grab;
+            user-select: none; /* 防止拖拽时选中文本 */
+            -webkit-user-drag: none; /* 防止浏览器默认的图片拖拽 */
+        }
+        #viewer-image:active {
+            cursor: grabbing;
+        }
     </style>
 </head>
 <body>
@@ -144,13 +154,18 @@
     <!-- ==================== 额外功能区域 ==================== -->
     
     <!-- 图片查看器 (Lightbox) 开始 -->
-    <!-- 【功能移除说明】：如果你后续发现 Webp 图片被高度压缩，放大后画质太模糊，想要移除这个大图功能：
-         1. 删除下面整个 id="image-viewer" 的 div 节点。
-         2. 到底部 <script> 标签的最后面，删除 `openImageViewer` 和 `closeImageViewer` 两个函数。
-         3. 搜索全局代码中的 `onclick="openImageViewer('...')"` 并将它们从 HTML 模板字符串中删掉即可。 -->
-    <div id="image-viewer" class="hidden fixed inset-0 z-[9999] bg-black/90 flex justify-center items-center p-4 md:p-8 transition-opacity duration-300 opacity-0 pointer-events-auto" onclick="closeImageViewer()">
-        <img id="viewer-image" src="" class="max-w-full max-h-full object-contain shadow-2xl rounded" alt="大图预览" onclick="event.stopPropagation()">
-        <button class="absolute top-4 right-4 md:top-6 md:right-6 text-white bg-gray-800/60 hover:bg-gray-600 rounded-full p-2 transition-colors cursor-pointer" onclick="closeImageViewer()" title="关闭">
+    <!-- 【本次修改】为父容器保留了点击关闭的逻辑，并在底部添加了滚轮缩放和拖拽脚本 -->
+    <div id="image-viewer" class="hidden fixed inset-0 z-[9999] bg-black/90 flex justify-center items-center overflow-hidden transition-opacity duration-300 opacity-0 pointer-events-auto">
+        
+        <!-- 【本次修改】提示文字 -->
+        <div class="absolute top-6 left-1/2 transform -translate-x-1/2 text-gray-400 text-sm bg-gray-900/80 px-4 py-1.5 rounded-full pointer-events-none z-50 shadow-lg border border-gray-700 flex items-center gap-2">
+            <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 滚轮缩放 / 拖拽平移
+        </div>
+
+        <!-- 图片容器 -->
+        <img id="viewer-image" src="" class="max-w-[90vw] max-h-[90vh] object-contain shadow-2xl" alt="大图预览">
+        
+        <button class="absolute top-4 right-4 md:top-6 md:right-6 text-white bg-gray-800/80 hover:bg-gray-600 border border-gray-600 shadow-lg rounded-full p-2.5 transition-colors cursor-pointer z-50" onclick="closeImageViewer()" title="关闭">
             <i data-lucide="x" class="w-6 h-6"></i>
         </button>
     </div>
@@ -318,23 +333,40 @@
         })
         .catch(err => console.error('获取 data.json 失败:', err));
 
+    // 【本次修改】：重写地图标记点弹窗生成逻辑，支持对比图
     function generatePopupHtml(egg, totalCount) {
         const othersText = totalCount > 1 ? `<div class="text-[10px] text-gray-400 mt-1">该坐标点共 ${totalCount} 个彩蛋 (在右侧点击切换)</div>` : '';
         
         let popupImgHtml = '';
-        if (egg.has_main) {
-            // [修改2/修改3]: 使用 object-contain 保证狭长图片不被裁剪，统一高度背景，并加入点击查看大图
-            popupImgHtml = `
-                <div class="w-full h-28 bg-black/50 rounded border border-gray-600 mb-1.5 flex items-center justify-center overflow-hidden cursor-pointer hover:border-gray-400 transition-colors" onclick="openImageViewer('${egg.image_main}')" title="点击查看大图">
-                    <img src="${egg.image_main}" class="max-w-full max-h-full object-contain p-0.5" alt="游戏内截图">
-                </div>
-            `;
+        if (egg.has_main || egg.has_compare) {
+            // 如果两张图都有，使用 grid-cols-2 并排；如果只有一张，使用 grid-cols-1 占满
+            const colsClass = (egg.has_main && egg.has_compare) ? 'grid-cols-2' : 'grid-cols-1';
+            
+            popupImgHtml += `<div class="grid ${colsClass} gap-1.5 w-full mb-1.5">`;
+            
+            if (egg.has_main) {
+                popupImgHtml += `
+                    <div class="w-full h-20 bg-black/60 rounded border border-gray-600 flex flex-col items-center justify-center overflow-hidden cursor-pointer hover:border-gray-400 transition-colors relative group" onclick="openImageViewer('${egg.image_main}')" title="点击查看大图 (游戏截图)">
+                        <img src="${egg.image_main}" class="max-w-full max-h-full object-contain p-0.5" alt="游戏内截图">
+                        <div class="absolute bottom-0 w-full bg-black/70 text-[9px] text-gray-300 text-center py-0.5 opacity-0 group-hover:opacity-100 transition-opacity">游戏截图</div>
+                    </div>
+                `;
+            }
+            if (egg.has_compare) {
+                popupImgHtml += `
+                    <div class="w-full h-20 bg-black/60 rounded border border-gray-600 flex flex-col items-center justify-center overflow-hidden cursor-pointer hover:border-gray-400 transition-colors relative group" onclick="openImageViewer('${egg.image_compare}')" title="点击查看大图 (对比图)">
+                        <img src="${egg.image_compare}" class="max-w-full max-h-full object-contain p-0.5" alt="出处对比图">
+                        <div class="absolute bottom-0 w-full bg-black/70 text-[9px] text-gray-300 text-center py-0.5 opacity-0 group-hover:opacity-100 transition-opacity">出处对比</div>
+                    </div>
+                `;
+            }
+            popupImgHtml += `</div>`;
         }
 
         return `
-            <div class="text-center min-w-[140px] max-w-[200px]">
-                <div class="text-xs font-bold mb-0.5 truncate w-36 text-gray-200 mx-auto" title="${egg.name}">${egg.name}</div>
-                <div class="text-[14px] text-yellow-500 mb-1.5 truncate w-36 mx-auto" title="${egg.source_name}">Neta: ${egg.source_name}</div>
+            <div class="text-center min-w-[150px] max-w-[240px]">
+                <div class="text-xs font-bold mb-0.5 truncate text-gray-200 mx-auto" title="${egg.name}">${egg.name}</div>
+                <div class="text-[12px] text-yellow-500 mb-2 truncate mx-auto" title="${egg.source_name}">Neta: ${egg.source_name}</div>
                 ${popupImgHtml}
                 ${othersText}
             </div>
@@ -358,7 +390,8 @@
             const firstEgg = loc.eggs[0];
             const popupHtml = generatePopupHtml(firstEgg, loc.eggs.length);
             
-            marker.bindPopup(popupHtml, { offset: [0, -10], closeButton: false, minWidth: 140 });
+            // 【本次修改】略微增加了弹窗的最小宽度以适应可能存在的两张并排图片
+            marker.bindPopup(popupHtml, { offset: [0, -10], closeButton: false, minWidth: 160 });
 
             marker.locationData = loc;
             
@@ -568,7 +601,6 @@
         let html = `<div class="grid ${cols} gap-2 mt-2">`;
         
         if (egg.has_main) {
-            // [修改1/修改3]: Flex上下布局防止文字遮挡，并添加点击查看大图
             html += `
                 <div class="flex flex-col group overflow-hidden rounded border border-gray-600 bg-black cursor-pointer hover:border-gray-400 transition-colors" onclick="openImageViewer('${egg.image_main}')" title="点击查看大图">
                     <div class="flex-1 flex items-center justify-center p-0.5">
@@ -715,28 +747,106 @@
         map.addLayer(currentLayerGroup);
     }
 
-    // ================== 图片查看器（Lightbox）逻辑 ==================
-    // 【移除说明】如果要去掉大图功能，将下面两个函数直接删除即可。
+    // ================== 【本次修改】图片查看器（Lightbox）高级交互逻辑 ==================
+    const viewer = document.getElementById('image-viewer');
+    const viewerImg = document.getElementById('viewer-image');
+    
+    // 缩放与平移状态变量
+    let imgScale = 1;
+    let imgPanX = 0;
+    let imgPanY = 0;
+    
+    // 拖拽控制变量
+    let isDraggingImg = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+
+    // 应用变换属性到图片
+    function updateViewerTransform() {
+        viewerImg.style.transform = `translate(${imgPanX}px, ${imgPanY}px) scale(${imgScale})`;
+    }
+
     function openImageViewer(imgSrc) {
-        const viewer = document.getElementById('image-viewer');
-        const viewerImg = document.getElementById('viewer-image');
         viewerImg.src = imgSrc;
+        
+        // 重置状态
+        imgScale = 1;
+        imgPanX = 0;
+        imgPanY = 0;
+        updateViewerTransform();
+        
         viewer.classList.remove('hidden');
-        // 短暂延迟触发渐入动画
         setTimeout(() => {
             viewer.classList.remove('opacity-0');
         }, 10);
     }
 
     function closeImageViewer() {
-        const viewer = document.getElementById('image-viewer');
         viewer.classList.add('opacity-0');
-        // 等待渐出动画完成后隐藏并清空图片
         setTimeout(() => {
             viewer.classList.add('hidden');
-            document.getElementById('viewer-image').src = '';
+            viewerImg.src = '';
+            // 重置状态以防下次打开瞬间看到残影
+            imgScale = 1;
+            imgPanX = 0;
+            imgPanY = 0;
+            updateViewerTransform();
         }, 300);
     }
+
+    // --- 1. 鼠标滚轮缩放 ---
+    viewer.addEventListener('wheel', (e) => {
+        // 只有当图片查看器打开时才处理
+        if (viewer.classList.contains('hidden')) return;
+        
+        e.preventDefault(); // 防止网页背景滚动
+
+        // 缩放速度系数
+        const zoomSensitivity = 0.1;
+        const delta = e.deltaY < 0 ? 1 : -1;
+        let newScale = imgScale * (1 + delta * zoomSensitivity);
+        
+        // 限制缩放范围 (最小0.5倍，最大10倍)
+        newScale = Math.max(0.5, Math.min(newScale, 10));
+
+        // 如果要实现“以鼠标为中心缩放”，这里需要复杂的坐标系换算。
+        // 为了稳定性和移动端兼容，此处采用简单的“以图片中心点缩放”并保持现有的平移偏移。
+        imgScale = newScale;
+        updateViewerTransform();
+    }, { passive: false });
+
+    // --- 2. 鼠标拖拽平移 ---
+    viewerImg.addEventListener('mousedown', (e) => {
+        e.preventDefault(); // 阻止浏览器默认的拖拽图片行为
+        isDraggingImg = true;
+        // 记录鼠标按下时，相对于当前平移位置的偏移量
+        dragStartX = e.clientX - imgPanX;
+        dragStartY = e.clientY - imgPanY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDraggingImg) return;
+        // 计算新的平移位置
+        imgPanX = e.clientX - dragStartX;
+        imgPanY = e.clientY - dragStartY;
+        updateViewerTransform();
+    });
+
+    window.addEventListener('mouseup', () => {
+        isDraggingImg = false;
+    });
+
+    // --- 3. 关闭逻辑处理 ---
+    // 点击黑底关闭
+    viewer.addEventListener('click', (e) => {
+        if (e.target === viewer) {
+            closeImageViewer();
+        }
+    });
+    // 防止点击图片触发关闭
+    viewerImg.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
 
 </script>
 </body>
