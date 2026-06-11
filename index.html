@@ -183,7 +183,9 @@
         panExtraLeftOffset: 100,
         panDuration: 0.5,
         minPanZoom: 4, 
-        maxZoomLevel: 5 
+        maxZoomLevel: 5,
+        defaultClustered: true,           // 【新增】默认是否开启点位集群合并 (true=开启，false=关闭)
+        disableClusterZoomLevel: 4        // 【新增】当放大到该级别(如4级)及以上时，自动散开点位不再聚合
     };
 
     const scaleFactor = 1 / Math.pow(2, CONFIG.maxZoomLevel);
@@ -228,14 +230,25 @@
     map.setView([(CONFIG.mapHeight / 2) - CONFIG.offsetY, (CONFIG.mapWidth / 2) - CONFIG.offsetX], 1);
 
     let isMarkingMode = false;
-    let isClustered = false; 
+    let isClustered = CONFIG.defaultClustered; // 【修改】从 CONFIG 读取默认状态
     let activeRegionFilter = null; 
     let currentSelectedMarker = null; 
     
-    const clusterGroup = L.markerClusterGroup({ maxClusterRadius: 50, spiderfyOnMaxZoom: true, zoomToBoundsOnClick: true });
+    // 【修改】添加 disableClusteringAtZoom 属性
+    const clusterGroup = L.markerClusterGroup({ 
+        maxClusterRadius: 50, 
+        spiderfyOnMaxZoom: true, 
+        zoomToBoundsOnClick: true,
+        disableClusteringAtZoom: CONFIG.disableClusterZoomLevel 
+    });
     const normalGroup = L.layerGroup();
-    let currentLayerGroup = normalGroup;
+    
+    // 【修改】根据默认状态决定初始加载的图层
+    let currentLayerGroup = isClustered ? clusterGroup : normalGroup;
     map.addLayer(currentLayerGroup);
+
+    // 【新增】同步初始状态到设置面板的开关按钮
+    document.getElementById('toggle-cluster').checked = isClustered;
 
     const allMarkers = [];
 
