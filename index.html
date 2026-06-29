@@ -46,6 +46,20 @@
         .leaflet-popup-content-wrapper, .leaflet-popup-tip { background-color: #1f2937; color: #fff; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); border: 1px solid #374151;}
         .leaflet-popup-content { margin: 8px; }
 
+        /* 鼠标悬停预览卡片：Leaflet tooltip 会自动跟随 marker 的 hover 状态显示/隐藏 */
+        .marker-hover-tooltip {
+            background: rgba(17, 24, 39, 0.96);
+            border: 1px solid rgba(75, 85, 99, 0.9);
+            border-radius: 6px;
+            color: #f9fafb;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+            padding: 0;
+        }
+
+        .marker-hover-tooltip::before {
+            border-top-color: rgba(17, 24, 39, 0.96);
+        }
+
         #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
         .pointer-events-auto { pointer-events: auto; }
 
@@ -70,6 +84,54 @@
         }
         #viewer-image:active {
             cursor: grabbing;
+        }
+
+        /* 底部缩放滑条：width 控制整体长度，height 控制轨道占用空间 */
+        .zoom-slider {
+            width: min(36vw, 280px);
+            height: 3px;
+            accent-color: #60a5fa;
+            background: transparent;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        /* WebKit 内核浏览器（Chrome / Edge / Safari）的滑条轨道 */
+        .zoom-slider::-webkit-slider-runnable-track {
+            height: 3px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.55);
+        }
+
+        /* 滑条圆点大小：调小 width / height 可以让控件更轻巧 */
+        .zoom-slider::-webkit-slider-thumb {
+            width: 10px;
+            height: 10px;
+            margin-top: -3.5px;
+            border-radius: 999px;
+            background: #e5e7eb;
+            border: 2px solid #60a5fa;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        /* Firefox 的滑条轨道 */
+        .zoom-slider::-moz-range-track {
+            height: 3px;
+            border-radius: 999px;
+            background: rgba(148, 163, 184, 0.55);
+        }
+
+        .zoom-slider::-moz-range-thumb {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: #e5e7eb;
+            border: 2px solid #60a5fa;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+            cursor: pointer;
         }
     </style>
 </head>
@@ -120,12 +182,11 @@
             </div>
 
             <!-- 缩放控制栏 -->
-            <div class="absolute left-6 top-1/2 transform -translate-y-1/2 flex flex-col items-center gap-1 z-50 pointer-events-auto bg-gray-800/95 p-2 rounded-xl shadow-lg border border-gray-600">
-                <span class="text-[10px] font-mono text-gray-300 mb-1" id="zoom-text">1.0x</span>
-                <button onclick="map.zoomIn()" class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-lg text-white shadow transition"><i data-lucide="plus" class="w-4 h-4"></i></button>
-                <div class="w-6 h-px bg-gray-600 my-1"></div>
-                <button onclick="map.zoomOut()" class="w-8 h-8 flex items-center justify-center bg-gray-700 hover:bg-gray-600 rounded-lg text-white shadow transition"><i data-lucide="minus" class="w-4 h-4"></i></button>
-                <button onclick="map.setZoom(2)" class="w-8 h-8 flex items-center justify-center bg-blue-900 hover:bg-blue-800 rounded-lg text-blue-200 shadow transition mt-2" title="恢复全局视角"><i data-lucide="maximize" class="w-4 h-4"></i></button>
+            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-2 z-50 pointer-events-auto bg-gray-900/55 px-2 py-1 rounded-md backdrop-blur-sm">
+                <input id="zoom-slider" class="zoom-slider" type="range" min="1" max="5" step="0.25" value="1" aria-label="地图缩放">
+                <button onclick="resetMapView()" class="w-4 h-4 flex items-center justify-center bg-gray-800/80 hover:bg-gray-700 rounded text-blue-200 transition" title="恢复默认视口" aria-label="恢复默认视口">
+                    <i data-lucide="home" class="w-2.5 h-2.5"></i>
+                </button>
             </div>
 
             <!-- 左下角按钮组 -->
@@ -167,13 +228,14 @@
 <script>
     lucide.createIcons();
 
-    // 1. 更新 CONFIG，加入偏移量
+    // 地图基础参数：以后接入多地图时，每张地图会有自己的尺寸、偏移和默认缩放。
     const CONFIG = {
         mapWidth: 10240,
         mapHeight: 10240,
         offsetX: 2048,
         offsetY: 2048,
-        paddingExtraMax: 4096,
+        // defaultZoom 控制“恢复默认视口”按钮回到的缩放级别。
+        defaultZoom: 1,
         panExtraLeftOffset: 100,
         panDuration: 0.5,
         minPanZoom: 4, 
@@ -197,6 +259,9 @@
         crs: customCRS,       
         minZoom: 1,           
         maxZoom: 5,           
+        // zoomSnap / zoomDelta 越小，滚轮和滑条缩放越细腻。
+        zoomSnap: 0.25,
+        zoomDelta: 0.25,
         zoomControl: false, 
         attributionControl: false 
     });
@@ -206,10 +271,6 @@
     const maxX = CONFIG.mapWidth - CONFIG.offsetX;
     const maxY = CONFIG.mapHeight - CONFIG.offsetY;
 
-    const padding = CONFIG.paddingExtraMax; 
-    const maxBounds = [[minY - padding, minX - padding], [maxY + padding, maxX + padding]];
-    map.setMaxBounds(maxBounds);
-
     L.tileLayer('tiles/{z}/{x}/{z}_{x}_{y}.webp', {
         minZoom: 1,
         maxZoom: 5,
@@ -217,7 +278,15 @@
         bounds: [[minY, minX], [maxY, maxX]] 
     }).addTo(map);
 
-    map.setView([(CONFIG.mapHeight / 2) - CONFIG.offsetY, (CONFIG.mapWidth / 2) - CONFIG.offsetX], 1);
+    function getDefaultMapCenter() {
+        return [(CONFIG.mapHeight / 2) - CONFIG.offsetY, (CONFIG.mapWidth / 2) - CONFIG.offsetX];
+    }
+
+    function resetMapView() {
+        map.flyTo(getDefaultMapCenter(), CONFIG.defaultZoom, { duration: 0.45 });
+    }
+
+    map.setView(getDefaultMapCenter(), CONFIG.defaultZoom);
 
     let isMarkingMode = false;
     let isClustered = CONFIG.defaultClustered; 
@@ -255,6 +324,29 @@
         
         return nameA.localeCompare(nameB, 'zh-CN');
     }
+
+    function escapeHtml(value) {
+        return String(value ?? '').replace(/[&<>"']/g, (char) => ({
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        }[char]));
+    }
+
+    function formatMultilineText(value, fallback = '') {
+        const rawText = String(value ?? '').trim();
+        const text = rawText || fallback;
+        if (!text) return '';
+
+        return escapeHtml(text)
+            .replace(/\r\n/g, '\n')
+            .replace(/\r/g, '\n')
+            .replace(/\\n/g, '\n')
+            .replace(/\/n/g, '\n')
+            .replace(/\n/g, '<br>');
+    }
     
     function buildIndexes() {
         db.sources.forEach(s => sourceEggsMap[s.id] = []);
@@ -281,12 +373,16 @@
 
     function updateZoomUI() {
         const zoom = map.getZoom();
-        const relativeScale = Math.pow(2, zoom - CONFIG.maxZoomLevel);
-        document.getElementById('zoom-text').innerText = `${relativeScale.toFixed(2)}x`;
+        // 地图可能被滚轮、双击或代码缩放；这里把真实 zoom 同步回滑条。
+        document.getElementById('zoom-slider').value = zoom.toFixed(2);
         const markerScale = 0.2 + (zoom * 0.15); 
         document.documentElement.style.setProperty('--marker-scale', Math.max(0.2, markerScale));
     }
-    map.on('zoom', updateZoomUI);
+    document.getElementById('zoom-slider').addEventListener('input', (e) => {
+        // range 输入框的值是字符串，parseFloat 后交给 Leaflet 设置缩放。
+        map.setZoom(parseFloat(e.target.value));
+    });
+    map.on('zoom zoomend', updateZoomUI);
     updateZoomUI();
 
     const sidebar = document.getElementById('sidebar');
@@ -333,6 +429,8 @@
 
     function generatePopupHtml(egg, totalCount) {
         const othersText = totalCount > 1 ? `<div class="text-[10px] text-gray-400 mt-1">该坐标点共 ${totalCount} 个彩蛋 (在右侧点击切换)</div>` : '';
+        const remarkHtml = formatMultilineText(egg.remark);
+        const remarkBlock = remarkHtml ? `<div class="text-[11px] text-gray-300 leading-relaxed text-left bg-gray-900/70 rounded px-2 py-1.5 mb-1.5">${remarkHtml}</div>` : '';
         
         // 【优化1】根据是否有两张图片来动态决定外层容器的最小和最大宽度
         const hasBothImages = egg.has_main && egg.has_compare;
@@ -367,8 +465,33 @@
             <div class="text-center ${widthClass}">
                 <div class="text-xs font-bold mb-0.5 truncate text-gray-200 mx-auto" title="${egg.name}">${egg.name}</div>
                 <div class="text-[12px] text-yellow-500 mb-2 truncate mx-auto" title="${egg.source_name}">Neta: ${egg.source_name}</div>
+                ${remarkBlock}
                 ${popupImgHtml}
                 ${othersText}
+            </div>
+        `;
+    }
+
+    function generateHoverPreviewHtml(egg) {
+        // 悬停预览只做“扫一眼”的信息：出处名 + 优先对比图，其次游戏截图。
+        const previewImage = egg.has_compare ? egg.image_compare : (egg.has_main ? egg.image_main : '');
+        const previewImageSrc = escapeHtml(previewImage);
+        const sourceName = escapeHtml(egg.source_name || '未知出处');
+        const imageHtml = previewImage ? `
+            <div class="w-36 h-20 bg-black/70 rounded overflow-hidden border border-gray-700 flex items-center justify-center">
+                <img src="${previewImageSrc}" class="max-w-full max-h-full object-contain" alt="点位预览图">
+            </div>
+        ` : `
+            <div class="w-36 h-14 bg-gray-950/70 rounded border border-dashed border-gray-700 flex items-center justify-center text-[10px] text-gray-500">
+                暂无图片
+            </div>
+        `;
+
+        return `
+            <div class="p-2 min-w-[160px] max-w-[190px]">
+                <div class="text-[10px] text-gray-400 mb-1">出处作品</div>
+                <div class="text-xs font-semibold text-yellow-400 truncate mb-2" title="${sourceName}">${sourceName}</div>
+                ${imageHtml}
             </div>
         `;
     }
@@ -392,11 +515,19 @@
             
             // 降低基础 minWidth，让 CSS 完全接管两张图情况下的扩宽
             marker.bindPopup(popupHtml, { offset: [0, -10], closeButton: false, minWidth: 150 });
+            marker.bindTooltip(generateHoverPreviewHtml(firstEgg), {
+                direction: 'top',
+                offset: [0, -14],
+                opacity: 1,
+                className: 'marker-hover-tooltip',
+                sticky: true
+            });
 
             marker.locationData = loc;
             
             marker.on('click', () => {
                 if(isMarkingMode) return;
+                marker.closeTooltip();
                 
                 if (currentSelectedMarker && currentSelectedMarker.getElement()) {
                     const inner = currentSelectedMarker.getElement().querySelector('.marker-inner');
@@ -590,7 +721,7 @@
                         ${!isFromSourceView ? `<p class="text-xs text-yellow-500 font-semibold">出处: ${egg.source_name}</p>` : '<div></div>'}
                         <span class="text-[10px] font-mono text-gray-500 bg-gray-800 px-1 rounded">${egg.id}</span>
                     </div>
-                    <p class="text-xs text-gray-400 mb-3">${egg.remark || '暂无备注说明'}</p>
+                    <p class="text-xs text-gray-400 mb-3 leading-relaxed">${formatMultilineText(egg.remark, '暂无备注说明')}</p>
                     
                     ${generateEggImagesHTML(egg)}
                     
