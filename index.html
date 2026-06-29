@@ -44,9 +44,15 @@
 
         /* 覆盖 Leaflet 弹窗默认样式，使其贴合暗黑主题 */
         .leaflet-popup-content-wrapper, .leaflet-popup-tip { background-color: #1f2937; color: #fff; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); border: 1px solid #374151;}
-        .leaflet-popup-content { margin: 8px; }
+        .leaflet-popup-content { margin: 8px; box-sizing: border-box; }
 
-        /* 鼠标悬停预览卡片：Leaflet tooltip 会自动跟随 marker 的 hover 状态显示/隐藏 */
+        /* 弹窗主体宽度由 JS 按图片数量计算，避免 Leaflet 首次打开时测量过窄 */
+        .marker-popup-content,
+        .marker-popup-content * {
+            box-sizing: border-box;
+        }
+
+        /* 鼠标悬停预览卡片：固定宽度后，内部图片不会把 Leaflet tooltip 外框撑歪 */
         .marker-hover-tooltip {
             background: rgba(17, 24, 39, 0.96);
             border: 1px solid rgba(75, 85, 99, 0.9);
@@ -54,10 +60,25 @@
             color: #f9fafb;
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
             padding: 0;
+            width: 176px;
+            max-width: 176px;
+            box-sizing: border-box;
+            white-space: normal;
+            overflow: hidden;
         }
 
         .marker-hover-tooltip::before {
             border-top-color: rgba(17, 24, 39, 0.96);
+        }
+
+        .marker-hover-card {
+            width: 160px;
+            box-sizing: border-box;
+        }
+
+        .marker-hover-image {
+            width: 100%;
+            box-sizing: border-box;
         }
 
         #ui-layer { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; }
@@ -427,14 +448,47 @@
         })
         .catch(err => console.error('获取 data.json 失败:', err));
 
+    function getPopupContentWidth(egg) {
+        // 这里的数值是 Leaflet 弹窗“内容区”的宽度，不包含外层 8px margin。
+        // 两张图并排时需要更宽；单图或无图时保持紧凑。
+        if (egg.has_main && egg.has_compare) return 320;
+        if (egg.has_main || egg.has_compare) return 220;
+        return 180;
+    }
+
+    function getPopupOptions(egg) {
+        const width = getPopupContentWidth(egg);
+        return {
+            offset: [0, -10],
+            closeButton: false,
+            minWidth: width,
+            maxWidth: width
+        };
+    }
+
+    function updateMarkerPopup(marker, egg, totalCount) {
+        const popupHtml = generatePopupHtml(egg, totalCount);
+        const popupOptions = getPopupOptions(egg);
+        const popup = marker.getPopup();
+
+        if (popup) {
+            // setPopupContent 不会自动同步 minWidth / maxWidth，所以切换彩蛋时手动更新配置。
+            Object.assign(popup.options, popupOptions);
+            marker.setPopupContent(popupHtml);
+            popup.update();
+        } else {
+            marker.bindPopup(popupHtml, popupOptions);
+        }
+    }
+
     function generatePopupHtml(egg, totalCount) {
         const othersText = totalCount > 1 ? `<div class="text-[10px] text-gray-400 mt-1">该坐标点共 ${totalCount} 个彩蛋 (在右侧点击切换)</div>` : '';
         const remarkHtml = formatMultilineText(egg.remark);
         const remarkBlock = remarkHtml ? `<div class="text-[11px] text-gray-300 leading-relaxed text-left bg-gray-900/70 rounded px-2 py-1.5 mb-1.5">${remarkHtml}</div>` : '';
         
-        // 【优化1】根据是否有两张图片来动态决定外层容器的最小和最大宽度
+        // 根据是否有两张图片来动态决定外层容器宽度，保持和 Leaflet popup 配置一致。
         const hasBothImages = egg.has_main && egg.has_compare;
-        const widthClass = hasBothImages ? 'min-w-[280px] max-w-[340px]' : 'min-w-[160px] max-w-[240px]';
+        const popupWidth = getPopupContentWidth(egg);
 
         let popupImgHtml = '';
         if (egg.has_main || egg.has_compare) {
@@ -462,7 +516,7 @@
         }
 
         return `
-            <div class="text-center ${widthClass}">
+            <div class="marker-popup-content text-center" style="width: ${popupWidth}px;">
                 <div class="text-xs font-bold mb-0.5 truncate text-gray-200 mx-auto" title="${egg.name}">${egg.name}</div>
                 <div class="text-[12px] text-yellow-500 mb-2 truncate mx-auto" title="${egg.source_name}">Neta: ${egg.source_name}</div>
                 ${remarkBlock}
@@ -478,22 +532,34 @@
         const previewImageSrc = escapeHtml(previewImage);
         const sourceName = escapeHtml(egg.source_name || '未知出处');
         const imageHtml = previewImage ? `
-            <div class="w-36 h-20 bg-black/70 rounded overflow-hidden border border-gray-700 flex items-center justify-center">
+            <div class="marker-hover-image h-20 bg-black/70 rounded overflow-hidden border border-gray-700 flex items-center justify-center">
                 <img src="${previewImageSrc}" class="max-w-full max-h-full object-contain" alt="点位预览图">
             </div>
         ` : `
-            <div class="w-36 h-14 bg-gray-950/70 rounded border border-dashed border-gray-700 flex items-center justify-center text-[10px] text-gray-500">
+            <div class="marker-hover-image h-14 bg-gray-950/70 rounded border border-dashed border-gray-700 flex items-center justify-center text-[10px] text-gray-500">
                 暂无图片
             </div>
         `;
 
         return `
-            <div class="p-2 min-w-[160px] max-w-[190px]">
+            <div class="marker-hover-card p-2">
                 <div class="text-[10px] text-gray-400 mb-1">出处作品</div>
                 <div class="text-xs font-semibold text-yellow-400 truncate mb-2" title="${sourceName}">${sourceName}</div>
                 ${imageHtml}
             </div>
         `;
+    }
+
+    function closeMarkerHoverTooltip(marker) {
+        if (marker.hoverTooltip && map.hasLayer(marker.hoverTooltip)) {
+            map.removeLayer(marker.hoverTooltip);
+        }
+    }
+
+    function shouldShowMarkerHoverTooltip(marker) {
+        // 已选中任意点位时，右侧栏和点击弹窗已经承担信息展示，悬停卡片就不再打扰。
+        if (isMarkingMode || currentSelectedMarker || marker.isPopupOpen()) return false;
+        return true;
     }
 
     function renderMarkers() {
@@ -511,23 +577,40 @@
             });
 
             const firstEgg = loc.eggs[0];
-            const popupHtml = generatePopupHtml(firstEgg, loc.eggs.length);
+            updateMarkerPopup(marker, firstEgg, loc.eggs.length);
             
-            // 降低基础 minWidth，让 CSS 完全接管两张图情况下的扩宽
-            marker.bindPopup(popupHtml, { offset: [0, -10], closeButton: false, minWidth: 150 });
-            marker.bindTooltip(generateHoverPreviewHtml(firstEgg), {
+            marker.hoverTooltip = L.tooltip({
                 direction: 'top',
                 offset: [0, -14],
                 opacity: 1,
                 className: 'marker-hover-tooltip',
-                sticky: true
-            });
+                interactive: false
+            }).setContent(generateHoverPreviewHtml(firstEgg));
 
             marker.locationData = loc;
+
+            marker.on('mouseover', (event) => {
+                if (!shouldShowMarkerHoverTooltip(marker)) return;
+                marker.hoverTooltip.setLatLng(event.latlng || marker.getLatLng()).addTo(map);
+            });
+
+            marker.on('mousemove', (event) => {
+                if (!shouldShowMarkerHoverTooltip(marker)) {
+                    closeMarkerHoverTooltip(marker);
+                    return;
+                }
+                if (map.hasLayer(marker.hoverTooltip)) {
+                    marker.hoverTooltip.setLatLng(event.latlng || marker.getLatLng());
+                }
+            });
+
+            marker.on('mouseout', () => {
+                closeMarkerHoverTooltip(marker);
+            });
             
             marker.on('click', () => {
                 if(isMarkingMode) return;
-                marker.closeTooltip();
+                closeMarkerHoverTooltip(marker);
                 
                 if (currentSelectedMarker && currentSelectedMarker.getElement()) {
                     const inner = currentSelectedMarker.getElement().querySelector('.marker-inner');
@@ -791,7 +874,7 @@
         if (egg && !egg.is_unmapped && egg.location) {
             const targetMarker = allMarkers.find(m => m.locationData.id === egg.location.id);
             if (targetMarker) {
-                targetMarker.setPopupContent(generatePopupHtml(egg, egg.location.eggs.length));
+                updateMarkerPopup(targetMarker, egg, egg.location.eggs.length);
             }
         }
     }
