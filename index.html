@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>异环 NTE - 彩蛋圣地巡礼地图</title>
+    <title>异环 NTE - 圣地巡礼彩蛋地图</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -969,16 +969,7 @@
                 if(isMarkingMode) return;
                 closeMarkerHoverTooltip(marker);
                 
-                if (currentSelectedMarker && currentSelectedMarker.getElement()) {
-                    const inner = currentSelectedMarker.getElement().querySelector('.marker-inner');
-                    if(inner) inner.classList.remove('marker-selected');
-                }
-                
-                currentSelectedMarker = marker;
-                if (marker.getElement()) {
-                    const inner = marker.getElement().querySelector('.marker-inner');
-                    if(inner) inner.classList.add('marker-selected');
-                }
+                setCurrentSelectedMarker(marker);
 
                 // 【优化2】传入手动展开的彩蛋 ID，默认展开此点位的第一个彩蛋
                 openSidebar('LOCATION', { loc: loc, expandEggId: firstEgg.id });
@@ -999,6 +990,43 @@
             if(inner) inner.classList.add('marker-selected');
         }
     });
+
+    function setCurrentSelectedMarker(marker) {
+        if (currentSelectedMarker && currentSelectedMarker.getElement()) {
+            const inner = currentSelectedMarker.getElement().querySelector('.marker-inner');
+            if(inner) inner.classList.remove('marker-selected');
+        }
+
+        currentSelectedMarker = marker;
+
+        if (marker && marker.getElement()) {
+            const inner = marker.getElement().querySelector('.marker-inner');
+            if(inner) inner.classList.add('marker-selected');
+        }
+    }
+
+    function revealMarkerAndOpenPopup(marker) {
+        const openAfterMarkerVisible = () => {
+            // 聚类展开后 marker 才有 DOM 元素，此时再补选中态和弹窗最稳。
+            setCurrentSelectedMarker(marker);
+            panMapTo(marker.getLatLng());
+            marker.openPopup();
+        };
+
+        if (
+            isClustered &&
+            currentLayerGroup === clusterGroup &&
+            typeof clusterGroup.zoomToShowLayer === 'function' &&
+            clusterGroup.hasLayer(marker)
+        ) {
+            clusterGroup.zoomToShowLayer(marker, () => {
+                setTimeout(openAfterMarkerVisible, 80);
+            });
+            return;
+        }
+
+        openAfterMarkerVisible();
+    }
 
     function panMapTo(latlng) {
         const targetZoom = Math.max(map.getZoom(), CONFIG.minPanZoom);
@@ -1022,9 +1050,11 @@
 
     function closeSidebar() {
         sidebar.classList.add('translate-x-full');
-        if (currentSelectedMarker && currentSelectedMarker.getElement()) {
-            const inner = currentSelectedMarker.getElement().querySelector('.marker-inner');
-            if(inner) inner.classList.remove('marker-selected');
+        if (currentSelectedMarker) {
+            if (currentSelectedMarker.getElement()) {
+                const inner = currentSelectedMarker.getElement().querySelector('.marker-inner');
+                if(inner) inner.classList.remove('marker-selected');
+            }
             currentSelectedMarker.closePopup();
             currentSelectedMarker = null;
         }
@@ -1228,10 +1258,10 @@
 
         const targetMarker = allMarkers.find(m => m.locationData.id === egg.location.id);
         if (targetMarker) {
-            targetMarker.fire('click');
             // 从总表进入副本内彩蛋时，先切地图，再精准展开对应彩蛋。
+            updateMarkerPopup(targetMarker, egg, egg.location.eggs.length);
             openSidebar('LOCATION', { loc: egg.location, backTo: backToSourceId, expandEggId: egg.id });
-            setTimeout(() => targetMarker.openPopup(), 100);
+            revealMarkerAndOpenPopup(targetMarker);
         }
     }
 
