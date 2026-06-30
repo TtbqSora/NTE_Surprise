@@ -630,13 +630,16 @@
         const label = isMain ? '游戏截图' : '出处对比';
         const altText = isMain ? '游戏内截图' : '出处对比图';
         const firstImage = escapeHtml(images[0]);
-        const countText = `${images.length} 张`;
+        // 只有同类图片超过 1 张时才显示数量角标，避免单图时界面信息过密。
+        const countBadgeHtml = images.length > 1
+            ? `<div class="absolute right-1 bottom-1 bg-black/80 text-[9px] text-gray-200 px-1.5 py-0.5 rounded-sm leading-none">${images.length} 张</div>`
+            : '';
 
         return `
             <div class="w-full h-20 bg-black/60 rounded border border-gray-600 flex flex-col items-center justify-center overflow-hidden cursor-pointer hover:border-gray-400 transition-colors relative group" onclick="openImageViewerForEgg('${egg.id}', '${imageKind}', 0)" title="点击查看大图 (${altText})">
                 <img src="${firstImage}" class="max-w-full max-h-full object-contain p-0.5" alt="${altText}">
                 <div class="absolute bottom-0 w-full bg-black/70 text-[9px] text-gray-300 text-center py-0.5 opacity-0 group-hover:opacity-100 transition-opacity">${label}</div>
-                <div class="absolute right-1 bottom-1 bg-black/80 text-[9px] text-gray-200 px-1.5 py-0.5 rounded-sm leading-none">${countText}</div>
+                ${countBadgeHtml}
             </div>
         `;
     }
@@ -975,22 +978,28 @@
         
         if (imageGroups.main.length) {
             const firstMain = escapeHtml(imageGroups.main[0]);
+            const mainCountBadgeHtml = imageGroups.main.length > 1
+                ? `<div class="absolute right-1 bottom-1 bg-black/80 text-[10px] text-gray-200 px-1.5 py-0.5 rounded-sm leading-none">${imageGroups.main.length} 张</div>`
+                : '';
             html += `
                 <div class="flex flex-col group overflow-hidden rounded border border-gray-600 bg-black cursor-pointer hover:border-gray-400 transition-colors relative" onclick="openImageViewerForEgg('${egg.id}', 'main', 0)" title="点击查看大图">
                     <div class="flex-1 flex items-center justify-center p-0.5 relative">
                         <img src="${firstMain}" class="w-full h-auto max-h-32 object-contain" alt="游戏内截图">
-                        <div class="absolute right-1 bottom-1 bg-black/80 text-[10px] text-gray-200 px-1.5 py-0.5 rounded-sm leading-none">${imageGroups.main.length} 张</div>
+                        ${mainCountBadgeHtml}
                     </div>
                     <div class="bg-gray-800 text-center text-[10px] py-1.5 text-gray-300 border-t border-gray-700">游戏内截图</div>
                 </div>`;
         }
         if (imageGroups.compare.length) {
             const firstCompare = escapeHtml(imageGroups.compare[0]);
+            const compareCountBadgeHtml = imageGroups.compare.length > 1
+                ? `<div class="absolute right-1 bottom-1 bg-black/80 text-[10px] text-gray-200 px-1.5 py-0.5 rounded-sm leading-none">${imageGroups.compare.length} 张</div>`
+                : '';
             html += `
                 <div class="flex flex-col group overflow-hidden rounded border border-gray-600 bg-black cursor-pointer hover:border-gray-400 transition-colors relative" onclick="openImageViewerForEgg('${egg.id}', 'compare', 0)" title="点击查看大图">
                     <div class="flex-1 flex items-center justify-center p-0.5 relative">
                         <img src="${firstCompare}" class="w-full h-auto max-h-32 object-contain" alt="出处对比图">
-                        <div class="absolute right-1 bottom-1 bg-black/80 text-[10px] text-gray-200 px-1.5 py-0.5 rounded-sm leading-none">${imageGroups.compare.length} 张</div>
+                        ${compareCountBadgeHtml}
                     </div>
                     <div class="bg-gray-800 text-center text-[10px] py-1.5 text-gray-300 border-t border-gray-700">出处对比图</div>
                 </div>`;
@@ -1212,15 +1221,11 @@
 
         if (!shouldShowArrows) return;
 
-        const isFirst = viewerImageIndex <= 0;
-        const isLast = viewerImageIndex >= total - 1;
-
-        viewerPrevBtn.disabled = isFirst;
-        viewerNextBtn.disabled = isLast;
-        viewerPrevBtn.classList.toggle('opacity-30', isFirst);
-        viewerNextBtn.classList.toggle('opacity-30', isLast);
-        viewerPrevBtn.classList.toggle('cursor-not-allowed', isFirst);
-        viewerNextBtn.classList.toggle('cursor-not-allowed', isLast);
+        // 多图时左右翻页始终可用，首尾会循环到另一端，方便截图组和出处组快速来回切换。
+        viewerPrevBtn.disabled = false;
+        viewerNextBtn.disabled = false;
+        viewerPrevBtn.classList.remove('opacity-30', 'cursor-not-allowed');
+        viewerNextBtn.classList.remove('opacity-30', 'cursor-not-allowed');
     }
 
     function showViewerImage(index) {
@@ -1242,11 +1247,19 @@
     }
 
     function showPreviousViewerImage() {
-        showViewerImage(viewerImageIndex - 1);
+        const total = viewerImageItems.length;
+        if (total <= 1) return;
+
+        // 从第一张继续左翻会跳到最后一张，例如游戏截图第一张 -> 出处对比最后一张。
+        showViewerImage((viewerImageIndex - 1 + total) % total);
     }
 
     function showNextViewerImage() {
-        showViewerImage(viewerImageIndex + 1);
+        const total = viewerImageItems.length;
+        if (total <= 1) return;
+
+        // 从最后一张继续右翻会回到第一张，例如出处对比最后一张 -> 游戏截图第一张。
+        showViewerImage((viewerImageIndex + 1) % total);
     }
 
     function closeImageViewer() {
