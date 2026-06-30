@@ -5553,5 +5553,29 @@
       "image_main": "pic/E000148_main.webp",
       "image_compare": "pic/E000148_compare.webp"
     }
+  ],
+  "maps": [
+    {
+      "id": "world",
+      "name": "大世界",
+      "is_world": true,
+      "tile_path": "tiles/{z}/{x}/{z}_{x}_{y}.webp"
+    },
+    {
+      "id": "ymhl",
+      "name": "游梦洄廊",
+      "is_world": false,
+      "tile_path": "tiles/ymhl/{z}/{x}/{z}_{x}_{y}.webp"
+    }
+  ],
+  "map_entries": [
+    {
+      "id": "ME000001",
+      "map_id": "ymhl",
+      "map_name": "游梦洄廊",
+      "x": 116,
+      "y": -388,
+      "icon_type": "钓鱼点"
+    }
   ]
 }
