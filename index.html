@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>异环 NTE - 彩蛋地图</title>
+    <title>异环 NTE - 彩蛋圣地巡礼地图</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -274,8 +274,16 @@
     
     <!-- 图片查看器 (Lightbox) 开始 -->
     <div id="image-viewer" class="hidden fixed inset-0 z-[9999] bg-black/90 flex justify-center items-center overflow-hidden transition-opacity duration-300 opacity-0 pointer-events-auto">
-        <div class="absolute top-6 left-1/2 transform -translate-x-1/2 text-gray-400 text-sm bg-gray-900/80 px-4 py-1.5 rounded-full pointer-events-none z-50 shadow-lg border border-gray-700 flex items-center gap-2">
-            <i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 滚轮缩放 / 拖拽平移
+        <div id="viewer-title" class="absolute top-6 left-1/2 transform -translate-x-1/2 text-gray-100 text-sm bg-gray-900/80 px-4 py-1.5 rounded-full pointer-events-none z-50 shadow-lg border border-gray-700"></div>
+        <button id="viewer-prev" class="hidden absolute left-4 md:left-8 top-1/2 -translate-y-1/2 text-white bg-gray-800/80 hover:bg-gray-600 border border-gray-600 shadow-lg rounded-full p-3 transition-colors cursor-pointer z-50" onclick="showPreviousViewerImage()" title="上一张">
+            <i data-lucide="chevron-left" class="w-7 h-7"></i>
+        </button>
+        <button id="viewer-next" class="hidden absolute right-4 md:right-8 top-1/2 -translate-y-1/2 text-white bg-gray-800/80 hover:bg-gray-600 border border-gray-600 shadow-lg rounded-full p-3 transition-colors cursor-pointer z-50" onclick="showNextViewerImage()" title="下一张">
+            <i data-lucide="chevron-right" class="w-7 h-7"></i>
+        </button>
+        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-gray-300 text-xs md:text-sm bg-gray-900/80 px-4 py-2 rounded-full pointer-events-none z-50 shadow-lg border border-gray-700 flex flex-col md:flex-row items-center gap-1 md:gap-3">
+            <span class="flex items-center gap-1.5"><i data-lucide="mouse-pointer-click" class="w-4 h-4"></i> 滚轮缩放 / 拖拽平移</span>
+            <span id="viewer-position" class="text-gray-400"></span>
         </div>
         <img id="viewer-image" src="" class="max-w-[90vw] max-h-[90vh] object-contain shadow-2xl" alt="大图预览">
         <button class="absolute top-4 right-4 md:top-6 md:right-6 text-white bg-gray-800/80 hover:bg-gray-600 border border-gray-600 shadow-lg rounded-full p-2.5 transition-colors cursor-pointer z-50" onclick="closeImageViewer()" title="关闭">
@@ -483,6 +491,26 @@
         img.onerror = null;
         img.removeAttribute('src');
     }
+
+    function getEggImages(egg, imageKind) {
+        // 新 data.json 会提供数组；旧 data.json 只有单张路径，这里做兼容。
+        const listKey = imageKind === 'main' ? 'images_main' : 'images_compare';
+        const singleKey = imageKind === 'main' ? 'image_main' : 'image_compare';
+        const hasKey = imageKind === 'main' ? 'has_main' : 'has_compare';
+
+        if (Array.isArray(egg[listKey]) && egg[listKey].length > 0) {
+            return egg[listKey].filter(Boolean);
+        }
+
+        return egg[hasKey] && egg[singleKey] ? [egg[singleKey]] : [];
+    }
+
+    function getEggImageGroups(egg) {
+        return {
+            main: getEggImages(egg, 'main'),
+            compare: getEggImages(egg, 'compare')
+        };
+    }
     
     function buildIndexes() {
         db.sources.forEach(s => sourceEggsMap[s.id] = []);
@@ -566,8 +594,9 @@
     function getPopupContentWidth(egg) {
         // 这里的数值是 Leaflet 弹窗“内容区”的宽度，不包含外层 8px margin。
         // 两张图并排时需要更宽；单图或无图时保持紧凑。
-        if (egg.has_main && egg.has_compare) return 320;
-        if (egg.has_main || egg.has_compare) return 220;
+        const imageGroups = getEggImageGroups(egg);
+        if (imageGroups.main.length && imageGroups.compare.length) return 320;
+        if (imageGroups.main.length || imageGroups.compare.length) return 220;
         return 180;
     }
 
@@ -596,36 +625,43 @@
         }
     }
 
+    function generatePopupImageCard(egg, imageKind, images) {
+        const isMain = imageKind === 'main';
+        const label = isMain ? '游戏截图' : '出处对比';
+        const altText = isMain ? '游戏内截图' : '出处对比图';
+        const firstImage = escapeHtml(images[0]);
+        const countText = `${images.length} 张`;
+
+        return `
+            <div class="w-full h-20 bg-black/60 rounded border border-gray-600 flex flex-col items-center justify-center overflow-hidden cursor-pointer hover:border-gray-400 transition-colors relative group" onclick="openImageViewerForEgg('${egg.id}', '${imageKind}', 0)" title="点击查看大图 (${altText})">
+                <img src="${firstImage}" class="max-w-full max-h-full object-contain p-0.5" alt="${altText}">
+                <div class="absolute bottom-0 w-full bg-black/70 text-[9px] text-gray-300 text-center py-0.5 opacity-0 group-hover:opacity-100 transition-opacity">${label}</div>
+                <div class="absolute right-1 bottom-1 bg-black/80 text-[9px] text-gray-200 px-1.5 py-0.5 rounded-sm leading-none">${countText}</div>
+            </div>
+        `;
+    }
+
     function generatePopupHtml(egg, totalCount) {
         const othersText = totalCount > 1 ? `<div class="text-[10px] text-gray-400 mt-1">该坐标点共 ${totalCount} 个彩蛋 (在右侧点击切换)</div>` : '';
         const remarkHtml = formatMultilineText(egg.remark);
         const remarkBlock = remarkHtml ? `<div class="text-[11px] text-gray-300 leading-relaxed text-left bg-gray-900/70 rounded px-2 py-1.5 mb-1.5">${remarkHtml}</div>` : '';
         
         // 根据是否有两张图片来动态决定外层容器宽度，保持和 Leaflet popup 配置一致。
-        const hasBothImages = egg.has_main && egg.has_compare;
+        const imageGroups = getEggImageGroups(egg);
+        const hasBothImages = imageGroups.main.length && imageGroups.compare.length;
         const popupWidth = getPopupContentWidth(egg);
 
         let popupImgHtml = '';
-        if (egg.has_main || egg.has_compare) {
+        if (imageGroups.main.length || imageGroups.compare.length) {
             const colsClass = hasBothImages ? 'grid-cols-2' : 'grid-cols-1';
             
             popupImgHtml += `<div class="grid ${colsClass} gap-1.5 w-full mb-1.5">`;
             
-            if (egg.has_main) {
-                popupImgHtml += `
-                    <div class="w-full h-20 bg-black/60 rounded border border-gray-600 flex flex-col items-center justify-center overflow-hidden cursor-pointer hover:border-gray-400 transition-colors relative group" onclick="openImageViewer('${egg.image_main}')" title="点击查看大图 (游戏截图)">
-                        <img src="${egg.image_main}" class="max-w-full max-h-full object-contain p-0.5" alt="游戏内截图">
-                        <div class="absolute bottom-0 w-full bg-black/70 text-[9px] text-gray-300 text-center py-0.5 opacity-0 group-hover:opacity-100 transition-opacity">游戏截图</div>
-                    </div>
-                `;
+            if (imageGroups.main.length) {
+                popupImgHtml += generatePopupImageCard(egg, 'main', imageGroups.main);
             }
-            if (egg.has_compare) {
-                popupImgHtml += `
-                    <div class="w-full h-20 bg-black/60 rounded border border-gray-600 flex flex-col items-center justify-center overflow-hidden cursor-pointer hover:border-gray-400 transition-colors relative group" onclick="openImageViewer('${egg.image_compare}')" title="点击查看大图 (对比图)">
-                        <img src="${egg.image_compare}" class="max-w-full max-h-full object-contain p-0.5" alt="出处对比图">
-                        <div class="absolute bottom-0 w-full bg-black/70 text-[9px] text-gray-300 text-center py-0.5 opacity-0 group-hover:opacity-100 transition-opacity">出处对比</div>
-                    </div>
-                `;
+            if (imageGroups.compare.length) {
+                popupImgHtml += generatePopupImageCard(egg, 'compare', imageGroups.compare);
             }
             popupImgHtml += `</div>`;
         }
@@ -643,7 +679,8 @@
 
     function generateHoverPreviewHtml(egg) {
         // 悬停预览只做“扫一眼”的信息：出处名 + 优先对比图，其次游戏截图。
-        const previewImage = egg.has_compare ? egg.image_compare : (egg.has_main ? egg.image_main : '');
+        const imageGroups = getEggImageGroups(egg);
+        const previewImage = imageGroups.compare[0] || imageGroups.main[0] || '';
         const previewImageSrc = escapeHtml(previewImage);
         const sourceName = escapeHtml(egg.source_name || '未知出处');
         const imageHtml = previewImage ? `
@@ -930,25 +967,30 @@
     }
 
     function generateEggImagesHTML(egg) {
-        if (!egg.has_main && !egg.has_compare) return ''; 
+        const imageGroups = getEggImageGroups(egg);
+        if (!imageGroups.main.length && !imageGroups.compare.length) return '';
         
-        let cols = (egg.has_main && egg.has_compare) ? 'grid-cols-2' : 'grid-cols-1';
+        let cols = (imageGroups.main.length && imageGroups.compare.length) ? 'grid-cols-2' : 'grid-cols-1';
         let html = `<div class="grid ${cols} gap-2 mt-2">`;
         
-        if (egg.has_main) {
+        if (imageGroups.main.length) {
+            const firstMain = escapeHtml(imageGroups.main[0]);
             html += `
-                <div class="flex flex-col group overflow-hidden rounded border border-gray-600 bg-black cursor-pointer hover:border-gray-400 transition-colors" onclick="openImageViewer('${egg.image_main}')" title="点击查看大图">
-                    <div class="flex-1 flex items-center justify-center p-0.5">
-                        <img src="${egg.image_main}" class="w-full h-auto max-h-32 object-contain" alt="游戏内截图">
+                <div class="flex flex-col group overflow-hidden rounded border border-gray-600 bg-black cursor-pointer hover:border-gray-400 transition-colors relative" onclick="openImageViewerForEgg('${egg.id}', 'main', 0)" title="点击查看大图">
+                    <div class="flex-1 flex items-center justify-center p-0.5 relative">
+                        <img src="${firstMain}" class="w-full h-auto max-h-32 object-contain" alt="游戏内截图">
+                        <div class="absolute right-1 bottom-1 bg-black/80 text-[10px] text-gray-200 px-1.5 py-0.5 rounded-sm leading-none">${imageGroups.main.length} 张</div>
                     </div>
                     <div class="bg-gray-800 text-center text-[10px] py-1.5 text-gray-300 border-t border-gray-700">游戏内截图</div>
                 </div>`;
         }
-        if (egg.has_compare) {
+        if (imageGroups.compare.length) {
+            const firstCompare = escapeHtml(imageGroups.compare[0]);
             html += `
-                <div class="flex flex-col group overflow-hidden rounded border border-gray-600 bg-black cursor-pointer hover:border-gray-400 transition-colors" onclick="openImageViewer('${egg.image_compare}')" title="点击查看大图">
-                    <div class="flex-1 flex items-center justify-center p-0.5">
-                        <img src="${egg.image_compare}" class="w-full h-auto max-h-32 object-contain" alt="出处对比图">
+                <div class="flex flex-col group overflow-hidden rounded border border-gray-600 bg-black cursor-pointer hover:border-gray-400 transition-colors relative" onclick="openImageViewerForEgg('${egg.id}', 'compare', 0)" title="点击查看大图">
+                    <div class="flex-1 flex items-center justify-center p-0.5 relative">
+                        <img src="${firstCompare}" class="w-full h-auto max-h-32 object-contain" alt="出处对比图">
+                        <div class="absolute right-1 bottom-1 bg-black/80 text-[10px] text-gray-200 px-1.5 py-0.5 rounded-sm leading-none">${imageGroups.compare.length} 张</div>
                     </div>
                     <div class="bg-gray-800 text-center text-[10px] py-1.5 text-gray-300 border-t border-gray-700">出处对比图</div>
                 </div>`;
@@ -1086,10 +1128,16 @@
     // ================== 图片查看器（Lightbox）高级交互逻辑 ==================
     const viewer = document.getElementById('image-viewer');
     const viewerImg = document.getElementById('viewer-image');
+    const viewerTitle = document.getElementById('viewer-title');
+    const viewerPosition = document.getElementById('viewer-position');
+    const viewerPrevBtn = document.getElementById('viewer-prev');
+    const viewerNextBtn = document.getElementById('viewer-next');
     
     let imgScale = 1;
     let imgPanX = 0;
     let imgPanY = 0;
+    let viewerImageItems = [];
+    let viewerImageIndex = 0;
     
     let isDraggingImg = false;
     let dragStartX = 0;
@@ -1099,18 +1147,106 @@
         viewerImg.style.transform = `translate(${imgPanX}px, ${imgPanY}px) scale(${imgScale})`;
     }
 
-    function openImageViewer(imgSrc) {
-        viewerImg.src = imgSrc;
-        
+    function resetViewerImageTransform() {
         imgScale = 1;
         imgPanX = 0;
         imgPanY = 0;
         updateViewerTransform();
-        
+    }
+
+    function getViewerImageItems(egg) {
+        const imageGroups = getEggImageGroups(egg);
+        const mainItems = imageGroups.main.map((src, index) => ({
+            src,
+            kind: 'main',
+            title: '游戏内截图',
+            indexInKind: index,
+            kindTotal: imageGroups.main.length
+        }));
+        const compareItems = imageGroups.compare.map((src, index) => ({
+            src,
+            kind: 'compare',
+            title: '出处对比图',
+            indexInKind: index,
+            kindTotal: imageGroups.compare.length
+        }));
+
+        // 顺序决定左右翻页关系：截图最后一张向右进入对比图，对比图第一张向左回到截图。
+        return [...mainItems, ...compareItems];
+    }
+
+    function openImageViewerForEgg(eggId, imageKind = 'main', imageIndex = 0) {
+        const egg = eggMap[eggId];
+        if (!egg) return;
+
+        const items = getViewerImageItems(egg);
+        if (!items.length) return;
+
+        let startIndex = items.findIndex(item => item.kind === imageKind && item.indexInKind === imageIndex);
+        if (startIndex < 0) startIndex = 0;
+
+        openImageViewerWithItems(items, startIndex);
+    }
+
+    function openImageViewer(imgSrc) {
+        // 兼容旧调用：如果以后还有零散单图入口，也能直接打开。
+        openImageViewerWithItems([{ src: imgSrc, kind: 'single', title: '图片预览', indexInKind: 0, kindTotal: 1 }], 0);
+    }
+
+    function openImageViewerWithItems(items, startIndex) {
+        viewerImageItems = items;
+        viewerImageIndex = startIndex;
+        showViewerImage(startIndex);
+
         viewer.classList.remove('hidden');
         setTimeout(() => {
             viewer.classList.remove('opacity-0');
         }, 10);
+    }
+
+    function updateViewerNavigation() {
+        const total = viewerImageItems.length;
+        const shouldShowArrows = total > 1;
+        viewerPrevBtn.classList.toggle('hidden', !shouldShowArrows);
+        viewerNextBtn.classList.toggle('hidden', !shouldShowArrows);
+
+        if (!shouldShowArrows) return;
+
+        const isFirst = viewerImageIndex <= 0;
+        const isLast = viewerImageIndex >= total - 1;
+
+        viewerPrevBtn.disabled = isFirst;
+        viewerNextBtn.disabled = isLast;
+        viewerPrevBtn.classList.toggle('opacity-30', isFirst);
+        viewerNextBtn.classList.toggle('opacity-30', isLast);
+        viewerPrevBtn.classList.toggle('cursor-not-allowed', isFirst);
+        viewerNextBtn.classList.toggle('cursor-not-allowed', isLast);
+    }
+
+    function showViewerImage(index) {
+        if (index < 0 || index >= viewerImageItems.length) return;
+
+        viewerImageIndex = index;
+        const item = viewerImageItems[viewerImageIndex];
+        viewerImg.src = item.src;
+        viewerTitle.textContent = item.title;
+
+        const total = viewerImageItems.length;
+        const kindText = total === item.kindTotal
+            ? `第 ${item.indexInKind + 1} 张 / 共 ${item.kindTotal} 张`
+            : `本类 ${item.indexInKind + 1}/${item.kindTotal} · 总计 ${viewerImageIndex + 1}/${total}`;
+        viewerPosition.textContent = kindText;
+
+        resetViewerImageTransform();
+        updateViewerNavigation();
+    }
+
+    function showPreviousViewerImage() {
+        showViewerImage(viewerImageIndex - 1);
+    }
+
+    function showNextViewerImage() {
+        showViewerImage(viewerImageIndex + 1);
     }
 
     function closeImageViewer() {
@@ -1118,10 +1254,9 @@
         setTimeout(() => {
             viewer.classList.add('hidden');
             viewerImg.src = '';
-            imgScale = 1;
-            imgPanX = 0;
-            imgPanY = 0;
-            updateViewerTransform();
+            viewerImageItems = [];
+            viewerImageIndex = 0;
+            resetViewerImageTransform();
         }, 300);
     }
 
@@ -1167,6 +1302,14 @@
 
     viewerImg.addEventListener('click', (e) => {
         e.stopPropagation();
+    });
+
+    window.addEventListener('keydown', (e) => {
+        if (viewer.classList.contains('hidden')) return;
+
+        if (e.key === 'Escape') closeImageViewer();
+        if (e.key === 'ArrowLeft') showPreviousViewerImage();
+        if (e.key === 'ArrowRight') showNextViewerImage();
     });
 
 </script>
