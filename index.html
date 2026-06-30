@@ -22,6 +22,12 @@
         .leaflet-control-attribution { display: none; }
         
         /* 标记点基础样式 */
+        .custom-marker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
         .custom-marker .marker-inner {
             width: 14px; height: 14px;
             background-color: #ff3b30;
@@ -31,6 +37,38 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             transform: scale(var(--marker-scale, 1));
         }
+
+        /* 图片点位图标：外层仍叫 marker-inner，选中高亮和缩放逻辑就能继续复用 */
+        .custom-marker .marker-icon-frame {
+            width: 26px;
+            height: 26px;
+            background-color: rgba(17, 24, 39, 0.85);
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .custom-marker .marker-icon-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+        }
+
+        /* icon 图片没找到时，JS 会加这个类，让它退回成现有红色圆点 */
+        .custom-marker .marker-icon-frame.icon-missing {
+            width: 14px;
+            height: 14px;
+            padding: 0;
+            background-color: #ff3b30;
+        }
+
+        .custom-marker .marker-icon-frame.icon-missing .marker-icon-img {
+            display: none;
+        }
+
         .custom-marker:hover .marker-inner { transform: scale(calc(var(--marker-scale, 1) * 1.5)); }
 
         /* 选中标记点的特殊状态高亮 */
@@ -332,6 +370,7 @@
     const eggMap = {}; 
     const sourceEggsMap = {}; 
     const cityDistrictsMap = {}; 
+    const MARKER_ICON_EXTENSIONS = ['webp', 'png', 'svg', 'jpg', 'jpeg'];
 
     function sortByNameEngFirst(a, b) {
         const nameA = a.name || '';
@@ -367,6 +406,82 @@
             .replace(/\\n/g, '\n')
             .replace(/\/n/g, '\n')
             .replace(/\n/g, '<br>');
+    }
+
+    function getLocationIconType(loc) {
+        // 点位级 icon 优先；如果旧 data.json 没有这个字段，就使用该点位第一个填写了 icon_type 的彩蛋。
+        const locationIcon = String(loc.icon_type ?? '').trim();
+        if (locationIcon) return locationIcon;
+
+        const iconEgg = (loc.eggs || []).find(egg => String(egg.icon_type ?? '').trim());
+        return iconEgg ? String(iconEgg.icon_type).trim() : '';
+    }
+
+    function getMarkerIconCandidates(iconType) {
+        const rawType = String(iconType ?? '').trim();
+        if (!rawType) return [];
+
+        // icon 类型会变成文件名；替换路径分隔符，避免误读到 icons 文件夹外。
+        const safeType = rawType.replace(/[\\/]/g, '_');
+        const hasKnownExtension = /\.(webp|png|svg|jpe?g)$/i.test(safeType);
+
+        if (hasKnownExtension) {
+            return [`icons/${encodeURIComponent(safeType)}`];
+        }
+
+        return MARKER_ICON_EXTENSIONS.map(ext => `icons/${encodeURIComponent(safeType)}.${ext}`);
+    }
+
+    function createDefaultMarkerIcon() {
+        return L.divIcon({
+            className: 'custom-marker',
+            html: '<div class="marker-inner"></div>',
+            iconSize: [16, 16],
+            iconAnchor: [8, 8]
+        });
+    }
+
+    function createLocationMarkerIcon(loc) {
+        const iconType = getLocationIconType(loc);
+        const candidates = getMarkerIconCandidates(iconType);
+
+        if (!candidates.length) return createDefaultMarkerIcon();
+
+        const candidatesAttr = escapeHtml(candidates.join('|'));
+        const firstIcon = escapeHtml(candidates[0]);
+
+        return L.divIcon({
+            className: 'custom-marker custom-marker-with-icon',
+            html: `
+                <div class="marker-inner marker-icon-frame">
+                    <img
+                        class="marker-icon-img"
+                        src="${firstIcon}"
+                        data-icon-index="0"
+                        data-icon-candidates="${candidatesAttr}"
+                        onerror="handleMarkerIconError(this)"
+                        alt="">
+                </div>
+            `,
+            iconSize: [28, 28],
+            iconAnchor: [14, 14]
+        });
+    }
+
+    function handleMarkerIconError(img) {
+        const candidates = (img.dataset.iconCandidates || '').split('|').filter(Boolean);
+        const nextIndex = Number(img.dataset.iconIndex || 0) + 1;
+
+        if (nextIndex < candidates.length) {
+            img.dataset.iconIndex = String(nextIndex);
+            img.src = candidates[nextIndex];
+            return;
+        }
+
+        const frame = img.closest('.marker-icon-frame');
+        if (frame) frame.classList.add('icon-missing');
+        img.onerror = null;
+        img.removeAttribute('src');
     }
     
     function buildIndexes() {
@@ -573,7 +688,7 @@
 
             const latlng = L.latLng(loc.y, loc.x);
             const marker = L.marker(latlng, {
-                icon: L.divIcon({ className: 'custom-marker', html: '<div class="marker-inner"></div>', iconSize: [16, 16], iconAnchor: [8, 8] })
+                icon: createLocationMarkerIcon(loc)
             });
 
             const firstEgg = loc.eggs[0];
