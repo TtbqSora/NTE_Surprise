@@ -240,6 +240,14 @@
                 </div>
             </div>
 
+            <!-- 当前地图提示。进入副本地图后，这里会显示返回大世界的按钮。 -->
+            <div id="map-switcher" class="hidden absolute top-6 left-20 pointer-events-auto z-50 flex items-center gap-2 bg-gray-900/80 border border-gray-700 rounded-full shadow-lg px-2 py-2 backdrop-blur-sm">
+                <button id="return-world-btn" onclick="switchMap('world')" class="hidden w-8 h-8 items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700 text-blue-200 transition" title="返回大世界" aria-label="返回大世界">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                </button>
+                <span id="current-map-name" class="text-xs text-gray-200 pr-2"></span>
+            </div>
+
             <!-- 缩放控制栏 -->
             <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex items-center gap-2 z-50 pointer-events-auto bg-gray-900/55 px-2 py-1 rounded-md backdrop-blur-sm">
                 <input id="zoom-slider" class="zoom-slider" type="range" min="1" max="5" step="0.25" value="1" aria-label="地图缩放">
@@ -295,12 +303,18 @@
 <script>
     lucide.createIcons();
 
-    // 地图基础参数：以后接入多地图时，每张地图会有自己的尺寸、偏移和默认缩放。
+    const WORLD_MAP_ID = 'world';
+
+    // 地图基础参数：副本地图没有单独配置时，会沿用这组默认尺寸和缩放。
     const CONFIG = {
+        id: WORLD_MAP_ID,
+        name: '大世界',
         mapWidth: 10240,
         mapHeight: 10240,
         offsetX: 2048,
         offsetY: 2048,
+        tilePath: 'tiles/{z}/{x}/{z}_{x}_{y}.webp',
+        minZoom: 1,
         // defaultZoom 控制“恢复默认视口”按钮回到的缩放级别。
         defaultZoom: 1,
         panExtraLeftOffset: 100,
@@ -311,21 +325,35 @@
         disableClusterZoomLevel: 4        
     };
 
-    const scaleFactor = 1 / Math.pow(2, CONFIG.maxZoomLevel);
+    let currentMapId = WORLD_MAP_ID;
+    let currentTileLayer = null;
+    let currentScaleFactor = 1 / Math.pow(2, CONFIG.maxZoomLevel);
+    const mapProfiles = {};
     
     const customCRS = L.Util.extend({}, L.CRS.Simple, {
         transformation: new L.Transformation(
-            scaleFactor, 
-            CONFIG.offsetX * scaleFactor, 
-            -scaleFactor, 
-            (CONFIG.mapHeight - CONFIG.offsetY) * scaleFactor 
+            currentScaleFactor,
+            CONFIG.offsetX * currentScaleFactor,
+            -currentScaleFactor,
+            (CONFIG.mapHeight - CONFIG.offsetY) * currentScaleFactor
         )
     });
 
+    function syncCrsToCurrentConfig() {
+        // Leaflet 的像素坐标变换依赖地图尺寸和最高 zoom；切换不同尺寸地图时同步这组参数。
+        currentScaleFactor = 1 / Math.pow(2, CONFIG.maxZoomLevel);
+        customCRS.transformation = new L.Transformation(
+            currentScaleFactor,
+            CONFIG.offsetX * currentScaleFactor,
+            -currentScaleFactor,
+            (CONFIG.mapHeight - CONFIG.offsetY) * currentScaleFactor
+        );
+    }
+
     const map = L.map('map', { 
         crs: customCRS,       
-        minZoom: 1,           
-        maxZoom: 5,           
+        minZoom: CONFIG.minZoom,
+        maxZoom: CONFIG.maxZoomLevel,
         // zoomSnap / zoomDelta 越小，滚轮和滑条缩放越细腻。
         zoomSnap: 0.25,
         zoomDelta: 0.25,
@@ -333,17 +361,24 @@
         attributionControl: false 
     });
 
-    const minX = -CONFIG.offsetX;
-    const minY = -CONFIG.offsetY;
-    const maxX = CONFIG.mapWidth - CONFIG.offsetX;
-    const maxY = CONFIG.mapHeight - CONFIG.offsetY;
+    function getMapBounds() {
+        const minX = -CONFIG.offsetX;
+        const minY = -CONFIG.offsetY;
+        const maxX = CONFIG.mapWidth - CONFIG.offsetX;
+        const maxY = CONFIG.mapHeight - CONFIG.offsetY;
+        return [[minY, minX], [maxY, maxX]];
+    }
 
-    L.tileLayer('tiles/{z}/{x}/{z}_{x}_{y}.webp', {
-        minZoom: 1,
-        maxZoom: 5,
-        noWrap: true,
-        bounds: [[minY, minX], [maxY, maxX]] 
-    }).addTo(map);
+    function createCurrentTileLayer() {
+        return L.tileLayer(CONFIG.tilePath, {
+            minZoom: CONFIG.minZoom,
+            maxZoom: CONFIG.maxZoomLevel,
+            noWrap: true,
+            bounds: getMapBounds()
+        });
+    }
+
+    currentTileLayer = createCurrentTileLayer().addTo(map);
 
     function getDefaultMapCenter() {
         return [(CONFIG.mapHeight / 2) - CONFIG.offsetY, (CONFIG.mapWidth / 2) - CONFIG.offsetX];
@@ -374,11 +409,164 @@
     document.getElementById('toggle-cluster').checked = isClustered;
 
     const allMarkers = [];
-    let db = { locations: [], sources: [], unmapped: [] };
+    let db = { locations: [], sources: [], unmapped: [], maps: [], map_entries: [] };
     const eggMap = {}; 
     const sourceEggsMap = {}; 
     const cityDistrictsMap = {}; 
     const MARKER_ICON_EXTENSIONS = ['webp', 'png', 'svg', 'jpg', 'jpeg'];
+
+    function readNumber(value, fallback) {
+        // Map.csv 的可选配置可能为空；这里统一回退，避免空字符串变成 0。
+        if (value === undefined || value === null || value === '') return fallback;
+        const parsed = Number(value);
+        return Number.isFinite(parsed) ? parsed : fallback;
+    }
+
+    function normalizeMapProfile(rawMap = {}) {
+        const rawId = String(rawMap.id ?? rawMap.map_id ?? '').trim();
+        const id = rawId || WORLD_MAP_ID;
+        const isWorld = id === WORLD_MAP_ID || rawMap.is_world === true;
+
+        return {
+            ...CONFIG,
+            id,
+            name: String(rawMap.name ?? (isWorld ? '大世界' : id)).trim() || id,
+            mapWidth: readNumber(rawMap.map_width ?? rawMap.mapWidth, CONFIG.mapWidth),
+            mapHeight: readNumber(rawMap.map_height ?? rawMap.mapHeight, CONFIG.mapHeight),
+            offsetX: readNumber(rawMap.offset_x ?? rawMap.offsetX, CONFIG.offsetX),
+            offsetY: readNumber(rawMap.offset_y ?? rawMap.offsetY, CONFIG.offsetY),
+            tilePath: rawMap.tile_path || rawMap.tilePath || (isWorld ? CONFIG.tilePath : `tiles/${id}/{z}/{x}/{z}_{x}_{y}.webp`),
+            minZoom: readNumber(rawMap.min_zoom ?? rawMap.minZoom, CONFIG.minZoom),
+            maxZoomLevel: readNumber(rawMap.max_zoom ?? rawMap.maxZoom ?? rawMap.maxZoomLevel, CONFIG.maxZoomLevel),
+            defaultZoom: readNumber(rawMap.default_zoom ?? rawMap.defaultZoom, CONFIG.defaultZoom),
+            isWorld
+        };
+    }
+
+    function setupMapProfiles() {
+        Object.keys(mapProfiles).forEach(key => delete mapProfiles[key]);
+        const incomingMaps = Array.isArray(db.maps) && db.maps.length ? db.maps : [{ id: WORLD_MAP_ID, name: '大世界', is_world: true }];
+
+        incomingMaps.forEach(rawMap => {
+            const profile = normalizeMapProfile(rawMap);
+            mapProfiles[profile.id] = profile;
+        });
+
+        if (!mapProfiles[WORLD_MAP_ID]) {
+            mapProfiles[WORLD_MAP_ID] = normalizeMapProfile({ id: WORLD_MAP_ID, name: '大世界', is_world: true });
+        }
+    }
+
+    function applyMapProfile(profile) {
+        Object.assign(CONFIG, profile);
+        currentMapId = profile.id;
+        syncCrsToCurrentConfig();
+
+        map.setMinZoom(CONFIG.minZoom);
+        map.setMaxZoom(CONFIG.maxZoomLevel);
+        document.getElementById('zoom-slider').min = CONFIG.minZoom;
+        document.getElementById('zoom-slider').max = CONFIG.maxZoomLevel;
+        document.getElementById('zoom-slider').value = CONFIG.defaultZoom;
+
+        if (currentTileLayer) {
+            map.removeLayer(currentTileLayer);
+        }
+
+        currentTileLayer = createCurrentTileLayer().addTo(map);
+    }
+
+    function updateMapSwitcherUI() {
+        const switcher = document.getElementById('map-switcher');
+        const returnBtn = document.getElementById('return-world-btn');
+        const nameEl = document.getElementById('current-map-name');
+        const isWorld = currentMapId === WORLD_MAP_ID;
+
+        switcher.classList.toggle('hidden', isWorld);
+        returnBtn.classList.toggle('hidden', isWorld);
+        returnBtn.classList.toggle('flex', !isWorld);
+        nameEl.textContent = CONFIG.name;
+        lucide.createIcons();
+    }
+
+    function switchMap(mapId, options = {}) {
+        const targetProfile = mapProfiles[mapId] || mapProfiles[WORLD_MAP_ID];
+        if (!targetProfile) return;
+
+        closeSidebar();
+        map.closePopup();
+        activeRegionFilter = null;
+        applyMapProfile(targetProfile);
+        renderMarkers();
+        updateMapSwitcherUI();
+
+        if (options.latlng) {
+            map.setView(options.latlng, options.zoom ?? CONFIG.defaultZoom);
+        } else {
+            map.setView(getDefaultMapCenter(), CONFIG.defaultZoom);
+        }
+
+        updateZoomUI();
+    }
+
+    function getLocationMapId(loc) {
+        return String(loc.map_id || WORLD_MAP_ID);
+    }
+
+    function getEggMapId(egg) {
+        return String(egg.map_id || egg.location?.map_id || WORLD_MAP_ID);
+    }
+
+    function getEntryMapId(entry) {
+        return String(entry.map_id || entry.id || '');
+    }
+
+    function createMapEntryPopupHtml(entry) {
+        const mapName = escapeHtml(entry.map_name || entry.name || entry.map_id);
+        const mapId = escapeHtml(getEntryMapId(entry));
+
+        return `
+            <div class="text-center" style="width: 180px;">
+                <div class="text-xs font-bold text-gray-100 mb-1">${mapName}</div>
+                <div class="text-[10px] text-gray-400 mb-2">副本地图入口</div>
+                <button onclick="switchMap('${mapId}')" class="w-full bg-blue-700 hover:bg-blue-600 text-white text-xs rounded py-1.5 transition">进入地图</button>
+            </div>
+        `;
+    }
+
+    function renderMapEntries() {
+        if (currentMapId !== WORLD_MAP_ID || !Array.isArray(db.map_entries)) return;
+
+        db.map_entries.forEach(entry => {
+            const targetMapId = getEntryMapId(entry);
+            if (!targetMapId || !mapProfiles[targetMapId]) return;
+
+            const latlng = L.latLng(entry.y, entry.x);
+            const marker = L.marker(latlng, {
+                icon: createLocationMarkerIcon(entry)
+            });
+
+            marker.bindPopup(createMapEntryPopupHtml(entry), {
+                offset: [0, -10],
+                closeButton: false,
+                minWidth: 180,
+                maxWidth: 180
+            });
+
+            marker.bindTooltip(entry.map_name || targetMapId, {
+                direction: 'top',
+                offset: [0, -14],
+                opacity: 0.95
+            });
+
+            marker.on('click', () => {
+                if (isMarkingMode) return;
+                switchMap(targetMapId);
+            });
+
+            clusterGroup.addLayer(marker);
+            normalGroup.addLayer(marker);
+        });
+    }
 
     function sortByNameEngFirst(a, b) {
         const nameA = a.name || '';
@@ -515,15 +703,18 @@
     function buildIndexes() {
         db.sources.forEach(s => sourceEggsMap[s.id] = []);
         db.locations.forEach(loc => {
+            loc.map_id = getLocationMapId(loc);
             if(!cityDistrictsMap[loc.city]) cityDistrictsMap[loc.city] = new Set();
             cityDistrictsMap[loc.city].add(loc.district);
             loc.eggs.forEach(egg => {
+                egg.map_id = getEggMapId({ ...egg, location: loc });
                 egg.location = loc; 
                 eggMap[egg.id] = egg;
                 if(sourceEggsMap[egg.source_id]) sourceEggsMap[egg.source_id].push(egg);
             });
         });
         db.unmapped.forEach(egg => {
+            egg.map_id = getEggMapId(egg);
             eggMap[egg.id] = egg;
             if(!sourceEggsMap[egg.source_id]) sourceEggsMap[egg.source_id] = [];
             sourceEggsMap[egg.source_id].push(egg);
@@ -579,7 +770,17 @@
     fetch('data.json')
         .then(response => response.json())
         .then(data => {
-            db = data;
+            db = {
+                locations: [],
+                sources: [],
+                unmapped: [],
+                maps: [],
+                map_entries: [],
+                ...data
+            };
+            setupMapProfiles();
+            applyMapProfile(mapProfiles[WORLD_MAP_ID]);
+            updateMapSwitcherUI();
             db.sources.sort(sortByNameEngFirst);
             db.locations.forEach(loc => {
                 loc.eggs.sort(sortByNameEngFirst);
@@ -724,6 +925,7 @@
         currentSelectedMarker = null;
 
         db.locations.forEach(loc => {
+            if (getLocationMapId(loc) !== currentMapId) return;
             if (activeRegionFilter && loc.district !== activeRegionFilter) return;
 
             const latlng = L.latLng(loc.y, loc.x);
@@ -787,6 +989,8 @@
             clusterGroup.addLayer(marker);
             normalGroup.addLayer(marker);
         });
+
+        renderMapEntries();
     }
 
     map.on('popupopen', function(e) {
@@ -929,6 +1133,10 @@
             const clickAction = isFromSourceView ? `onclick="handleSourceEggClick('${egg.id}')"` : `onclick="toggleEggDetail('egg-${egg.id}')"`;
             
             const multiTag = egg.is_multi_location ? '<span class="bg-purple-900 text-purple-200 text-[10px] px-1.5 py-0.5 rounded shrink-0 border border-purple-700" title="该彩蛋在地图中有多处出现，此为代表点位">多点位</span>' : '';
+            const eggMapId = getEggMapId(egg);
+            const mapTag = (isFromSourceView && eggMapId !== WORLD_MAP_ID)
+                ? `<span class="bg-cyan-900/70 text-cyan-200 text-[10px] px-1.5 py-0.5 rounded shrink-0 border border-cyan-700" title="位于副本地图：${escapeHtml(mapProfiles[eggMapId]?.name || eggMapId)}">${escapeHtml(mapProfiles[eggMapId]?.name || '副本')}</span>`
+                : '';
 
             let providerHtml = '';
             if (egg.link) {
@@ -947,6 +1155,7 @@
                 <div class="p-3 cursor-pointer hover:bg-gray-700 flex justify-between items-center group" ${clickAction}>
                     <div class="flex items-center gap-2 flex-1 overflow-hidden">
                         ${multiTag}
+                        ${mapTag}
                         <span class="bg-blue-900 text-blue-300 text-xs px-2 py-0.5 rounded shrink-0">${egg.type || '未知'}</span>
                         <h3 class="font-bold text-sm text-gray-200 truncate group-hover:text-white transition" title="${egg.name}">${egg.name}</h3>
                     </div>
@@ -1009,19 +1218,31 @@
         return html;
     }
 
+    function focusEggOnMap(egg, backToSourceId = null) {
+        if (!egg || egg.is_unmapped || !egg.location) return;
+
+        const targetMapId = getEggMapId(egg);
+        if (targetMapId !== currentMapId) {
+            switchMap(targetMapId);
+        }
+
+        const targetMarker = allMarkers.find(m => m.locationData.id === egg.location.id);
+        if (targetMarker) {
+            targetMarker.fire('click');
+            // 从总表进入副本内彩蛋时，先切地图，再精准展开对应彩蛋。
+            openSidebar('LOCATION', { loc: egg.location, backTo: backToSourceId, expandEggId: egg.id });
+            setTimeout(() => targetMarker.openPopup(), 100);
+        }
+    }
+
     function handleSourceEggClick(eggId) {
         const egg = eggMap[eggId];
         if (egg.is_unmapped) {
             toggleEggDetail(`egg-${egg.id}`); 
-        } else {
-            const targetMarker = allMarkers.find(m => m.locationData.id === egg.location.id);
-            if (targetMarker) {
-                targetMarker.fire('click');
-                // 【优化2】如果您是从出处列表点击的，此时覆盖原本默认展开第一个彩蛋的操作，精准展开您点击的那个！
-                openSidebar('LOCATION', { loc: egg.location, backTo: egg.source_id, expandEggId: egg.id });
-                setTimeout(() => targetMarker.openPopup(), 100); 
-            }
+            return;
         }
+
+        focusEggOnMap(egg, egg.source_id);
     }
 
     function toggleEggDetail(id) {
@@ -1038,6 +1259,9 @@
         const eggId = id.replace('egg-', '');
         const egg = eggMap[eggId];
         if (egg && !egg.is_unmapped && egg.location) {
+            if (getEggMapId(egg) !== currentMapId) {
+                switchMap(getEggMapId(egg));
+            }
             const targetMarker = allMarkers.find(m => m.locationData.id === egg.location.id);
             if (targetMarker) {
                 updateMarkerPopup(targetMarker, egg, egg.location.eggs.length);
@@ -1118,10 +1342,14 @@
         if (!isMarkingMode) return;
         const x = Math.round(e.latlng.lng);
         const y = Math.round(e.latlng.lat);
+        const mapIdHtml = currentMapId === WORLD_MAP_ID
+            ? ''
+            : `<div class="bg-gray-200 p-2 rounded text-sm select-all border border-gray-300 mt-1">副本ID: ${escapeHtml(currentMapId)}</div>`;
         markingPopup.setLatLng(e.latlng).setContent(`
             <div class="text-center font-mono text-gray-900">
                 <div class="font-bold text-gray-900 mb-1">目标坐标</div>
                 <div class="bg-gray-200 p-2 rounded text-sm select-all border border-gray-300">"x": ${x}, "y": ${y}</div>
+                ${mapIdHtml}
             </div>
         `).openOn(map);
     }
