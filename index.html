@@ -242,7 +242,7 @@
 
             <!-- 当前地图提示。进入副本地图后，这里会显示返回大世界的按钮。 -->
             <div id="map-switcher" class="hidden absolute top-6 left-20 pointer-events-auto z-50 flex items-center gap-2 bg-gray-900/80 border border-gray-700 rounded-full shadow-lg px-2 py-2 backdrop-blur-sm">
-                <button id="return-world-btn" onclick="switchMap('world')" class="hidden w-8 h-8 items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700 text-blue-200 transition" title="返回大世界" aria-label="返回大世界">
+                <button id="return-world-btn" onclick="returnToParentMap()" class="hidden w-8 h-8 items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700 text-blue-200 transition" title="返回上级地图" aria-label="返回上级地图">
                     <i data-lucide="arrow-left" class="w-4 h-4"></i>
                 </button>
                 <span id="current-map-name" class="text-xs text-gray-200 pr-2"></span>
@@ -322,7 +322,11 @@
         minPanZoom: 4, 
         maxZoomLevel: 5,
         defaultClustered: true,           
-        disableClusterZoomLevel: 4        
+        disableClusterZoomLevel: 4,
+        defaultMapEntryImagePrefix: 'pic/map/MAP_',
+        defaultMapEntryIconSize: 28,
+        minMapEntryIconSize: 18,
+        maxMapEntryIconSize: 42
     };
 
     let currentMapId = WORLD_MAP_ID;
@@ -409,6 +413,7 @@
     document.getElementById('toggle-cluster').checked = isClustered;
 
     const allMarkers = [];
+    const mapEntryMarkers = [];
     let db = { locations: [], sources: [], unmapped: [], maps: [], map_entries: [] };
     const eggMap = {}; 
     const sourceEggsMap = {}; 
@@ -439,6 +444,7 @@
             minZoom: readNumber(rawMap.min_zoom ?? rawMap.minZoom, CONFIG.minZoom),
             maxZoomLevel: readNumber(rawMap.max_zoom ?? rawMap.maxZoom ?? rawMap.maxZoomLevel, CONFIG.maxZoomLevel),
             defaultZoom: readNumber(rawMap.default_zoom ?? rawMap.defaultZoom, CONFIG.defaultZoom),
+            parentId: String(rawMap.parent_id ?? rawMap.parentId ?? rawMap.parent_map ?? rawMap.parentMap ?? '').trim() || null,
             isWorld
         };
     }
@@ -455,6 +461,37 @@
         if (!mapProfiles[WORLD_MAP_ID]) {
             mapProfiles[WORLD_MAP_ID] = normalizeMapProfile({ id: WORLD_MAP_ID, name: '大世界', is_world: true });
         }
+    }
+
+    function hasOwnField(obj, fields) {
+        return fields.some(field => Object.prototype.hasOwnProperty.call(obj, field));
+    }
+
+    function normalizeMapEntries() {
+        if (!Array.isArray(db.map_entries)) {
+            db.map_entries = [];
+            return;
+        }
+
+        db.map_entries = db.map_entries.map(entry => {
+            const mapId = String(entry.map_id ?? entry.mapId ?? entry.id ?? '').trim();
+            const hasTargetField = hasOwnField(entry, ['target_map', 'targetMap']);
+            const targetMap = hasTargetField
+                ? String(entry.target_map ?? entry.targetMap ?? '').trim()
+                : mapId;
+            const parentMap = String(entry.parent_map ?? entry.parentMap ?? entry.parent_id ?? entry.parentId ?? '').trim() || WORLD_MAP_ID;
+            const mapImage = String(entry.map_image ?? entry.mapImage ?? '').trim() || (mapId ? `${CONFIG.defaultMapEntryImagePrefix}${mapId}.webp` : '');
+            const displayName = String(entry.map_name ?? entry.mapName ?? entry.name ?? mapProfiles[targetMap]?.name ?? mapProfiles[mapId]?.name ?? mapId).trim();
+
+            return {
+                ...entry,
+                map_id: mapId,
+                map_name: displayName || mapId,
+                parent_map: parentMap,
+                target_map: targetMap,
+                map_image: mapImage
+            };
+        });
     }
 
     function applyMapProfile(profile) {
@@ -475,6 +512,31 @@
         currentTileLayer = createCurrentTileLayer().addTo(map);
     }
 
+    function getMapParentId(mapId) {
+        if (mapId === WORLD_MAP_ID) return null;
+        return mapProfiles[mapId]?.parentId || WORLD_MAP_ID;
+    }
+
+    function getMapBreadcrumb(mapId) {
+        const path = [];
+        const visited = new Set();
+        let cursor = mapId || WORLD_MAP_ID;
+
+        while (cursor && !visited.has(cursor)) {
+            visited.add(cursor);
+            const profile = mapProfiles[cursor];
+            path.push(profile?.name || cursor);
+            cursor = cursor === WORLD_MAP_ID ? null : getMapParentId(cursor);
+        }
+
+        return path.reverse().join(' / ');
+    }
+
+    function returnToParentMap() {
+        const parentId = getMapParentId(currentMapId) || WORLD_MAP_ID;
+        switchMap(parentId);
+    }
+
     function updateMapSwitcherUI() {
         const switcher = document.getElementById('map-switcher');
         const returnBtn = document.getElementById('return-world-btn');
@@ -484,7 +546,9 @@
         switcher.classList.toggle('hidden', isWorld);
         returnBtn.classList.toggle('hidden', isWorld);
         returnBtn.classList.toggle('flex', !isWorld);
-        nameEl.textContent = CONFIG.name;
+        nameEl.textContent = getMapBreadcrumb(currentMapId);
+        returnBtn.title = `返回 ${mapProfiles[getMapParentId(currentMapId)]?.name || '大世界'}`;
+        returnBtn.setAttribute('aria-label', returnBtn.title);
         lucide.createIcons();
     }
 
@@ -516,53 +580,138 @@
         return String(egg.map_id || egg.location?.map_id || WORLD_MAP_ID);
     }
 
-    function getEntryMapId(entry) {
-        return String(entry.map_id || entry.id || '');
+    function getEntryParentMapId(entry) {
+        return String(entry.parent_map || entry.parentMap || WORLD_MAP_ID).trim() || WORLD_MAP_ID;
     }
 
-    function createMapEntryPopupHtml(entry) {
-        const mapName = escapeHtml(entry.map_name || entry.name || entry.map_id);
-        const mapId = escapeHtml(getEntryMapId(entry));
+    function getEntryTargetMapId(entry) {
+        return String(entry.target_map ?? entry.targetMap ?? '').trim();
+    }
 
-        return `
-            <div class="text-center" style="width: 180px;">
-                <div class="text-xs font-bold text-gray-100 mb-1">${mapName}</div>
-                <div class="text-[10px] text-gray-400 mb-2">副本地图入口</div>
-                <button onclick="switchMap('${mapId}')" class="w-full bg-blue-700 hover:bg-blue-600 text-white text-xs rounded py-1.5 transition">进入地图</button>
-            </div>
-        `;
+    function getEntryShowLevel(entry) {
+        const value = entry.show_level ?? entry.showLevel;
+        if (value === undefined || value === null || value === '') return null;
+        const parsed = Number(value);
+        return Number.isFinite(parsed) ? parsed : null;
+    }
+
+    function getEntryIconSize(entry) {
+        const parsed = readNumber(entry.size ?? entry.icon_size ?? entry.iconSize, CONFIG.defaultMapEntryIconSize);
+        return Math.max(CONFIG.minMapEntryIconSize, Math.min(CONFIG.maxMapEntryIconSize, parsed));
+    }
+
+    function getEntryMarkerScale(entry) {
+        const zoom = map.getZoom();
+        const desiredScale = getEntryIconSize(entry) / CONFIG.defaultMapEntryIconSize;
+        const lowZoomLimit = 0.7 + (Math.max(zoom - CONFIG.minZoom, 0) * 0.25);
+        const maxScale = Math.min(CONFIG.maxMapEntryIconSize / CONFIG.defaultMapEntryIconSize, lowZoomLimit);
+        return Math.max(CONFIG.minMapEntryIconSize / CONFIG.defaultMapEntryIconSize, Math.min(desiredScale, maxScale));
+    }
+
+    function shouldShowMapEntry(entry) {
+        const showLevel = getEntryShowLevel(entry);
+        return showLevel === null || map.getZoom() >= showLevel;
+    }
+
+    function updateMapEntryMarkerElement(marker) {
+        const entry = marker.mapEntryData;
+        const el = marker.getElement();
+        if (!entry || !el) return;
+
+        el.style.display = shouldShowMapEntry(entry) ? '' : 'none';
+        const wrapper = el.querySelector('.map-entry-marker');
+        if (wrapper) {
+            wrapper.style.setProperty('--marker-scale', getEntryMarkerScale(entry));
+        }
+    }
+
+    function getDescendantMapIds(rootMapId) {
+        const result = [];
+        const queue = [rootMapId];
+        const visited = new Set();
+
+        while (queue.length) {
+            const mapId = queue.shift();
+            if (!mapId || visited.has(mapId)) continue;
+            visited.add(mapId);
+            result.push(mapId);
+
+            Object.values(mapProfiles).forEach(profile => {
+                if (profile.id !== WORLD_MAP_ID && getMapParentId(profile.id) === mapId) {
+                    queue.push(profile.id);
+                }
+            });
+        }
+
+        return result;
+    }
+
+    function getEggsInMapTree(rootMapId) {
+        if (!rootMapId) return [];
+        const mapIds = new Set(getDescendantMapIds(rootMapId));
+        const eggs = [];
+
+        db.locations.forEach(loc => {
+            if (!mapIds.has(getLocationMapId(loc))) return;
+            (loc.eggs || []).forEach(egg => eggs.push(egg));
+        });
+
+        db.unmapped.forEach(egg => {
+            if (mapIds.has(getEggMapId(egg))) eggs.push(egg);
+        });
+
+        return eggs.sort(sortByNameEngFirst);
     }
 
     function renderMapEntries() {
-        if (currentMapId !== WORLD_MAP_ID || !Array.isArray(db.map_entries)) return;
+        if (!Array.isArray(db.map_entries)) return;
 
         db.map_entries.forEach(entry => {
-            const targetMapId = getEntryMapId(entry);
-            if (!targetMapId || !mapProfiles[targetMapId]) return;
+            if (getEntryParentMapId(entry) !== currentMapId) return;
+
+            const targetMapId = getEntryTargetMapId(entry);
 
             const latlng = L.latLng(entry.y, entry.x);
             const marker = L.marker(latlng, {
-                icon: createLocationMarkerIcon(entry)
+                icon: createMapEntryMarkerIcon(entry)
             });
+            marker.mapEntryData = entry;
+            marker.on('add', () => updateMapEntryMarkerElement(marker));
 
-            marker.bindPopup(createMapEntryPopupHtml(entry), {
-                offset: [0, -10],
-                closeButton: false,
-                minWidth: 180,
-                maxWidth: 180
-            });
-
-            marker.bindTooltip(entry.map_name || targetMapId, {
+            marker.hoverTooltip = L.tooltip({
                 direction: 'top',
                 offset: [0, -14],
-                opacity: 0.95
+                opacity: 1,
+                className: 'marker-hover-tooltip',
+                interactive: false
+            }).setContent(generateMapEntryHoverPreviewHtml(entry));
+
+            marker.on('mouseover', (event) => {
+                if (!shouldShowMarkerHoverTooltip(marker)) return;
+                marker.hoverTooltip.setLatLng(event.latlng || marker.getLatLng()).addTo(map);
+            });
+
+            marker.on('mousemove', (event) => {
+                if (!shouldShowMarkerHoverTooltip(marker)) {
+                    closeMarkerHoverTooltip(marker);
+                    return;
+                }
+                if (map.hasLayer(marker.hoverTooltip)) {
+                    marker.hoverTooltip.setLatLng(event.latlng || marker.getLatLng());
+                }
+            });
+
+            marker.on('mouseout', () => {
+                closeMarkerHoverTooltip(marker);
             });
 
             marker.on('click', () => {
                 if (isMarkingMode) return;
-                switchMap(targetMapId);
+                closeMarkerHoverTooltip(marker);
+                openSidebar('MAP_ENTRY', { entry });
             });
 
+            mapEntryMarkers.push(marker);
             clusterGroup.addLayer(marker);
             normalGroup.addLayer(marker);
         });
@@ -571,13 +720,13 @@
     function sortByNameEngFirst(a, b) {
         const nameA = a.name || '';
         const nameB = b.name || '';
-        
+
         const isAlnumA = /^[a-zA-Z0-9]/i.test(nameA);
         const isAlnumB = /^[a-zA-Z0-9]/i.test(nameB);
-        
+
         if (isAlnumA && !isAlnumB) return -1;
         if (!isAlnumA && isAlnumB) return 1;
-        
+
         return nameA.localeCompare(nameB, 'zh-CN');
     }
 
@@ -589,6 +738,14 @@
             '"': '&quot;',
             "'": '&#39;'
         }[char]));
+    }
+
+    function escapeJsString(value) {
+        return String(value ?? '')
+            .replace(/\\/g, '\\\\')
+            .replace(/'/g, "\\'")
+            .replace(/\r/g, '\\r')
+            .replace(/\n/g, '\\n');
     }
 
     function formatMultilineText(value, fallback = '') {
@@ -664,6 +821,13 @@
         });
     }
 
+    function createMapEntryMarkerIcon(entry) {
+        const scale = getEntryMarkerScale(entry);
+        const icon = createLocationMarkerIcon(entry);
+        icon.options.html = `<div class="map-entry-marker" style="--marker-scale: ${scale};">${icon.options.html}</div>`;
+        return icon;
+    }
+
     function handleMarkerIconError(img) {
         const candidates = (img.dataset.iconCandidates || '').split('|').filter(Boolean);
         const nextIndex = Number(img.dataset.iconIndex || 0) + 1;
@@ -732,6 +896,7 @@
         document.getElementById('zoom-slider').value = zoom.toFixed(2);
         const markerScale = 0.2 + (zoom * 0.15); 
         document.documentElement.style.setProperty('--marker-scale', Math.max(0.2, markerScale));
+        mapEntryMarkers.forEach(updateMapEntryMarkerElement);
     }
     document.getElementById('zoom-slider').addEventListener('input', (e) => {
         // range 输入框的值是字符串，parseFloat 后交给 Leaflet 设置缩放。
@@ -779,6 +944,7 @@
                 ...data
             };
             setupMapProfiles();
+            normalizeMapEntries();
             applyMapProfile(mapProfiles[WORLD_MAP_ID]);
             updateMapSwitcherUI();
             db.sources.sort(sortByNameEngFirst);
@@ -906,6 +1072,31 @@
         `;
     }
 
+    function generateMapEntryHoverPreviewHtml(entry) {
+        const entryName = escapeHtml(entry.map_name || entry.name || entry.map_id || '地图标记');
+        const imageSrc = escapeHtml(entry.map_image || '');
+        const targetMapId = getEntryTargetMapId(entry);
+        const typeText = targetMapId ? '副本地图' : '地图标记';
+        const imageHtml = imageSrc ? `
+            <div class="marker-hover-image h-20 bg-black/70 rounded overflow-hidden border border-gray-700 flex items-center justify-center relative">
+                <img src="${imageSrc}" class="max-w-full max-h-full object-contain" alt="副本预览图" onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden');">
+                <div class="hidden absolute inset-0 flex items-center justify-center text-[10px] text-gray-500 bg-gray-950/70">暂无图片</div>
+            </div>
+        ` : `
+            <div class="marker-hover-image h-14 bg-gray-950/70 rounded border border-dashed border-gray-700 flex items-center justify-center text-[10px] text-gray-500">
+                暂无图片
+            </div>
+        `;
+
+        return `
+            <div class="marker-hover-card p-2">
+                <div class="text-[10px] text-gray-400 mb-1">${typeText}</div>
+                <div class="text-xs font-semibold text-blue-300 truncate mb-2" title="${entryName}">${entryName}</div>
+                ${imageHtml}
+            </div>
+        `;
+    }
+
     function closeMarkerHoverTooltip(marker) {
         if (marker.hoverTooltip && map.hasLayer(marker.hoverTooltip)) {
             map.removeLayer(marker.hoverTooltip);
@@ -922,6 +1113,7 @@
         clusterGroup.clearLayers();
         normalGroup.clearLayers();
         allMarkers.length = 0;
+        mapEntryMarkers.length = 0;
         currentSelectedMarker = null;
 
         db.locations.forEach(loc => {
@@ -1082,6 +1274,41 @@
                 // 传入需要默认展开的 expandEggId
                 content.innerHTML = generateEggListHTML(loc.eggs, false, payload.expandEggId);
                 break;
+
+            case 'MAP_ENTRY': {
+                const entry = payload.entry;
+                const targetMapId = getEntryTargetMapId(entry);
+                const targetProfile = targetMapId ? mapProfiles[targetMapId] : null;
+                const entryName = escapeHtml(entry.map_name || entry.name || entry.map_id || '地图标记点');
+                const hasNavigation = Boolean(targetProfile);
+                const entryImage = entry.map_image ? `
+                    <div class="bg-black rounded border border-gray-700 overflow-hidden h-32 flex items-center justify-center mb-3">
+                        <img src="${escapeHtml(entry.map_image)}" class="max-w-full max-h-full object-contain" alt="副本预览图">
+                    </div>
+                ` : '';
+                const entryEggs = hasNavigation ? getEggsInMapTree(targetMapId) : [];
+                const enterButtonHtml = hasNavigation
+                    ? `<button onclick="switchMap('${escapeJsString(targetMapId)}')" class="w-full bg-blue-700 hover:bg-blue-600 text-white text-sm rounded py-2 mb-3 transition flex items-center justify-center gap-2"><i data-lucide="log-in" class="w-4 h-4"></i> 进入 ${entryName}</button>`
+                    : `<div class="w-full bg-gray-800 text-gray-500 text-sm rounded py-2 mb-3 text-center">${targetMapId ? '地图配置缺失' : '仅作为 icon 点位显示'}</div>`;
+                const hierarchyHtml = hasNavigation
+                    ? `<p class="text-xs text-gray-500 mt-1">${escapeHtml(getMapBreadcrumb(targetMapId))}</p>`
+                    : '';
+
+                header.innerHTML = `
+                    <div class="flex-1 overflow-hidden">
+                        <h2 class="text-base font-bold text-white truncate" title="${entryName}">${entryName}</h2>
+                        ${hierarchyHtml}
+                    </div>
+                    <button onclick="closeSidebar()" class="p-2 hover:bg-gray-700 rounded-full self-start"><i data-lucide="x" class="w-5 h-5 text-gray-300"></i></button>
+                `;
+                content.innerHTML = `
+                    ${entryImage}
+                    ${enterButtonHtml}
+                    <div class="text-xs text-gray-400 mb-1 shrink-0">副本内彩蛋：${entryEggs.length}</div>
+                    ${generateEggListHTML(entryEggs, true)}
+                `;
+                break;
+            }
             
             case 'CITIES':
                 header.innerHTML = `
